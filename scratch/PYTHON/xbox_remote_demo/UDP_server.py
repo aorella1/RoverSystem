@@ -53,28 +53,26 @@ def packets_to_server():
         cs.cn_start = int.from_bytes(buffer[8:9], "big")
 
         # Left joystick x and y axes. Signed 4-byte integers.
-        cs.cf_left_stick_x = int.from_bytes(buffer[9:13], "big")
-        cs.cf_left_stick_y = int.from_bytes(buffer[13:17], "big")
+        cs.cn_left_stick_x = int.from_bytes(buffer[9:13], "big", signed=True)
+        cs.cn_left_stick_y = int.from_bytes(buffer[13:17], "big", signed=True)
 
          # Right joystick x and y axes. Signed 4-byte integers.
-        cs.cf_right_stick_x = int.from_bytes(buffer[17:21], "big")
-        cs.cf_right_stick_y = int.from_bytes(buffer[21:25], "big")
+        cs.cn_right_stick_x = int.from_bytes(buffer[17:21], "big", signed=True)
+        cs.cn_right_stick_y = int.from_bytes(buffer[21:25], "big", signed=True)
 
-          # Left and right trigger, whatever those are. 0 is off and 1 is on.
+          # Left and right trigger, whatever those are.
         cs.cn_left_trigger = int.from_bytes(buffer[25:26], "big")
         cs.cn_right_trigger = int.from_bytes(buffer[26:27], "big")
+
+        print("LEFTTRIGGER", cs.cn_left_trigger)
 
            # Up, down, left, and right on the D-Pad. 0 is off and 1 is on.
         cs.cn_dpad_up = int.from_bytes(buffer[27:28], "big")
         cs.cn_dpad_down = int.from_bytes(buffer[28:29], "big")
         cs.cn_dpad_left = int.from_bytes(buffer[29:30], "big")
-        cs.cn_dpad_down = int.from_bytes(buffer[30:31], "big")
+        cs.cn_dpad_right = int.from_bytes(buffer[30:31], "big")
 
-        UDPSock.close()
-        os._exit(0)
-
-Object_thread = threading.Thread(group=none, target=packets_to_server, daemon=True)
+Object_thread = threading.Thread(target=packets_to_server, daemon=True)
 Object_thread.start()
 
-while True:
-    controller_display(cs)
+controller_display.start(cs)

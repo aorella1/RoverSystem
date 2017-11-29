@@ -19,6 +19,9 @@ GF_JOYSTICK_RADIUS_DIFF = 23.9495
 # Highest value of joystick axis.
 GN_JOYSTICK_RANGE = 32000
 
+# Threshold of joystick pressedness.
+GN_JOYSTICK_THRESHOLD = 10000
+
 # Prefix and suffix for the image import path.
 # This will reduce string clutter when the images are loaded.
 GS_IMAGE_NAME_PREFIX = "display_resources/final/"
@@ -217,6 +220,44 @@ class Joystick:
         self.co_foreground_sprite.draw()
 
 
+class Trigger:
+    def __init__(self, as_on_name, as_off_name):
+        """
+        Initializes the Trigger by loading its images and creating its sprite.
+
+        :param as_on_name: The name of the on image.
+        :param as_off_name: The name of the off image.
+        """
+
+        # Load and store the two Button images.
+        self.co_on_image = load_image(as_on_name)
+        self.co_off_image = load_image(as_off_name)
+
+        # Load and store the Sprite.
+        self.co_on_sprite = create_sprite(self.co_on_image)
+        self.co_off_sprite = create_sprite(self.co_off_image)
+
+        # Set our initial state.
+        self.cb_value = 0
+
+    def update(self, ab_value):
+        """
+        Updates the button pressed state, which changes the Sprite's image if there is a change.
+
+        :param ab_pressed: A boolean indicating whether the button should be pressed or not.
+        """
+
+        self.co_on_sprite.opacity = ab_value
+
+    def draw(self):
+        """
+        Draws the button.
+        """
+
+        self.co_off_sprite.draw()
+        self.co_on_sprite.draw()
+
+
 class Controls:
     """
     A dummy class to hold all the controls of a Display.
@@ -243,8 +284,8 @@ class Display:
 
         self.co_controls.co_lb = Button("lb_pressed", "lb_unpressed")
         self.co_controls.co_rb = Button("rb_pressed", "rb_unpressed")
-        self.co_controls.co_lt = Button("lt_pressed", "lt_unpressed")
-        self.co_controls.co_rt = Button("rt_pressed", "rt_unpressed")
+        self.co_controls.co_lt = Trigger("lt_pressed", "lt_unpressed")
+        self.co_controls.co_rt = Trigger("rt_pressed", "rt_unpressed")
 
         self.co_controls.co_menu = Button("menu_pressed", "menu_unpressed")
         self.co_controls.co_view = Button("view_pressed", "view_unpressed")
@@ -283,9 +324,9 @@ class Display:
         self.co_controls.co_lb.update(ao_state.cn_left_bumper == 1)
         self.co_controls.co_rb.update(ao_state.cn_right_bumper == 1)
 
-        # The triggers may be continuous, but we treat 255 as on.
-        self.co_controls.co_lt.update(ao_state.cn_left_trigger == 255)
-        self.co_controls.co_rt.update(ao_state.cn_right_trigger == 255)
+        # The triggers may be continuous.
+        self.co_controls.co_lt.update(ao_state.cn_left_trigger)
+        self.co_controls.co_rt.update(ao_state.cn_right_trigger)
 
         self.co_controls.co_menu.update(ao_state.cn_back == 1)
         self.co_controls.co_view.update(ao_state.cn_middle == 1)
@@ -293,9 +334,16 @@ class Display:
 
         self.co_controls.co_dpad.update(ao_state.cn_dpad_up == 1, ao_state.cn_dpad_down == 1, ao_state.cn_dpad_left == 1, ao_state.cn_dpad_right == 1)
 
+        # Take the threshold into account.
+        lo_left_stick_x = ao_state.cn_left_stick_x if abs(ao_state.cn_left_stick_x) > GN_JOYSTICK_THRESHOLD else 0
+        lo_left_stick_y = ao_state.cn_left_stick_y if abs(ao_state.cn_left_stick_y) > GN_JOYSTICK_THRESHOLD else 0
+
+        lo_right_stick_x = ao_state.cn_right_stick_x if abs(ao_state.cn_right_stick_x) > GN_JOYSTICK_THRESHOLD else 0
+        lo_right_stick_y = ao_state.cn_right_stick_y if abs(ao_state.cn_right_stick_y) > GN_JOYSTICK_THRESHOLD else 0
+
         # TODO: Magic numbers! These numbers will change eventually! Find the right ones!
-        self.co_controls.co_ljs.update(ao_state.cn_left_stick_x / GN_JOYSTICK_RANGE, ao_state.cn_left_stick_y / GN_JOYSTICK_RANGE)
-        self.co_controls.co_rjs.update(ao_state.cn_right_stick_x / GN_JOYSTICK_RANGE, ao_state.cn_right_stick_y / GN_JOYSTICK_RANGE)
+        self.co_controls.co_ljs.update(lo_left_stick_x / GN_JOYSTICK_RANGE, -lo_left_stick_y / GN_JOYSTICK_RANGE)
+        self.co_controls.co_rjs.update(lo_right_stick_x / GN_JOYSTICK_RANGE, -lo_right_stick_y / GN_JOYSTICK_RANGE)
 
 
 def start(ao_cs: ControllerState):
@@ -336,6 +384,9 @@ if __name__ == "__main__":
             time.sleep(0.001)
             cs.cn_left_stick_x = 32000 * math.sin(t/10.0)
             cs.cn_left_stick_y = 32000 * math.cos(t/10.0)
+
+            cs.cn_right_stick_x = 32000 * math.sin(-t / 10.0)
+            cs.cn_right_stick_y = 32000 * math.cos(-t / 10.0)
 
     t = threading.Thread(target=mess_around, args=(cs,), daemon=True)
     t.start()
