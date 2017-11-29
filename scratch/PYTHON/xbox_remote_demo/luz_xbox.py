@@ -10,49 +10,48 @@ def listen_for_events(controller):
 
     button_mappings = {
         # mappings for the buttons and joysticks
-        "BTN_SOUTH": controller.cn_a,
-        "BTN_EAST": controller.cn_b,
-        "BTN_NORTH": controller.cn_x,
-        "BTN_WEST": controller.cn_y,
-        "BTN_MODE": controller.cn_middle,
-        "BTN_SELECT": controller.cn_back,
-        "BTN_START": controller.cn_start,
-        "ABS_X": controller.cn_left_stick_x,
-        "ABS_Y": controller.cn_left_stick_y,
-        "ABS_RX": controller.cn_right_stick_x,
-        "ABS_RY": controller.cn_right_stick_y,
-        "ABS_Z": controller.cn_left_trigger,
-        "ABS_RZ": controller.cn_right_trigger
-
+        "BTN_SOUTH": "cn_a",
+        "BTN_EAST": "cn_b",
+        "BTN_NORTH": "cn_x",
+        "BTN_WEST": "cn_y",
+        "BTN_MODE": "cn_start",
+        "BTN_SELECT": "cn_middle",
+        "BTN_START": "cn_back",
+        "ABS_X": "cn_left_stick_x",
+        "ABS_Y": "cn_left_stick_y",
+        "ABS_RX": "cn_right_stick_x",
+        "ABS_RY": "cn_right_stick_y",
+        "ABS_Z": "cn_left_trigger",
+        "ABS_RZ": "cn_right_trigger",
+        "BTN_TL": "cn_left_bumper",
+        "BTN_TR": "cn_right_bumper"
     }
 
     while True:
         events = get_gamepad()
         #events is a single event from the xbox controller
         for event in events:
-
-            #the following dictionary is in the for loop because it uses event.state as a conditional
-            #not sure if it makes it any less time efficient
-            dpad_mappings = { # this is the dpad mappings according to the controller state
-                "ABS_HAT0X": controller.cn_dpad_left if event.state == -1 else controller.cn_dpad_right,
-                "ABS_HAT0Y": controller.cn_dpad_up if event.state == -1 else controller.cn_dpad_down
-            }
-
-            #we have to do 2 if statements because there are two dictionaries because of the way the dpad is set up in the
-            #ControllerState class
-            if event.code in button_mappings:
-                button_mappings[event.code] = event.state
-                print(button_mappings[event.code])
-            elif event.code in dpad_mappings:
-                dpad_mappings[event.code] = 1
-                print(dpad_mappings[event.code])
-
-
-
-
-
-
-
-
-
-
+            if event.code == "ABS_Z":
+                print("LEFTTRIGGER", event.state)
+            if event.code == "ABS_HAT0X":
+                if event.state == 1:
+                    controller.cn_dpad_right = 1
+                    controller.cn_dpad_left = 0
+                elif event.state == -1:
+                    controller.cn_dpad_left = 1
+                    controller.cn_dpad_right = 0
+                else:
+                    controller.cn_dpad_left = 0
+                    controller.cn_dpad_right = 0
+            elif event.code == "ABS_HAT0Y":
+                if event.state == 1:
+                    controller.cn_dpad_down = 1
+                    controller.cn_dpad_up = 0
+                elif event.state == -1:
+                    controller.cn_dpad_up = 1
+                    controller.cn_dpad_down = 0
+                else:
+                    controller.cn_dpad_up = 0
+                    controller.cn_dpad_down = 0
+            elif event.code in button_mappings:
+                setattr(controller, button_mappings[event.code], event.state)

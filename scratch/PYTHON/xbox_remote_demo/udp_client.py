@@ -30,41 +30,47 @@ go_controller = ControllerState()
 go_thread_the_needle = threading.Thread(group=None, target=listen_for_events, args=(go_controller,), daemon=True)
 go_thread_the_needle.start()
 
+def controller_state_to_buffer(go_controller):
+    # Create bytearray to send to server with buttons in the same order as in controller_state
+    go_buffer = bytearray()
+    # A, B, X, and Y buttons as 1 byte integer
+    go_buffer.extend(go_controller.cn_a.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_b.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_x.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_y.to_bytes(1, "big"))
 
-# Create bytearray to send to server with buttons in the same order as in controller_state
-go_buffer = bytearray()
-# A, B, X, and Y buttons as 1 byte integer
-go_buffer.extend(go_controller.cn_a.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_b.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_x.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_y.to_bytes(1, "big"))
+    # Left and right bumpers as 1 byte integer
+    go_buffer.extend(go_controller.cn_left_bumper.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_right_bumper.to_bytes(1, "big"))
 
-# Left and right bumpers as 1 byte integer
-go_buffer.extend(go_controller.cn_left_bumper.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_right_bumper.to_bytes(1, "big"))
+    # Middle, Back, and Start buttons as 1 byte integer
+    go_buffer.extend(go_controller.cn_middle.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_back.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_start.to_bytes(1, "big"))
 
-# Middle, Back, and Start buttons as 1 byte integer
-go_buffer.extend(go_controller.cn_middle.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_back.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_start.to_bytes(1, "big"))
+    # Left joystick x and y axes as a 4 byte signed integer
+    go_buffer.extend(go_controller.cn_left_stick_x.to_bytes(4, "big", signed=True))
+    go_buffer.extend(go_controller.cn_left_stick_y.to_bytes(4, "big", signed=True))
 
-# Left joystick x and y axes as a 4 byte signed integer
-go_buffer.extend(go_controller.cn_left_stick_x.to_bytes(4, "big", signed=True))
-go_buffer.extend(go_controller.cn_left_stick_y.to_bytes(4, "big", signed=True))
+    # Right joystick x and y axes as a 4 byte signed integer
+    go_buffer.extend(go_controller.cn_right_stick_x.to_bytes(4, "big", signed=True))
+    go_buffer.extend(go_controller.cn_right_stick_y.to_bytes(4, "big", signed=True))
 
-# Right joystick x and y axes as a 4 byte signed integer
-go_buffer.extend(go_controller.cn_right_stick_x.to_bytes(4, "big", signed=True))
-go_buffer.extend(go_controller.cn_right_stick_y.to_bytes(4, "big", signed=True))
+    # Left and Right trigger as a 1 byte integer
+    lo_left_trigger = int((go_controller.cn_left_trigger/1024) * 256)
+    lo_right_trigger = int((go_controller.cn_right_trigger/1024) * 256)
 
-# Left and Right trigger as a 1 byte integer
-go_buffer.extend(go_controller.cn_left_trigger.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_right_trigger.to_bytes(1, "big"))
+    go_buffer.extend(lo_left_trigger.to_bytes(1, "big"))
+    go_buffer.extend(lo_right_trigger.to_bytes(1, "big"))
 
-# Up, Down, Left, and Right on the D-Pad as 1 byte integers
-go_buffer.extend(go_controller.cn_dpad_up.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_dpad_down.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_dpad_left.to_bytes(1, "big"))
-go_buffer.extend(go_controller.cn_dpad_right.to_bytes(1, "big"))
+    # Up, Down, Left, and Right on the D-Pad as 1 byte integers
+    go_buffer.extend(go_controller.cn_dpad_up.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_dpad_down.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_dpad_left.to_bytes(1, "big"))
+    go_buffer.extend(go_controller.cn_dpad_right.to_bytes(1, "big"))
+
+
+    return go_buffer
 
 
 # Tries to create a socket and prints a message if it fails
@@ -81,10 +87,10 @@ gn_count = 0
 # Infinite loop that sends a message every 3 seconds to the server with the given IP Address and port number
 while True:
     time.sleep(.033)
-    go_clientSock.sendto(go_buffer, (gs_UDP_IP_ADDRESS, gn_UDP_PORT_NO))
+    go_clientSock.sendto(controller_state_to_buffer(go_controller), (gs_UDP_IP_ADDRESS, gn_UDP_PORT_NO))
     gn_count = gn_count + 1
     # Prints this every time the message successfully sends (debugging purposes)
-    # if(gn_count == 1):
-    #    print("Message sent " + str(gn_count) + " time :)")
-    # else:
-    #    print("Message sent " + str(gn_count) + " times :)")
+    if(gn_count == 1):
+        print("Message sent " + str(gn_count) + " time :)")
+    else:
+        print("Message sent " + str(gn_count) + " times :)")
