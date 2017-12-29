@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.Validate;
 import org.opencv.core.Core;
 
 import java.io.IOException;
@@ -39,19 +40,25 @@ public class DemoRunner extends Application
 
         //Get the path of the python file.
         URL loFilePath = getClass().getClassLoader().getResource("BinghamtonRover/Monitors/python_output.log.json");
+        URL loFXMLPath = getClass().getClassLoader().getResource("git BinghamtonRover/GuiMain/guiScene.fxml");
         ArrayList<InformationObserver> laoObservers = new ArrayList<>();
 
 
-        //System.out.println(GuiController.class.getResource("."));
+        System.out.println(loFilePath.getPath());
+
+
 
         FXMLLoader loLoader = new FXMLLoader();
-        GuiController loController = new GuiController();
-        loLoader.setController(loController);
 
-        Parent loRoot = loLoader.load(getClass().getClassLoader().getResource("BinghamtonRover/GuiMain/guiScene.fxml"));
+        Parent loRoot = loLoader.load(loFXMLPath);
         aoPrimaryStage.setTitle("CameraFeed");
         aoPrimaryStage.setScene(new Scene(loRoot, 700, 400));
         aoPrimaryStage.show();
+
+
+        GuiController loController = loLoader.getController();
+        Validate.notNull(loController,"GuiController is null");
+//        loLoader.setController(loController);
 
         laoObservers.add(new DistanceMonitor());
         laoObservers.add(new BatteryMonitor());

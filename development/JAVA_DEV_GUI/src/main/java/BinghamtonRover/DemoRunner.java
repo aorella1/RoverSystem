@@ -33,17 +33,18 @@ public class DemoRunner extends Application
     {
         ArrayList<InformationObserver> laoObservers = new ArrayList<>();
 
-        laoObservers.add(new DistanceMonitor());
-        laoObservers.add(new BatteryMonitor());
-        laoObservers.add(new DirectionMonitor());
 
-        System.out.println(GuiController.class.getResource("."));
+//        System.out.println(GuiController.class.getResource("."));
 
         FXMLLoader loLoader = new FXMLLoader(GuiController.class.getResource("./guiScene.fxml"));
 
         GuiController loController = new GuiController();
 
         loLoader.setController(loController);
+
+        laoObservers.add(new DistanceMonitor());
+        laoObservers.add(new BatteryMonitor());
+        laoObservers.add(new DirectionMonitor());
 
         laoObservers.add(new PressureMonitor(loController));
         laoObservers.add(new TimeMonitor(loController));

@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BinghamtonRover.GuiMain.GuiController">
    <children>
       <Button fx:id="coStartCameraBtn" layoutX="476.0" layoutY="17.0" mnemonicParsing="false" onAction="#startCamera" text="Start Camera" />
       <ImageView fx:id="coCameraView" fitHeight="181.0" fitWidth="250.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
