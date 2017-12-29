@@ -1,10 +1,5 @@
 package BinghamtonRover.Video;
-
-import org.bytedeco.javacv.CanvasFrame;
-import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.FrameGrabber;
-import org.bytedeco.javacv.OpenCVFrameGrabber;
-
+import org.bytedeco.javacv.*;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.ServerSocket;

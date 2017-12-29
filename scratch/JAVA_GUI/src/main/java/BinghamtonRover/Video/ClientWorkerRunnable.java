@@ -2,13 +2,16 @@ package BinghamtonRover.Video;
 
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static org.bytedeco.javacpp.opencv_imgcodecs.cvSaveImage;
 
 public class ClientWorkerRunnable implements Runnable{
     private OpenCVFrameGrabber feed;

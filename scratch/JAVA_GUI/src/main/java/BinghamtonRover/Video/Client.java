@@ -1,11 +1,8 @@
 package BinghamtonRover.Video;
 
 import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacv.CanvasFrame;
-import org.bytedeco.javacv.OpenCVFrameConverter;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
+import org.bytedeco.javacv.*;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Scanner;

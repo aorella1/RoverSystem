@@ -24,7 +24,7 @@ public class DemoRunner extends Application
 
     public static void main(String[] args)
     {
-        gsFile = (args.length > 0) ? args[0] : "./src/main/resources/BinghamtonRover/Monitors/python_output.log.json";
+        gsFile = (args.length > 0) ? args[0] : "./src/main/resources/BinghamtonRover/BinghamtonRover.Monitors/python_output.log.json";
         launch(args);
     }
 

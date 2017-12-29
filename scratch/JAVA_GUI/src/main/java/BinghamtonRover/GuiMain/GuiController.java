@@ -1,8 +1,10 @@
-package BinghamtonRover.Video;
+package BinghamtonRover.GuiMain;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.opencv.core.Mat;
@@ -15,12 +17,18 @@ import java.util.concurrent.TimeUnit;
 
 import static BinghamtonRover.Video.Utils.mat2Image;
 
-public class VideoController
+public class GuiController
 {
     private static int gnCameraID = 0;
 
     @FXML private Button coStartCameraBtn;
     @FXML private ImageView coCameraView;
+
+    @FXML private Label coTimeLabel;
+    @FXML private Label coStatusLabel;
+    @FXML private Label coLatitudeLabel;
+    @FXML private Label coPressureLabel;
+    @FXML private Label coTemperatureLabel;
 
     private ScheduledExecutorService coTimer;
 
@@ -115,7 +123,7 @@ public class VideoController
 
                 //If the frame coVideoCapture is stopped, then set the image to a default image
 
-                String s = VideoController.class.getResource("./weedimage.png").toString();
+                String s = GuiController.class.getResource("./weedimage.png").toString();
                 Image loDefaultImage = new Image(s);
                 updateImageView(coCameraView, loDefaultImage);
 
@@ -137,7 +145,66 @@ public class VideoController
     private void updateImageView(ImageView aoImageView, Image aoImage)
     {
         aoImageView.setImage(aoImage);
-        //onFXThread(view.imageProperty(), image);
+    }
+
+    public void updatePressure(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coPressureLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateTime(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coTimeLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateStatus(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coStatusLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateLatitude(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coLatitudeLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateTemperature(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coTemperatureLabel.setText(lsText);
+            }
+        });
     }
 
     //When the application is closed stop grabbing frames from the camera

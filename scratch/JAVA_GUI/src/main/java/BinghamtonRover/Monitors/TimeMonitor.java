@@ -3,10 +3,10 @@ package BinghamtonRover.Monitors;
 import BinghamtonRover.GuiMain.GuiController;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Observable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /*
  * The time written in the JSON file can serve as an ping measure of the delay after

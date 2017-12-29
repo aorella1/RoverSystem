@@ -1,16 +1,13 @@
 package BinghamtonRover;
 
-import org.bytedeco.javacpp.Loader;
-import org.bytedeco.javacpp.indexer.DoubleIndexer;
-import org.bytedeco.javacpp.opencv_objdetect;
-import org.bytedeco.javacv.*;
-
 import java.io.File;
 import java.net.URL;
-
-import static org.bytedeco.javacpp.opencv_calib3d.cvRodrigues2;
+import org.bytedeco.javacv.*;
+import org.bytedeco.javacpp.*;
+import org.bytedeco.javacpp.indexer.*;
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgproc.*;
+import static org.bytedeco.javacpp.opencv_calib3d.*;
 import static org.bytedeco.javacpp.opencv_objdetect.*;
 
 public class DemoVideo {
