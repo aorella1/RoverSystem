@@ -30,7 +30,7 @@ public class DemoRunner extends Application
     {
         String lsFilePath = "BinghamtonRover/Monitors/python_output.log.json";
         gsFile = (args.length > 0) ? new URL(args[0]) : DemoRunner.class.getClassLoader().getResource(lsFilePath);
-        System.out.println("The Python_output file path is at : " + gsFile);
+//        System.out.println("The Python_output file path is at : " + gsFile);
         launch(args);
     }
 
@@ -40,25 +40,24 @@ public class DemoRunner extends Application
 
         //Get the path of the python file.
         URL loFilePath = getClass().getClassLoader().getResource("BinghamtonRover/Monitors/python_output.log.json");
-        URL loFXMLPath = getClass().getClassLoader().getResource("git BinghamtonRover/GuiMain/guiScene.fxml");
+        URL loFXMLPath = getClass().getClassLoader().getResource("BinghamtonRover/GuiMain/guiScene.fxml");
+
+
+
         ArrayList<InformationObserver> laoObservers = new ArrayList<>();
 
+//        System.out.println(loFilePath.getPath());
 
-        System.out.println(loFilePath.getPath());
-
-
-
-        FXMLLoader loLoader = new FXMLLoader();
-
-        Parent loRoot = loLoader.load(loFXMLPath);
+        FXMLLoader loLoader = new FXMLLoader(loFXMLPath);
+        Parent loRoot = loLoader.load();
         aoPrimaryStage.setTitle("CameraFeed");
-        aoPrimaryStage.setScene(new Scene(loRoot, 700, 400));
+        aoPrimaryStage.setScene(new Scene(loRoot));
         aoPrimaryStage.show();
 
 
         GuiController loController = loLoader.getController();
+
         Validate.notNull(loController,"GuiController is null");
-//        loLoader.setController(loController);
 
         laoObservers.add(new DistanceMonitor());
         laoObservers.add(new BatteryMonitor());
@@ -70,16 +69,14 @@ public class DemoRunner extends Application
         laoObservers.add(new LocationMonitor(loController));
         laoObservers.add(new TemperatureMonitor(loController));
 
-        FileUpdatingObservable loObservable = null;
-        try {
-            loObservable = new FileUpdatingObservable(loFilePath.getPath(), laoObservers);
-        }
-        catch(NullPointerException e){
-            System.out.println("loFilePath Thrown NullPointerException");
-            System.exit(1);
-        }
+        FileUpdatingObservable loObservable = new FileUpdatingObservable(loFilePath.getPath(), laoObservers);
         loObservable.startFileMonitoringThread();
 
         //System.exit(0);
+    }
+
+    @Override
+    public void stop() {
+        System.exit(0);
     }
 }

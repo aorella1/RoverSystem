@@ -13,24 +13,18 @@ import java.net.URL;
 public class BluetoothServerGUI extends Application {
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) throws Exception
+    {
 
         URL loFXMLPath = getClass().getClassLoader().getResource("BinghamtonRover/Bluetooth/BluetoothGUI.fxml");
         Validate.notNull(loFXMLPath, "The FXML Resource path is null.");
-        System.out.println("bilibili");
 
         System.out.println("loading FXML from: " + loFXMLPath.getPath());
         FXMLLoader loLoader= new FXMLLoader();
 
 
-        Parent root = null;
-        try{
-           root = loLoader.load(loFXMLPath);
-        }
-        catch(IOException e){
-          e.printStackTrace();
-            System.exit(1);
-        }
+        Parent root = loLoader.load(loFXMLPath);
+
         Validate.notNull(root);
         primaryStage.setTitle("Bluetooth");
         primaryStage.setScene(new Scene(root));

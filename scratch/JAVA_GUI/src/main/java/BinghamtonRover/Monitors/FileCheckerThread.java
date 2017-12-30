@@ -1,5 +1,6 @@
 package BinghamtonRover.Monitors;
 
+import BinghamtonRover.GuiMain.GuiController;
 import org.apache.commons.lang3.Validate;
 
 import java.io.File;
@@ -9,6 +10,7 @@ public class FileCheckerThread extends Thread
     private long cnLastUpdateTime = 0;
     private File coFileToMonitor = null;
     private FileUpdatingObservable coObservable = null;
+//    private GuiController coGuiController = null;
 
     public FileCheckerThread(FileUpdatingObservable aoObservable, File aoFileToMonitor)
     {
@@ -23,9 +25,9 @@ public class FileCheckerThread extends Thread
             System.exit(1);
         }
 
-        coObservable = aoObservable;
-        coFileToMonitor = aoFileToMonitor;
-        cnLastUpdateTime = coFileToMonitor.lastModified();
+        this.coObservable = aoObservable;
+        this.coFileToMonitor = aoFileToMonitor;
+        this.cnLastUpdateTime = coFileToMonitor.lastModified();
     }
 
     /**
@@ -36,6 +38,8 @@ public class FileCheckerThread extends Thread
     @Override
     public void run()
     {
+        System.out.println("File Monitoring Thread started");
+        coObservable.fileWasUpdated(cnLastUpdateTime);
         while (true)
         {
             /*
@@ -44,10 +48,13 @@ public class FileCheckerThread extends Thread
              */
             if (coFileToMonitor.exists())
             {
+
                 if (cnLastUpdateTime < coFileToMonitor.lastModified())
                 {
+
                     // Alert observers of this update
                     cnLastUpdateTime = coFileToMonitor.lastModified();
+                    System.out.println("Calling fileWasChecked");
                     coObservable.fileWasUpdated(cnLastUpdateTime);
                 }
 

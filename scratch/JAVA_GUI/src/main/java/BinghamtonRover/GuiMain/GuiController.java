@@ -123,7 +123,7 @@ public class GuiController
 
                 //If the frame coVideoCapture is stopped, then set the image to a default image
 
-                String s = GuiController.class.getResource("./weedimage.png").toString();
+                String s = getClass().getClassLoader().getResource("BinghamtonRover/Video/weedimage.png").toString();
                 Image loDefaultImage = new Image(s);
                 updateImageView(coCameraView, loDefaultImage);
 
@@ -211,6 +211,7 @@ public class GuiController
     protected void setClosed()
     {
         stopAcquisition();
+        // Seems fine tho VVV
         // DO NOT CALL, CAUSES KNOWN ISSUE WITH OPENCV3.2
     }
 }
