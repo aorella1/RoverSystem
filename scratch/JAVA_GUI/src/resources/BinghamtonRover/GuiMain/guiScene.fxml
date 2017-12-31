@@ -14,5 +14,8 @@
       <Label fx:id="coLatitudeLabel" layoutX="14.0" layoutY="240.0" prefHeight="16.0" prefWidth="300.0" text="Label" />
       <Label fx:id="coPressureLabel" layoutX="14.0" layoutY="256.0" prefHeight="16.0" prefWidth="300.0" text="Label" />
       <Label fx:id="coTemperatureLabel" layoutX="14.0" layoutY="272.0" prefHeight="16.0" prefWidth="300.0" text="Label" />
+      <Label fx:id="coBatteryLabel" layoutX="14.0" layoutY="290.0" prefHeight="16.0" prefWidth="300.0" text="Label" />
+      <Label fx:id="coDistanceLabel" layoutX="14.0" layoutY="306.0" prefHeight="16.0" prefWidth="300.0" text="Label" />
+      <Label fx:id="coDirectionLabel" layoutX="14.0" layoutY="322.0" prefHeight="16.0" prefWidth="300.0" text="Label" />
    </children>
 </Pane>

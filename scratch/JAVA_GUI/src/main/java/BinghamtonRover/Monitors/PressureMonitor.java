@@ -20,7 +20,6 @@ public class PressureMonitor extends InformationObserver
     public PressureMonitor(GuiController loController)
     {
         super();
-
         coController=loController;
     }
 

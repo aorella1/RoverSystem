@@ -1,5 +1,7 @@
 package BinghamtonRover.Monitors;
 
+import BinghamtonRover.GuiMain.GuiController;
+
 import java.util.Observable;
 
 
@@ -11,9 +13,12 @@ import java.util.Observable;
 public class BatteryMonitor extends InformationObserver
 {
 
-    public BatteryMonitor()
+    private GuiController coController;
+
+    public BatteryMonitor(GuiController aoController)
     {
         super();
+        coController = aoController;
     }
 
     @Override
@@ -21,8 +26,10 @@ public class BatteryMonitor extends InformationObserver
     {
         FileUpdatingObservable loObservable = (FileUpdatingObservable) o;
 
-        //String lbBattery = (String) getJson(loObservable.getCoFileToMonitor(), "batteryLevel");
+        String lsBattery = getJson(loObservable.getCoFileToMonitor(), "batteryLevel").toString();
 
-        //System.out.println("The current Battery percentage is: lbBattery" + lbBattery + "%");
+//        System.out.println("The current Battery percentage is: lbBattery" + lsBattery + "%");
+        if (coController != null) coController.updateBattery("The battery is: " + lsBattery + "%" );
+        else System.out.println("Controller is null");
     }
 }

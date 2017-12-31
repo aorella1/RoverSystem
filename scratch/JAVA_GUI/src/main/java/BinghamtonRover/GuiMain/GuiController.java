@@ -29,6 +29,9 @@ public class GuiController
     @FXML private Label coLatitudeLabel;
     @FXML private Label coPressureLabel;
     @FXML private Label coTemperatureLabel;
+    @FXML private Label coBatteryLabel;
+    @FXML private Label coDirectionLabel;
+    @FXML private Label coDistanceLabel;
 
     private ScheduledExecutorService coTimer;
 
@@ -203,6 +206,42 @@ public class GuiController
             @Override
             public void run() {
                 coTemperatureLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateBattery(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coBatteryLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateDirection(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coDirectionLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateDistance(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coDistanceLabel.setText(lsText);
             }
         });
     }

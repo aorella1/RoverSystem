@@ -28,9 +28,10 @@ public class DemoRunner extends Application
 
     public static void main(String[] args) throws MalformedURLException
     {
-        String lsFilePath = "BinghamtonRover/Monitors/python_output.log.json";
-        gsFile = (args.length > 0) ? new URL(args[0]) : DemoRunner.class.getClassLoader().getResource(lsFilePath);
-//        System.out.println("The Python_output file path is at : " + gsFile);
+
+        //Not used
+//        String lsFilePath = "BinghamtonRover/Monitors/python_output.log.json";
+//        gsFile = (args.length > 0) ? new URL(args[0]) : DemoRunner.class.getClassLoader().getResource(lsFilePath);
         launch(args);
     }
 
@@ -43,26 +44,23 @@ public class DemoRunner extends Application
         URL loFXMLPath = getClass().getClassLoader().getResource("BinghamtonRover/GuiMain/guiScene.fxml");
 
 
-
+        //Initialize a new array of Observer
         ArrayList<InformationObserver> laoObservers = new ArrayList<>();
 
-//        System.out.println(loFilePath.getPath());
-
+        //Start the GUI
         FXMLLoader loLoader = new FXMLLoader(loFXMLPath);
         Parent loRoot = loLoader.load();
         aoPrimaryStage.setTitle("CameraFeed");
         aoPrimaryStage.setScene(new Scene(loRoot));
         aoPrimaryStage.show();
 
-
+        //Get the Controller and assign it to each kinds of monitor
         GuiController loController = loLoader.getController();
-
         Validate.notNull(loController,"GuiController is null");
 
-        laoObservers.add(new DistanceMonitor());
-        laoObservers.add(new BatteryMonitor());
-        laoObservers.add(new DirectionMonitor());
-
+        laoObservers.add(new DistanceMonitor(loController));
+        laoObservers.add(new BatteryMonitor(loController));
+        laoObservers.add(new DirectionMonitor(loController));
         laoObservers.add(new PressureMonitor(loController));
         laoObservers.add(new TimeMonitor(loController));
         laoObservers.add(new CameraStatusMonitor(loController));
