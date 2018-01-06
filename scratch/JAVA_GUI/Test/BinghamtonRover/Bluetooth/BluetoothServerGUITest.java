@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class BluetoothClientGUITest {
+public class BluetoothServerGUITest {
 
     @Test
     public void start() {
@@ -17,7 +17,7 @@ public class BluetoothClientGUITest {
     }
 
     @Test
-    public void main(){
+    public void main() {
         fail("This test has not been implemented");
     }
 }

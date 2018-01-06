@@ -4,20 +4,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class BluetoothClientGUITest {
+public class BluetoothServerGUIControllerTest {
 
     @Test
-    public void start() {
+    public void updateText() {
         fail("This test has not been implemented");
     }
 
     @Test
-    public void stop() {
-        fail("This test has not been implemented");
-    }
-
-    @Test
-    public void main(){
+    public void applicationClosed() {
         fail("This test has not been implemented");
     }
 }
