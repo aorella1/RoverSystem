@@ -3,6 +3,7 @@ package BinghamtonRover.Monitors;
 import org.apache.commons.lang3.Validate;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
@@ -24,8 +25,7 @@ public class FileUpdatingObservable extends Observable
         this(asFileToWatch, (aoObserver != null) ? new ArrayList<>(Collections.singletonList(aoObserver)) : new ArrayList<>());
     }
 
-    public FileUpdatingObservable(String asFileToWatch, ArrayList<InformationObserver> aaoObservers)
-    {
+    public FileUpdatingObservable(String asFileToWatch, ArrayList<InformationObserver> aaoObservers) {
         // Ensure all parameters are not null
         Validate.notNull(asFileToWatch, "FileUpdatingObservable: String cannot be null");
         Validate.notNull(aaoObservers, "FileUpdatingObservable: ArrayList cannot be null");
@@ -37,7 +37,7 @@ public class FileUpdatingObservable extends Observable
         if (! coFileToMonitor.exists())
         {
             System.out.println("File " + coFileToMonitor.getAbsolutePath() + " does not exist");
-            System.exit(1);
+            Validate.notNull(null);
         }
 
         if (! aaoObservers.isEmpty())
@@ -89,4 +89,6 @@ public class FileUpdatingObservable extends Observable
 
         return coFileToMonitor;
     }
+
+
 }
