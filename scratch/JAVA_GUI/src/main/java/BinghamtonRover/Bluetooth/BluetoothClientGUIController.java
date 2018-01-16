@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 
 import java.util.concurrent.ExecutorService;
 
+//THIS CLASS IS NOT USED
 
 public class BluetoothClientGUIController {
 
@@ -32,13 +33,6 @@ public class BluetoothClientGUIController {
         if (!cbServerStarted) {
             coClient = new SampleSPPClient();
 
-
-            /**
-             * Need to create a runnable which executes the device inquiry process
-             * of the SampleSPPClient
-             */
-//            coClientRunner = Executors.newSingleThreadExecutor();
-//            coClientRunner.execute();
 
             //Set ServerStarted flag and button text.
             this.coStartQueryBtn.setText("Stop Query");

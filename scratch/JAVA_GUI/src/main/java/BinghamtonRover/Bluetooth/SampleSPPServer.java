@@ -78,7 +78,7 @@ public class SampleSPPServer implements Runnable {
     }
 
     /**
-     * This is a thread class that will be created every time a connection is made
+     * This is a thread that will be created every time a connection is made
      * This thread is expected to handle the communication between the client and server.
      * when the server received a connection request, it will establish a connection and
      * instantiate a SeverClientConnection thread that listens to the message the client
@@ -110,16 +110,15 @@ public class SampleSPPServer implements Runnable {
                 //Get the name of the client that is connected
                 //Upon the establishment of connection the client is
                 //expected to send their name as String via dataInput
-                csClientName = readFromClient(outputStream, inputStream);
+                csClientName = readFromClient(inputStream);
 
                 updateStatus("[SERVER] SPP session created with " + csClientName);
-                updateStatus("[SERVER] Session started at: " + System.currentTimeMillis());
 
-                //this should always evaluate to true but the IDE won't treat this as an infinite loop
+
                 while(cbServerOpen)
                 {
                     String lsMessage =  "Server Says: Hello " + csClientName;
-                    String lsReceivedMessage = readFromClient(outputStream, inputStream);
+                    String lsReceivedMessage = readFromClient(inputStream);
 
                     updateStatus("[SERVER] Received message from " + csClientName +": " + lsReceivedMessage);
 
@@ -142,12 +141,13 @@ public class SampleSPPServer implements Runnable {
 
         }
 
-        private String readFromClient (DataOutputStream aoDOS, DataInputStream aoDIS)
+        private String readFromClient (DataInputStream aoDIS)
         {
-            Validate.notNull(aoDOS, "DataOutputStream is null");
+
             Validate.notNull(aoDIS, "DataInputStream is null");
 
-            try {
+            try
+            {
                 // Reading a message
                 // Create a buffer byte array used to temporarily hold the input, 1 kb should be enough for short input.
                 // get the numbers of bytes of the input and then save the input to buffer
@@ -166,6 +166,8 @@ public class SampleSPPServer implements Runnable {
                 e.printStackTrace();
             }
 
+
+            //Return null in the end if the try block did not return a value and no exception was thrown
             System.out.println("Nothing was received from " + csClientName);
             return null;
         }

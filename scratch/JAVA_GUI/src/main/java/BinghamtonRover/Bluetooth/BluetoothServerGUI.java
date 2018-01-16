@@ -32,7 +32,8 @@ public class BluetoothServerGUI extends Application {
     }
 
     @Override
-    public void stop() {
+    public void stop()
+    {
 
         System.exit(0);
     }

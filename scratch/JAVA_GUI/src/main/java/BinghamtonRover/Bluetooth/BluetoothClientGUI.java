@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 public class BluetoothClientGUI extends Application {
 
+    //THIS CLASS IS NOT USED
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
