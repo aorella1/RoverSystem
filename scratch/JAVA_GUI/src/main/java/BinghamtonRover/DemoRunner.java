@@ -29,9 +29,8 @@ public class DemoRunner extends Application
     public static void main(String[] args) throws MalformedURLException
     {
 
-        //Not used
-//        String lsFilePath = "BinghamtonRover/Monitors/python_output.log.json";
-//        gsFile = (args.length > 0) ? new URL(args[0]) : DemoRunner.class.getClassLoader().getResource(lsFilePath);
+        String lsFilePath = "BinghamtonRover/Monitors/python_output.log.json";
+        gsFile = (args.length > 0) ? new URL(args[0]) : DemoRunner.class.getClassLoader().getResource(lsFilePath);
         launch(args);
     }
 
@@ -39,8 +38,7 @@ public class DemoRunner extends Application
     public void start(Stage aoPrimaryStage) throws NullPointerException, IOException
     {
 
-        //Get the path of the python file.
-        URL loFilePath = getClass().getClassLoader().getResource("BinghamtonRover/Monitors/python_output.log.json");
+        //Get the path of the FXML file
         URL loFXMLPath = getClass().getClassLoader().getResource("BinghamtonRover/GuiMain/guiScene.fxml");
 
 
@@ -67,10 +65,9 @@ public class DemoRunner extends Application
         laoObservers.add(new LocationMonitor(loController));
         laoObservers.add(new TemperatureMonitor(loController));
 
-        FileUpdatingObservable loObservable = new FileUpdatingObservable(loFilePath.getPath(), laoObservers);
+        FileUpdatingObservable loObservable = new FileUpdatingObservable(gsFile.getPath(), laoObservers);
         loObservable.startFileMonitoringThread();
 
-        //System.exit(0);
     }
 
     @Override
