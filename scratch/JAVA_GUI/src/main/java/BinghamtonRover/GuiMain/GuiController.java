@@ -105,7 +105,8 @@ public class GuiController
             }
             catch (NullPointerException aoException)
             {
-                System.out.println("Exception thrown during the image elaboration: " + aoException);
+//                System.out.println("Exception thrown during the image elaboration: " + aoException);
+                aoException.printStackTrace();
                 System.exit(1);
             }
         }
