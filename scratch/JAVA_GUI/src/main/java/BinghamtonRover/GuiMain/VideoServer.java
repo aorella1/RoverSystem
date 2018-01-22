@@ -5,9 +5,8 @@ import org.apache.commons.lang3.Validate;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
+import java.util.Enumeration;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +31,16 @@ public class VideoServer extends Thread
     {
         try
         {
-            serverSocket = new ServerSocket(Port);  //Create ServerSocket with the port it will be listening to
+            //Adapted from https://stackoverflow.com/questions/9481865/getting-the-ip-address-of-the-current-machine-using-java
+            InetAddress addr;
+            try (final DatagramSocket socket = new DatagramSocket()){
+                socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+                //System.out.println(socket.getLocalAddress().getHostAddress());
+                addr = socket.getLocalAddress();
+
+            }
+
+            serverSocket = new ServerSocket(Port, 10, addr);  //Create ServerSocket
             System.out.println("Server socket created, IP Address: " + serverSocket.getInetAddress().getHostAddress());
             System.out.println("Server socket listening to port: " + serverSocket.getLocalPort());
         }
@@ -108,6 +116,26 @@ public class VideoServer extends Thread
         }
     }
 
+    private void getIPAddress() {
+        try
+        {
+            Enumeration e = NetworkInterface.getNetworkInterfaces();
+            while(e.hasMoreElements())
+            {
+                NetworkInterface n = (NetworkInterface) e.nextElement();
+                Enumeration ee = n.getInetAddresses();
+                while(ee.hasMoreElements())
+                {
+                    InetAddress i  = (InetAddress) ee.nextElement();
+                    System.out.println(i.getHostAddress());
+                }
+            }
+        }
+        catch(SocketException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public void openServer(){ serverOpen = true;}
     public void closeServer(){ serverOpen = false;}
@@ -118,6 +146,8 @@ public class VideoServer extends Thread
         StringBuilder sb = new StringBuilder(length);
 
         while(sb.length() < sb.capacity()){
+//            System.out.println("Current length: " + sb.length());
+//            System.out.println("Target capacity: " + sb.capacity());
             sb.append(Characters.charAt(r.nextInt(Characters.length())));
         }
 
