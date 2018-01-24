@@ -46,6 +46,8 @@ All packets share a common header. The format is as follows:
                 regardless of the timestamp of the last received packet. The base station and the rover
                 should keep their own timestamp counters; there should be no attempt to syncronize.
 
+The body of the packet must follow immediately after the packet header.
+
 
 ================
 = Packet Types =
