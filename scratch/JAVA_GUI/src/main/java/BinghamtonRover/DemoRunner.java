@@ -48,7 +48,7 @@ public class DemoRunner extends Application
         //Start the GUI
         FXMLLoader loLoader = new FXMLLoader(loFXMLPath);
         Parent loRoot = loLoader.load();
-        aoPrimaryStage.setTitle("CameraFeed");
+        aoPrimaryStage.setTitle("Rover Controller");
         aoPrimaryStage.setScene(new Scene(loRoot));
         aoPrimaryStage.show();
 

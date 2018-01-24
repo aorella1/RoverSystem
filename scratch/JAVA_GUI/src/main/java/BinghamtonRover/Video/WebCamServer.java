@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class WebCamServer
 {
+    //Local Port at which the server will be listening to
     private static final int gn_port = 5000;
 
     /**
-     * This method creates the video feed obhject and returns it. It does not start it.
+     * This method creates the video feed object and returns it. It does not start it.
      * @return OpenCVFramGrabber the object which will act as a feed for the video
      */
     private static OpenCVFrameGrabber createVideoFeed()
@@ -63,7 +65,7 @@ public class WebCamServer
 
     /**
      * This method accepts a client that is trying to connect to the server
-     * Done with TCP sockets. Need to change this to accomodate UDP protocol.
+     * Done with TCP sockets. Need to change this to accommodate UDP protocol.
      * @param srvSocket a ServerSocket which looks to accept client requests.
      * @return clientSocket the socket corresponding to the accepted client.
      * If null is returned, that indicates there was an issue accepting a client.
@@ -85,7 +87,7 @@ public class WebCamServer
     /**
      * This method gets the server up and running, looking for clients that want access to the video feed.
      * A Thread is delegated to service each client, allowing for multiple clients to access the feed concurrently.
-     * The server is printing out its port and host inforarmation, which a potential client must type in to try and get access.
+     * The server is printing out its port and host information, which a potential client must type in to try and get access.
      * Ideally, we want to ensure that the server doesn't prematurely die. Right now, a client can cause the server to crash
      * If an error occurs, which is unacceptable.
      * @param args command line arguments that are passed in when WebCamServer is run
@@ -96,12 +98,18 @@ public class WebCamServer
             Thread feedThread = new Thread(new VideoFeedWorkerRunnable(feed));
             feedThread.start();
             System.out.println("Server's port: " + gn_port);
+
+            //This line of code will return the loopback IP address, which is 127.0.0.1
+            //This IP address is used for Ip connection on the same computer so don't think
+            //This IP will work for connection over network.
             System.out.println("Server's host: " + Inet4Address.getLocalHost().getHostAddress());
+
             //look to accept a client and then send feed to that client
             //in a while loop so multiple clients can potentially connect.
             //also, a client disconnecting does not crash the server and his socket continues to work
             while(true){
                 try {
+                    //ServerSocket will block the process until it finds a client or exception
                     Socket clientSocket = acceptClient(srvSocket);
                     System.out.println("Accepted a client!");
                     //start a worker thread to service the client, then look for more clients

@@ -5,6 +5,7 @@ import org.apache.commons.lang3.Validate;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Random;
 
 /**
@@ -18,16 +19,17 @@ class VideoConnection extends Thread
 {
 
     //Used for generating random strings
-    private static String Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxxyz0123456789";
+    private static String gsCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 
     private Socket coClientSocket;
 
 
-    public VideoConnection(Socket clientSocket)
+    public VideoConnection(Socket aoClientSocket)
     {
-        Validate.notNull(clientSocket);
-        this.coClientSocket = clientSocket;
+        System.out.println(aoClientSocket.isInputShutdown());
+        Validate.notNull(aoClientSocket);
+        this.coClientSocket = aoClientSocket;
     }
 
     public void run()
@@ -35,31 +37,41 @@ class VideoConnection extends Thread
 
         try{
 
-            BufferedOutputStream dataOut = new BufferedOutputStream(coClientSocket.getOutputStream());
+            BufferedOutputStream loDataOut = new BufferedOutputStream(coClientSocket.getOutputStream());
             while(true){
-                dataOut.write(randStr(256).getBytes());
-                dataOut.flush();
+                loDataOut.write(randStr(256).getBytes());
+                loDataOut.flush();
             }
 
+        }
+        catch(SocketException e)
+        {
+            System.out.println("A Connection has been closed");
         }
         catch(IOException e)
         {
             e.printStackTrace();
         }
+
+        try{
+            coClientSocket.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
-    private String randStr(int length){
+    private String randStr(int anLength){
 
         Random r = new Random();
-        StringBuilder sb = new StringBuilder(length);
+        StringBuilder loSB = new StringBuilder(anLength);
 
-        while(sb.length() < sb.capacity()){
-//            System.out.println("Current length: " + sb.length());
-//            System.out.println("Target capacity: " + sb.capacity());
-            sb.append(Characters.charAt(r.nextInt(Characters.length())));
+        while(loSB.length() < loSB.capacity()){
+            loSB.append(gsCharacters.charAt(r.nextInt(gsCharacters.length())));
         }
 
-        return sb.toString();
+        return loSB.toString();
 
     }
+
 }

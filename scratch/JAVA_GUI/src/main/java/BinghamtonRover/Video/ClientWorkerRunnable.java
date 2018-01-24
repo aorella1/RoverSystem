@@ -25,7 +25,7 @@ public class ClientWorkerRunnable implements Runnable{
     /**
      * This method is still in the works. We are currently trying to figure out how to turn a frame
      * into a byte array, which should be serializable. We will then send the byte array over to the
-     * client, who will then take the btyes, reassemble the frame, and display the frames one at a time.
+     * client, who will then take the bytes, reassemble the frame, and display the frames one at a time.
      * Not sure if this is the best way to go about this, but that is the idea we had in mind.
      */
     @Override
@@ -36,7 +36,7 @@ public class ClientWorkerRunnable implements Runnable{
             out.set(new ObjectOutputStream(clientSocket.getOutputStream()));
             Frame frame;
             while((frame = feed.grab()) != null) {
-                //OpenCVFrameConverter frameToImg = new OpenCVFrameConverter.ToIplImage();
+                OpenCVFrameConverter frameToImg = new OpenCVFrameConverter.ToIplImage();
                 //img = (opencv_core.IplImage) frameToImg.convert(frame);
                 //cvSaveImage("frame.jpg", img);
                 //FileInputStream fis=new FileInputStream("frame.jpg");
