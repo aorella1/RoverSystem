@@ -1,19 +1,37 @@
 package BinghamtonRover.GuiMain;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.WritableImage;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+
+import static BinghamtonRover.Video.Utils.mat2Image;
 
 public class VideoClient extends Thread{
 
     private Socket clientSocket;
+    private ClientGuiController coGuiController;
 
-
-    public VideoClient(){
-        this(3000);
+    // Load in OpenCV3 libraries
+    static
+    {
+        nu.pattern.OpenCV.loadShared();
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
-    public VideoClient(int Port)
+    public VideoClient(ClientGuiController controller){
+        this(controller, 3000);
+    }
+
+    public VideoClient(ClientGuiController controller, int Port)
     {
+        coGuiController = controller;
         try {
             clientSocket = new Socket("localhost", Port);
         }
@@ -33,11 +51,22 @@ public class VideoClient extends Thread{
 
             while(true) {
 
-                byte[] buffer = new byte[512];
+                //Allocate 2MB of space for the incoming data
+                byte[] buffer = new byte[4194304/2];
                 int bytesRead = dataIn.read(buffer);
                 System.out.println("Read " + bytesRead + " bytes From Server");
-                String msg = new String(buffer, 0,bytesRead);
-                System.out.println(msg);
+
+                ByteArrayInputStream bis = new ByteArrayInputStream(buffer);
+                BufferedImage bufImage = ImageIO.read(bis);
+                WritableImage image = SwingFXUtils.toFXImage(bufImage, null);
+
+
+//                Mat loMatFrame = new Mat();
+//                loMatFrame.put(0,0, buffer);
+                coGuiController.updateImageView(image);
+
+                //String msg = new String(buffer, 0,bytesRead);
+                //System.out.println(msg);
             }
 
 
@@ -54,7 +83,7 @@ public class VideoClient extends Thread{
 
     public static void main(String[] args)
     {
-        VideoClient client = new VideoClient(3000);
-        client.run();
+//        VideoClient client = new VideoClient(3000);
+//        client.run();
     }
 }

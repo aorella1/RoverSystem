@@ -7,8 +7,8 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BinghamtonRover.GuiMain.GuiController">
    <children>
-      <Button fx:id="coStartCameraBtn" layoutX="476.0" layoutY="17.0" mnemonicParsing="false" onAction="#startCamera" text="Start Camera" />
-      <Button fx:id="coStartServerBtn" layoutX="476.0" layoutY="54.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="105.0" text="Start Server" />
+      <Button fx:id="coStartCameraBtn" layoutX="460.0" layoutY="17.0" mnemonicParsing="false" onAction="#startCamera" prefHeight="26.0" prefWidth="121.0" text="Start Camera" />
+      <Button fx:id="coStartServerBtn" layoutX="460.0" layoutY="54.0" mnemonicParsing="false" onAction="#startServer" prefHeight="26.0" prefWidth="121.0" text="Start Server" />
       <ImageView fx:id="coCameraView" fitHeight="187.0" fitWidth="328.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="coTimeLabel" layoutX="14.0" layoutY="208.0" prefHeight="16.0" prefWidth="300.0" text="Label" />
       <Label fx:id="coStatusLabel" layoutX="14.0" layoutY="224.0" prefHeight="16.0" prefWidth="300.0" text="Label" />

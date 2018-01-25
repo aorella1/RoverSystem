@@ -8,9 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.videoio.VideoCapture;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,9 +18,8 @@ import static BinghamtonRover.Video.Utils.mat2Image;
 
 public class GuiController
 {
-    private static int gnCameraID = 0;
-
     @FXML private Button coStartCameraBtn;
+    @FXML private Button coStartServerBtn;
     @FXML private ImageView coCameraView;
 
     @FXML private Label coTimeLabel;
@@ -34,9 +32,13 @@ public class GuiController
     @FXML private Label coDistanceLabel;
 
     private ScheduledExecutorService coTimer;
+    private ExecutorService coServerRunner;
+    private VideoServer coServer;
 
-    private VideoCapture coVideoCapture = new VideoCapture();
+//    private VideoCapture coVideoCapture = new VideoCapture();
+    private static FrameFetcher goFrameFetcher = new FrameFetcher();
     private boolean cbCameraActive = false;
+    private boolean cbServerActive = false;
 
     @FXML
     protected void startCamera(ActionEvent aoActionEvent)
@@ -44,22 +46,23 @@ public class GuiController
         if(! cbCameraActive)
         {
             //open the camera
-            coVideoCapture.open(gnCameraID);
+            goFrameFetcher.enable();
 
             //If the camera is now opened successfully
-            if (coVideoCapture.isOpened())
+            if (goFrameFetcher.isEnabled())
             {
                 cbCameraActive = true;
 
                 Runnable loRunnableFrameGrabber = () -> {
-                    // OpenCV VideoCapture Grabs a frame
-                    // Then convert it to FX Image
-                    // Then update the image onto the imageView of the GUI
-                    Mat loMatFrame = grabFrame();
 
-                    // This method comes from the Util Class and
-                    Image lOImageToShow = mat2Image(loMatFrame);
-                    updateImageView(coCameraView, lOImageToShow);
+                    //Grab a frame and show it on the imageView
+                    Mat loMatFrame = goFrameFetcher.grabFrame();
+                    Image loImageToShow = mat2Image(loMatFrame);
+                    updateImageView(coCameraView, loImageToShow);
+
+                    if(cbServerActive){
+                        coServer.sendFrame(loImageToShow);
+                    }
                 };
 
                 //Spawn OR run the thread frameGrabber every 33 ms, 30 times a second
@@ -86,32 +89,58 @@ public class GuiController
         }
     }
 
-    private Mat grabFrame()
-    {
-        Mat loMatFrame = new Mat();
+    @FXML
+    protected void startServer(){
 
-        if (coVideoCapture.isOpened())
-        {
-            try
-            {
-                //If our VideoCapture is opened, read the current frame of the camera
-                coVideoCapture.read(loMatFrame);
+        coServerRunner = Executors.newSingleThreadExecutor();
 
-                //If what we read is not empty, then convert the color to Gray Scale
-                if(! loMatFrame.empty())
-                {
-                    Imgproc.cvtColor(loMatFrame, loMatFrame, Imgproc.COLOR_BGR2GRAY);
-                }
-            }
-            catch (NullPointerException aoException)
-            {
-//                System.out.println("Exception thrown during the image elaboration: " + aoException);
-                aoException.printStackTrace();
-                System.exit(1);
-            }
+        if(!cbServerActive) {
+            System.out.println("Trying to start Server");
+            coServer = new VideoServer();
+//            coServerRunner.execute(coServer);
+            coServer.start();
+
+            coStartServerBtn.setText("Server Started");
+            coStartServerBtn.setDisable(true);
+            cbServerActive = true;
         }
-        return loMatFrame;
+//        else{
+//            System.out.println("Trying to close Server");
+//            coServer.interrupt();
+//
+//            coStartServerBtn.setText("Start Server");
+//            cbServerAvtive = false;
+//        }
+
     }
+
+    //Moved to class FrameFetcher
+//    private Mat grabFrame()
+//    {
+//        Mat loMatFrame = new Mat();
+//
+//        if (coVideoCapture.isOpened())
+//        {
+//            try
+//            {
+//                //If our VideoCapture is opened, read the current frame of the camera
+//                coVideoCapture.read(loMatFrame);
+//
+//                //If what we read is not empty, then convert the color to Gray Scale
+//                if(! loMatFrame.empty())
+//                {
+//                    Imgproc.cvtColor(loMatFrame, loMatFrame, Imgproc.COLOR_BGR2GRAY);
+//                }
+//            }
+//            catch (NullPointerException aoException)
+//            {
+////                System.out.println("Exception thrown during the image elaboration: " + aoException);
+//                aoException.printStackTrace();
+//                System.exit(1);
+//            }
+//        }
+//        return loMatFrame;
+//    }
 
     private void stopAcquisition()
     {
@@ -138,11 +167,11 @@ public class GuiController
             }
         }
 
-        if (coVideoCapture.isOpened())
+        if (goFrameFetcher.isEnabled())
         {
             //Release the camera
-            //coVideoCapture.release();
-            //System.out.println("RELEASE!");
+            goFrameFetcher.disable();
+            System.out.println("Video Capture released!");
         }
     }
 

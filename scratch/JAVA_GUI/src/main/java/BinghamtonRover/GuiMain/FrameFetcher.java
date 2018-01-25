@@ -17,7 +17,7 @@ public class FrameFetcher {
      * in a Mat object. Convert the Mat object to Image and then return it.
      * @return MatFrame, the current captured frame from the camera
      */
-    public Image grabFrame()
+    public Mat grabFrame()
     {
         Mat loMatFrame = new Mat();
 
@@ -44,7 +44,8 @@ public class FrameFetcher {
         }
 
         // This method comes from the Util Class and
-        return mat2Image(loMatFrame);
+//        return mat2Image(loMatFrame);
+        return loMatFrame;
     }
 
     public void enable(){

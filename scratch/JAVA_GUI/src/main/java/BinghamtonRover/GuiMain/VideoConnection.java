@@ -15,7 +15,7 @@ import java.util.Random;
  * for receiving the last packet. Every packet right now will be Random
  * Strings. Might need to use a Queue in the future for the packets.
  */
-class VideoConnection extends Thread
+class VideoConnection //extends Thread
 {
 
     //Used for generating random strings
@@ -32,35 +32,27 @@ class VideoConnection extends Thread
         this.coClientSocket = aoClientSocket;
     }
 
-    public void run()
-    {
 
-        try{
+    public void sendData(byte[] data) {
 
+        try {
             BufferedOutputStream loDataOut = new BufferedOutputStream(coClientSocket.getOutputStream());
-            while(true){
-                loDataOut.write(randStr(256).getBytes());
-                loDataOut.flush();
-            }
-
+            loDataOut.write(data);
+            loDataOut.flush();
         }
-        catch(SocketException e)
-        {
-            System.out.println("A Connection has been closed");
+        catch(SocketException e){
+            System.out.println("A socket connection has probably ended");
         }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        try{
-            coClientSocket.close();
-        }
-        catch (IOException e){
+        catch(IOException e){
             e.printStackTrace();
         }
     }
 
+    /**
+     * This Method Generates a random string of specified length from a set of characters
+     * @param anLength, the length of the random string
+     * @return the random string
+     */
     private String randStr(int anLength){
 
         Random r = new Random();
