@@ -37,15 +37,15 @@ public class VideoServer extends Thread
         try
         {
             //Adapted from https://stackoverflow.com/questions/9481865/getting-the-ip-address-of-the-current-machine-using-java
-//            InetAddress addr;
-//            try (final DatagramSocket socket = new DatagramSocket()){
-//                socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
-////                System.out.println("IP address is: " + socket.getLocalAddress().getHostAddress());
-//                addr = socket.getLocalAddress();
-//
-//            }
+            InetAddress addr;
+            try (final DatagramSocket socket = new DatagramSocket()){
+                socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+//                System.out.println("IP address is: " + socket.getLocalAddress().getHostAddress());
+                addr = socket.getLocalAddress();
 
-            coServerSocket = new ServerSocket(Port);  //Create ServerSocket
+            }
+
+            coServerSocket = new ServerSocket(Port, 10, addr);  //Create ServerSocket
             System.out.println("Server socket created, IP Address: " + coServerSocket.getInetAddress().getHostAddress());
             System.out.println("Server socket listening to port: " + coServerSocket.getLocalPort());
 
@@ -106,12 +106,17 @@ public class VideoServer extends Thread
         }
     }
 
+    /**
+     * This method will convert the passed Image frame into a byte array and then
+     * Give this processed byte array to theVideoConnection class to handle
+     * @param aoFrame, Parameter image.
+     */
     public void sendFrame(Image aoFrame){
 
         //If there is no connections, don't do anything
         if(caoConnections.isEmpty())
         {
-            System.out.println("There is no active connection right now");
+            //System.out.println("There is no active connection right now");
             return;
         }
         else{
@@ -123,6 +128,8 @@ public class VideoServer extends Thread
                 ByteArrayOutputStream bao = new ByteArrayOutputStream();
                 ImageIO.write(bufImage, "png", bao);
                 byteFrame = bao.toByteArray();
+
+
 
                 for(VideoConnection connection: caoConnections){
                     connection.sendData(byteFrame);
