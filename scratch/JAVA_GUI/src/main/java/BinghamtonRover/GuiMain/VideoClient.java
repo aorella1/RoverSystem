@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 import static BinghamtonRover.Video.Utils.mat2Image;
 
@@ -41,6 +42,12 @@ public class VideoClient extends Thread{
         }
     }
 
+
+    /**
+     * This method first reads the expected length of the incoming data, then
+     * read the data into a buffer. Then from the buffer, reconstruct the
+     * frame sent, and then update the frame onto the GUI.
+     */
     public void run()
     {
         try{
@@ -48,11 +55,23 @@ public class VideoClient extends Thread{
 //            BufferedWriter dataOut = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
             BufferedInputStream dataIn = new BufferedInputStream(clientSocket.getInputStream());
+            //Allocate 2MB of space for the incoming data
+            byte[] buffer;
+            byte[] dataLengthBuf = new byte[4];
 
             while(true) {
 
-                //Allocate 2MB of space for the incoming data
-                byte[] buffer = new byte[4194304/2];
+                //Read the length of the incoming data
+                dataIn.read(dataLengthBuf, 0, 4);
+                ByteBuffer wrapped = ByteBuffer.wrap(dataLengthBuf); // big-endian by default
+                int length = wrapped.getInt();
+                buffer = new byte[length];
+
+
+                while (dataIn.available() < length)
+                {
+                }
+
                 int bytesRead = dataIn.read(buffer);
                 System.out.println("Read " + bytesRead + " bytes From Server");
 
