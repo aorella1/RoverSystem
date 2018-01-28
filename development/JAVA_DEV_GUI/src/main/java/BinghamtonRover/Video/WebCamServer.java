@@ -1,10 +1,5 @@
 package BinghamtonRover.Video;
-
-import org.bytedeco.javacv.CanvasFrame;
-import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.FrameGrabber;
-import org.bytedeco.javacv.OpenCVFrameGrabber;
-
+import org.bytedeco.javacv.*;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.ServerSocket;
@@ -106,16 +101,16 @@ public class WebCamServer
             //in a while loop so multiple clients can potentially connect.
             //also, a client disconnecting does not crash the server and his socket continues to work
             while(true){
-                try {
-                    Socket clientSocket = acceptClient(srvSocket);
-                    System.out.println("Accepted a client!");
-                    //start a worker thread to service the client, then look for more clients
-                    Thread clientThread = new Thread(new ClientWorkerRunnable(feed, clientSocket));
-                    clientThread.start();
-                }
-                catch(Exception e){
-                    System.exit(-1);
-                }
+                    try {
+                        Socket clientSocket = acceptClient(srvSocket);
+                        System.out.println("Accepted a client!");
+                        //start a worker thread to service the client, then look for more clients
+                        Thread clientThread = new Thread(new ClientWorkerRunnable(feed, clientSocket));
+                        clientThread.start();
+                    }
+                    catch(Exception e){
+                        System.exit(-1);
+                    }
             }
         }
         catch(IOException e){
