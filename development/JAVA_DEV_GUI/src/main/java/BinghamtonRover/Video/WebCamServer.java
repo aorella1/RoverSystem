@@ -1,9 +1,7 @@
 package BinghamtonRover.Video;
 import org.bytedeco.javacv.*;
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 
 public class WebCamServer
 {
@@ -92,26 +90,39 @@ public class WebCamServer
      */
     public static void main(String[] args){
         OpenCVFrameGrabber feed = WebCamServer.createVideoFeed();
-        try(ServerSocket srvSocket = new ServerSocket(gn_port)){
+        try(DatagramSocket srvSocket = new DatagramSocket(gn_port)){
             Thread feedThread = new Thread(new VideoFeedWorkerRunnable(feed));
             feedThread.start();
             System.out.println("Server's port: " + gn_port);
             System.out.println("Server's host: " + Inet4Address.getLocalHost().getHostAddress());
-            //look to accept a client and then send feed to that client
-            //in a while loop so multiple clients can potentially connect.
-            //also, a client disconnecting does not crash the server and his socket continues to work
-            while(true){
-                    try {
-                        Socket clientSocket = acceptClient(srvSocket);
-                        System.out.println("Accepted a client!");
+
+            //Wait to receive a data request packet from the client, once received, the server
+            //will start sending the feed to the client
+            byte[] clientRspBuf = new byte[1];
+            DatagramPacket clientRsp = new DatagramPacket(clientRspBuf, clientRspBuf.length);
+//            srvSocket.setSoTimeout(2);
+            srvSocket.receive(clientRsp);
+
+            InetAddress addr = clientRsp.getAddress();
+            int port = clientRsp.getPort();
+
+
+            System.out.println("Received a data request from IP: " + addr.getHostAddress() + ", port: " + port);
+
+//            while(true){
+//                    try {
+                        //Socket clientSocket = acceptClient(srvSocket);
                         //start a worker thread to service the client, then look for more clients
-                        Thread clientThread = new Thread(new ClientWorkerRunnable(feed, clientSocket));
+                        Thread clientThread = new Thread(new ClientWorkerRunnable(feed, srvSocket, addr, port));
                         clientThread.start();
-                    }
-                    catch(Exception e){
-                        System.exit(-1);
-                    }
-            }
+                        while(true){
+
+                        }
+//                    }
+//                    catch(Exception e){
+//                        System.exit(-1);
+//                    }
+//            }
         }
         catch(IOException e){
             e.printStackTrace();
