@@ -85,7 +85,7 @@ public class Client {
                 try (OutputStream os = new BufferedOutputStream(new FileOutputStream(file))){
 
                     //First receive data for the length of the incoming data
-                    byte[] buffer = new byte[3];
+                    byte[] buffer = new byte[12];
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                     System.out.println("waiting for fragLength packet");
                     clientSocket.receive(packet);
