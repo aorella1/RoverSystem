@@ -3,16 +3,18 @@ package BinghamtonRover.Video;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacv.*;
 import java.io.*;
-import java.net.ConnectException;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
+import java.nio.*;
 import java.util.Scanner;
 
+import static BinghamtonRover.Video.Utils.BytesToInt;
 import static org.bytedeco.javacpp.opencv_imgcodecs.cvLoadImage;
 
 public class Client {
     private String host;
     private int port;
+    private DatagramSocket socket;
+    private static int PACKET_LIMIT = 65507;
 
     /**
      * Client value constructor
@@ -22,29 +24,45 @@ public class Client {
     private Client(String h, int p){
         host = h;
         port = p;
+        try {
+            //Connect the client socket to the server address and port
+            //The client can only receive and send packet to server address
+            socket = new DatagramSocket(8080);
+            socket.connect(InetAddress.getByName(host), port);
+            System.out.println("Connecting to Server at IP: " + host + ", port: " + port);
+
+
+        }
+        catch(UnknownHostException e) {
+            e.printStackTrace();
+        }
+        catch(SocketException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
      * This method is meant to connect a client to the Server.
      * @return clientSocket the socket corresponding to the Client's connection to the Server
      */
-    private Socket connectClient(){
-        Socket clientSocket = null;
-        try {
-            //this call automatically calls connect for us.
-            //so we do not need to call connect on it.
-            clientSocket = new Socket(host, port);
-        }
-        catch(ConnectException e){
-            System.out.println("Could not establish a socket for streaming feed. Exiting.");
-            System.exit(-1);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return clientSocket;
-
-    }
+//    private Socket connectClient(){
+////        Socket clientSocket = null;
+//        try {
+//            //this call automatically calls connect for us.
+//            //so we do not need to call connect on it.
+//            clientSocket = new Socket(host, port);
+//        }
+//        catch(ConnectException e){
+//            System.out.println("Could not establish a socket for streaming feed. Exiting.");
+//            System.exit(-1);
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return clientSocket;
+//
+//    }
 
     /**
      * This method displays a canvasFrame for the client, and tries to display each frame
@@ -53,19 +71,48 @@ public class Client {
      * but the byte array option will probably prove more efficient and better for playing with the frame data later on if needed.
      * @param clientSocket The socket corresponding to the client's connection with the Server
      */
-    private static void displayFeed(Socket clientSocket){
+    private static void displayFeed(DatagramSocket clientSocket){
         CanvasFrame canvas = new CanvasFrame("Client Webcam feed");
         try {
-            DataInputStream dis = new DataInputStream(new DataInputStream(clientSocket.getInputStream()));
+//            DataInputStream dis = new DataInputStream(new DataInputStream(clientSocket.getInputStream()));
+            DatagramPacket initRequest = new DatagramPacket( new byte[] {0x01}, 1);
+            clientSocket.send(initRequest);
+            ByteArrayInputStream bis;
+
             while (clientSocket.isConnected()) {
+                System.out.println("Socket is connected");
                 File file = new File("sentFrame.jpg");
                 try (OutputStream os = new BufferedOutputStream(new FileOutputStream(file))){
-                    if(dis.available() <= 0) continue;
-                    long arrlen = dis.readLong();
-                    for (int i = 0; i < arrlen; i++) {
-                        os.write(dis.read());
+
+                    //First receive data for the length of the incoming data
+                    byte[] buffer = new byte[3];
+                    DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                    System.out.println("waiting for fragLength packet");
+                    clientSocket.receive(packet);
+
+
+                    //Convert data and get the length of the incoming data
+                    int[] fraglength = BytesToInt(packet.getData());
+                    System.out.println("Expects " + fraglength.length + " packages.");
+
+//                    buffer = new byte[PACKET_LIMIT];
+//                    data.setData(buffer);
+
+                    //for every fragment length, crete a new datagram packet
+                    //receive the data from the server, put it into the packet
+                    //read the data from the packet using DataInputStream
+                    //and write it to the file
+                    for(int i = 0; i < fraglength.length; i++) {
+                        packet = new DatagramPacket(new byte[fraglength[i]], fraglength[i]);
+                        clientSocket.receive(packet);
+                        bis = new ByteArrayInputStream(packet.getData());
+                        if(bis.available() <= 0) continue;
+
+                        while( (bis.read()) == -1)
+                            os.write(bis.read());
+                        os.flush();
                     }
-                    os.flush();
+
                     os.close();
                 } catch (EOFException e) {
                     e.printStackTrace();
@@ -83,14 +130,23 @@ public class Client {
                 canvas.showImage(imgToFrame.convert(img));
            }
         }
+//        catch(IOException e){
+//            e.printStackTrace();
+//            System.out.println("Lost connection to server. Exiting now.");
+//            System.exit(-1);
+//        }
         catch(IOException e){
             e.printStackTrace();
-            System.out.println("Lost connection to server. Exiting now.");
-            System.exit(-1);
         }
         catch(NullPointerException e){
-            e.getStackTrace();
+            e.printStackTrace();
         }
+
+
+    }
+
+    public DatagramSocket getSocket(){
+        return this.socket;
     }
 
     /**
@@ -106,8 +162,8 @@ public class Client {
         System.out.println("Enter the server's port: ");
         int port = reader.nextInt();
         Client client = new Client(host, port);
-        Socket clientSocket = client.connectClient();
-        Client.displayFeed(clientSocket);
+//        Socket clientSocket = client.connectClient();
+        Client.displayFeed(client.getSocket());
 
     }
 }

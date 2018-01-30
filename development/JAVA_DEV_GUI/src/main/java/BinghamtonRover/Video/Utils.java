@@ -8,6 +8,9 @@ import org.opencv.core.Mat;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /**
  * Provide general purpose methods for handling OpenCV-JavaFX data conversion.
@@ -84,4 +87,75 @@ public final class Utils
 
         return image;
     }
+
+    /**
+     * This method will return an array of integer indicating the size of each fragment
+     * packet of the image file during packet to be transmitted.
+     * @param fileSize, the size of the original file
+     * @return int array of DatagramPacket size
+     */
+    public static int[] getPacketsSize(int fileSize)
+    {
+        final int PACKET_LIMIT = 65507;
+        int[] arrPacketLen = new int[(int) Math.ceil((double)fileSize/PACKET_LIMIT)];
+
+        for(int i = 0; i < arrPacketLen.length; i++)
+        {
+            int fragLength = PACKET_LIMIT % fileSize;
+            fileSize -= PACKET_LIMIT;
+
+            arrPacketLen[i] = fragLength;
+        }
+        return arrPacketLen;
+    }
+
+    /**
+     * This method takes in an integer and return an equivalent byte array
+     * @param n integer
+     * @return byte array representing the integer
+     */
+    public static byte[] intToBytes(int n)
+    {
+        ByteBuffer dbuf = ByteBuffer.allocate(4);
+        return dbuf.putInt(n).array();
+    }
+
+    /**
+     * This method takes a byte array and return an int array. This method
+     * requires the byte array to have length that is divisible by 4
+     * @param bytes, byte array
+     * @return, the integer array, every integer is encoded by 4 bytes
+     */
+    public static int[] BytesToInt(byte[] bytes)
+    {
+
+        int [] arr = new int[bytes.length/4];
+        for(int i = 0; i < bytes.length; i+=4) {
+            ByteBuffer dbuf = ByteBuffer.wrap(bytes, i, 4);
+            arr[i/4] = dbuf.getInt();
+        }
+        return arr;
+    }
+
+    /**
+     * This method takes in an integer array, convert it to a byte array ans return it
+     * @param arr, integer array
+     * @return byte array converted from the integer array
+     */
+    public static byte[] intToBytes(int[] arr)
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(4*arr.length);
+        ByteBuffer dbuf;
+        for (int i = 0; i < arr.length; i++) {
+            try {
+                dbuf = ByteBuffer.allocate(4);
+                bos.write(dbuf.putInt(arr[i]).array());
+            }
+            catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return bos.toByteArray();
+    }
+
 }
