@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 
+import static BinghamtonRover.Video.Utils.getPacketsSize;
 import static BinghamtonRover.Video.Utils.intToBytes;
 import static org.bytedeco.javacpp.opencv_imgcodecs.cvSaveImage;
 
@@ -19,8 +20,8 @@ public class ClientWorkerRunnable implements Runnable{
     private DatagramSocket serverSocket;
     private InetAddress addr;
     private int port;
-//    //Every DatagramPacket is limited to 65507 bytes
-//    private static int PACKET_LIMIT = 65507;
+    //Every DatagramPacket is limited to 65507 bytes
+    private static int PACKET_LIMIT = 65507;
 
     ClientWorkerRunnable(OpenCVFrameGrabber f, DatagramSocket socket, InetAddress addr, int port){
         feed = f;
@@ -46,7 +47,7 @@ public class ClientWorkerRunnable implements Runnable{
             DatagramPacket packet;
 
             while((frame = feed.grab()) != null) {
-                //Grab a frame, convert it to type IplImage, then save it as a jpg file
+                //Grab a frame, convert it to an image, then save it as a jpg file
                 OpenCVFrameConverter frameToImg = new OpenCVFrameConverter.ToIplImage(); //put this outside the loop?
                 img = (opencv_core.IplImage) frameToImg.convert(frame);
                 cvSaveImage("frame.jpg", img);
@@ -62,25 +63,19 @@ public class ClientWorkerRunnable implements Runnable{
 
                     //get the length of the file and figure out the size of each fragment of the packet
                     int dataLen = (int)file.length();
-                    System.out.println("Sending " + dataLen + " amount of data");
+                    System.out.println("image size:  " + dataLen + " bytes");
                     int [] packetLens = Utils.getPacketsSize(dataLen);
 
-                    //Send the size of each packet Fragment
-                    packet = new DatagramPacket(intToBytes(packetLens), packetLens.length, addr, port);
+                    //Send the numbers of the packet Fragments
+                    packet = new DatagramPacket(intToBytes(packetLens.length), 4, addr, port);
                     serverSocket.send(packet);
-
+                    System.out.println("Sending " + packetLens.length + " Packets");
                     for (int i = 0; i < packetLens.length; i++)
                     {
-
                         // Create a Datagram Packet for each length inside the array
                         // and read the file into each packet Fragment accordingly.
-                        bos = new ByteArrayOutputStream(packetLens[i]);
-//                        packet = new DatagramPacket(new byte[packetLens[i]], packetLens[i], addr, port);
-
-//                        ByteBuffer dbuf = ByteBuffer.allocate(4);
-//                        byte[] fragLength = dbuf.putInt(packetLens[i]).array();
-
-                        while(bos.size() < packetLens[i])
+                        bos = new ByteArrayOutputStream(PACKET_LIMIT);
+                        while(bos.size() < PACKET_LIMIT)
                         {
                             bos.write(is.read());
                         }
@@ -90,31 +85,6 @@ public class ClientWorkerRunnable implements Runnable{
                         packet = new DatagramPacket(fragPacket, fragPacket.length, addr, port);
                         serverSocket.send(packet);
                     }
-
-
-
-//                    packet = new DatagramPacket(dbuf.array(), 4, addr, port);
-//                    serverSocket.send(packet);
-
-//                    int val = 0;
-//                    byte [] imgData;
-//                    while (val != -1)
-//                    {
-//                        bos = new ByteArrayOutputStream();
-//                        bos.write();
-//
-//                        while(bos.size() < PACKET_LIMIT && (val = is.read()) != -1)
-//                            bos.write(val);
-//                        imgData = bos.toByteArray();
-//                        System.out.println("imgData Fragment length: " + imgData.length);
-//                        packet = new DatagramPacket(imgData, imgData.length, addr, port);
-//                        serverSocket.send(packet);
-//                        bos.flush();
-//                        System.out.println("bos length:" + bos.size());
-//                    }
-//                    byte [] imgData = bos.toByteArray();
-//                    System.out.println("imgData.length: " + imgData.length);
-
 
                 }
 
