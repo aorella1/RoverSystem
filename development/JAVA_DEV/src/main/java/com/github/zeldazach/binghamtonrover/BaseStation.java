@@ -4,6 +4,7 @@ import com.github.zeldazach.binghamtonrover.controller.ControllerHandler;
 import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
 import com.github.zeldazach.binghamtonrover.networking.Manager;
 import com.github.zeldazach.binghamtonrover.networking.ControllerUpdater;
+import com.github.zeldazach.binghamtonrover.video.VideoPacketHandler;
 import javafx.application.Application;
 
 import java.net.SocketException;
@@ -51,6 +52,8 @@ public class BaseStation
             System.err.println("Failed to find the specified host: "+ e.getMessage());
             System.exit(1);
         }
+
+        networkManager.setHandler(2, new VideoPacketHandler());
 
         try
         {
