@@ -90,11 +90,27 @@ public class WebCamServer
      */
     public static void main(String[] args){
         OpenCVFrameGrabber feed = WebCamServer.createVideoFeed();
-        try(DatagramSocket srvSocket = new DatagramSocket(gn_port)){
+
+        //Adapted from https://stackoverflow.com/questions/9481865/getting-the-ip-address-of-the-current-machine-using-java
+        InetAddress addr = null;
+        try (final DatagramSocket socket = new DatagramSocket()){
+            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            //System.out.println(socket.getLocalAddress().getHostAddress());
+            addr = socket.getLocalAddress();
+
+        }
+        catch(UnknownHostException e){
+            e.printStackTrace();
+        }
+        catch(SocketException e) {
+            e.printStackTrace();
+        }
+
+        try(DatagramSocket srvSocket = new DatagramSocket(gn_port, addr)){
             Thread feedThread = new Thread(new VideoFeedWorkerRunnable(feed));
             feedThread.start();
             System.out.println("Server's port: " + gn_port);
-            System.out.println("Server's host: " + Inet4Address.getLocalHost().getHostAddress());
+            System.out.println("Server's host: " + srvSocket.getLocalAddress().getHostAddress());
 
             //Wait to receive a data request packet from the client, once received, the server
             //will start sending the feed to the client
@@ -103,26 +119,19 @@ public class WebCamServer
 //            srvSocket.setSoTimeout(2);
             srvSocket.receive(clientRsp);
 
-            InetAddress addr = clientRsp.getAddress();
+            InetAddress clientAddr = clientRsp.getAddress();
             int port = clientRsp.getPort();
 
 
-            System.out.println("Received a data request from IP: " + addr.getHostAddress() + ", port: " + port);
+            System.out.println("Received a data request from IP: " + clientAddr.getHostAddress() + ", port: " + port);
 
-//            while(true){
-//                    try {
-                        //Socket clientSocket = acceptClient(srvSocket);
-                        //start a worker thread to service the client, then look for more clients
-                        Thread clientThread = new Thread(new ClientWorkerRunnable(feed, srvSocket, addr, port));
-                        clientThread.start();
-                        while(true){
+                //Socket clientSocket = acceptClient(srvSocket);
+                //start a worker thread to service the client, then look for more clients
+                Thread clientThread = new Thread(new ClientWorkerRunnable(feed, srvSocket, clientAddr, port));
+                clientThread.start();
+                while(true){
 
-                        }
-//                    }
-//                    catch(Exception e){
-//                        System.exit(-1);
-//                    }
-//            }
+                }
         }
         catch(IOException e){
             e.printStackTrace();

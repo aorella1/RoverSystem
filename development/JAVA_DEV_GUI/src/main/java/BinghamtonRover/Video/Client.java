@@ -85,7 +85,7 @@ public class Client {
                 try (OutputStream os = new BufferedOutputStream(new FileOutputStream(file))){
 
                     //First receive data for the length of the incoming data
-                    byte[] buffer = new byte[12];
+                    byte[] buffer = new byte[4];
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                     System.out.println("waiting for fragLength packet");
                     clientSocket.receive(packet);
@@ -93,7 +93,7 @@ public class Client {
 
                     //Convert data and get the length of the incoming data
                     int[] fraglength = BytesToInt(packet.getData());
-                    System.out.println("Expects " + fraglength.length + " packages.");
+                    System.out.println("Expects " + fraglength[0] + " packages.");
 
 //                    buffer = new byte[PACKET_LIMIT];
 //                    data.setData(buffer);
@@ -102,17 +102,17 @@ public class Client {
                     //receive the data from the server, put it into the packet
                     //read the data from the packet using DataInputStream
                     //and write it to the file
-                    for(int i = 0; i < fraglength.length; i++) {
-                        packet = new DatagramPacket(new byte[fraglength[i]], fraglength[i]);
+                    for(int i = 0; i < fraglength[0]; i++) {
+                        packet = new DatagramPacket(new byte[PACKET_LIMIT], PACKET_LIMIT);
                         clientSocket.receive(packet);
                         bis = new ByteArrayInputStream(packet.getData());
                         if(bis.available() <= 0) continue;
 
-                        while( (bis.read()) == -1)
+                        while( (bis.available() > 0))
                             os.write(bis.read());
-                        os.flush();
-                    }
 
+                    }
+                    os.flush();
                     os.close();
                 } catch (EOFException e) {
                     e.printStackTrace();
