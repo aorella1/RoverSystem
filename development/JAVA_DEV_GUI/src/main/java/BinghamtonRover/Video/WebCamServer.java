@@ -94,7 +94,7 @@ public class WebCamServer
         //Adapted from https://stackoverflow.com/questions/9481865/getting-the-ip-address-of-the-current-machine-using-java
         InetAddress addr = null;
         try (final DatagramSocket socket = new DatagramSocket()){
-            socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            socket.connect(InetAddress.getByName("0.0.0.0"), 10002);
             //System.out.println(socket.getLocalAddress().getHostAddress());
             addr = socket.getLocalAddress();
 
