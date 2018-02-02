@@ -6,7 +6,7 @@ import java.net.*;
 import java.nio.ByteBuffer;
 
 public class DemoWebCamServer {
-    private static final int port = 5000;
+    private static final int port = 5001;
     private DatagramSocket socket;
     private InetAddress address;
     private char timestamp = 0;
