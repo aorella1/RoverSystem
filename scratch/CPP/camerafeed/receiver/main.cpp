@@ -14,7 +14,7 @@
 
 #define CAMERA_PACKET_DATA_MAX_SIZE 40000
 #define CAMERA_FRAME_BUFFER_SIZE 4000000
-#define CAMERA_FRAME_DELAY 6
+#define CAMERA_FRAME_DELAY 5
 
 #define PACKET_BUFFER_SIZE CAMERA_PACKET_DATA_MAX_SIZE + 5 + 4
 
@@ -77,29 +77,19 @@ public:
                 if (buffers[next_buffer].remaining_sections == 0) {
                     // We are ready to push to screen!
 
-                    std::cout << "> Pushing buffer " << next_buffer << "!" << std::endl;
-                    std::cout << "    > Timestamp: " << buffers[next_buffer].timestamp << std::endl;
-                    std::cout << "    > Size: " << buffers[next_buffer].buffer_size << std::endl;
-
-                    std::cout << "FIRST BYTE OF ARRAY " << (int) buffers[next_buffer].buffer[1566] << std::endl;
-
                     std::vector<unsigned char> jpeg_buffer(buffers[next_buffer].buffer, buffers[next_buffer].buffer + buffers[next_buffer].buffer_size);
-
-                    std::cout << "FIRST BYTE OF FUCKING SON OF A BITCH " << (int) jpeg_buffer[1566] << std::endl;
 
                     cv::Mat jpeg_frame = cv::imdecode(jpeg_buffer, CV_LOAD_IMAGE_COLOR);
                     cv::imshow("feed", jpeg_frame);
                     cv::waitKey(20);
+                } else {
+                    std::cout << "> Dropped frame with timestamp " << buffers[next_buffer].timestamp << std::endl;
                 }
-
-                std::cout << "> Dropped frame with timestamp " << buffers[next_buffer].timestamp << std::endl;
             }
-
-            printf("Starting new at %u with ts %u, remaining sec %u, buffer size %u\n", next_buffer, timestamp, section_count - 1, frame_data_size);
 
             buffers[next_buffer].timestamp = timestamp;
             buffers[next_buffer].remaining_sections = section_count - 1;
-            memcpy(buffers[next_buffer].buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_count), frame_data, frame_data_size);
+            memcpy((void*) (buffers[next_buffer].buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_id)), frame_data, frame_data_size);
             buffers[next_buffer].buffer_size = frame_data_size;
 
             // Reset our next_buffer.
@@ -107,10 +97,8 @@ public:
         } else {
             // We found our buffer, let's update it!
 
-            std::cout << "Updating buffer " << found_buffer_idx << ": Had remaining " << (int) buffers[found_buffer_idx].remaining_sections << std::endl;
-
             buffers[found_buffer_idx].remaining_sections--;
-            memcpy(buffers[found_buffer_idx].buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_count), frame_data, frame_data_size);
+            memcpy((void*) (buffers[found_buffer_idx].buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_id)), frame_data, frame_data_size);
             buffers[found_buffer_idx].buffer_size += frame_data_size;
         }
     }

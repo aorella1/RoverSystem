@@ -58,16 +58,24 @@ int main(int argc, char** argv) {
     }
 
     cv::VideoCapture capture(0);
+
+    capture.set(CV_CAP_PROP_FRAME_WIDTH, 1920);
+    capture.set(CV_CAP_PROP_FRAME_HEIGHT, 1080);
+
     cv::Mat frame;
     std::vector<unsigned char> jpeg_buffer;
 
     uint8_t packet_buffer[PACKET_BUFFER_SIZE];
     uint16_t packet_timestamp = 1;
 
+    std::vector<int> encode_options;
+    encode_options.push_back(CV_IMWRITE_JPEG_QUALITY);
+    encode_options.push_back(50);
+
     for (;;) {
         capture >> frame;
 
-        cv::imencode(".jpg", frame, jpeg_buffer);
+        cv::imencode(".jpg", frame, jpeg_buffer, encode_options);
 
         uint8_t* frame_buffer = (uint8_t*) jpeg_buffer.data();
         size_t frame_buffer_size = (size_t) jpeg_buffer.size();
@@ -80,7 +88,6 @@ int main(int argc, char** argv) {
             // Packet Type
             BUFFERITEM(packet_buffer, 2, uint8_t) = 2;
             // Timestamp
-
             BUFFERITEM(packet_buffer, 3, uint16_t) = htons(packet_timestamp);
 
             // Section ID
@@ -95,8 +102,6 @@ int main(int argc, char** argv) {
             } else {
                 frame_data_size = (uint16_t) (frame_buffer_size % CAMERA_PACKET_DATA_MAX_SIZE);
             }
-
-            std::cout << "FRAME DATA SIZE: " << frame_data_size << std::endl;
 
             // Frame data size
             BUFFERITEM(packet_buffer, 7, uint16_t) = htons(frame_data_size);
