@@ -20,6 +20,9 @@
 
 #define BUFFERITEM(buf, offset, type) *((type*) &buf[offset])
 
+uint64_t total_frames_received = 0;
+uint64_t total_frames_dropped = 0;
+
 struct FrameBuffer {
     uint16_t timestamp;
     uint8_t remaining_sections;
@@ -70,6 +73,7 @@ public:
 
         if (found_buffer_idx == -1) {
             // We did not find a buffer... it is a new frame!
+            total_frames_received++;
 
             if (buffers[next_buffer].timestamp != 0) {
                 // It is not a new buffer... it already has a frame in it.
@@ -77,13 +81,10 @@ public:
                 if (buffers[next_buffer].remaining_sections == 0) {
                     // We are ready to push to screen!
 
-                    std::vector<unsigned char> jpeg_buffer(buffers[next_buffer].buffer, buffers[next_buffer].buffer + buffers[next_buffer].buffer_size);
-
-                    cv::Mat jpeg_frame = cv::imdecode(jpeg_buffer, CV_LOAD_IMAGE_COLOR);
-                    cv::imshow("feed", jpeg_frame);
-                    cv::waitKey(20);
+                    // HERE'S WHERE WE NORMALLY PUSH
                 } else {
-                    std::cout << "> Dropped frame with timestamp " << buffers[next_buffer].timestamp << std::endl;
+                    std::cout << "> Dropped frame with timestamp " << buffers[next_buffer].timestamp << ", dropped perc " << total_frames_dropped / (double) total_frames_received << std::endl;
+                    total_frames_dropped++;
                 }
             }
 
@@ -97,9 +98,19 @@ public:
         } else {
             // We found our buffer, let's update it!
 
-            buffers[found_buffer_idx].remaining_sections--;
-            memcpy((void*) (buffers[found_buffer_idx].buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_id)), frame_data, frame_data_size);
-            buffers[found_buffer_idx].buffer_size += frame_data_size;
+            FrameBuffer* our_buffer = &buffers[found_buffer_idx];
+
+            our_buffer->remaining_sections--;
+            memcpy((void*) (our_buffer->buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_id)), frame_data, frame_data_size);
+            our_buffer->buffer_size += frame_data_size;
+
+            if (our_buffer->remaining_sections == 0) {
+                std::vector<unsigned char> jpeg_buffer(our_buffer->buffer, our_buffer->buffer + our_buffer->buffer_size);
+
+                cv::Mat jpeg_frame = cv::imdecode(jpeg_buffer, CV_LOAD_IMAGE_COLOR);
+                cv::imshow("feed", jpeg_frame);
+                cv::waitKey(20);
+            }
         }
     }
 };
