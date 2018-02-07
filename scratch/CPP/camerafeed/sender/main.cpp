@@ -23,7 +23,7 @@
 int main(int argc, char** argv) {
     // Arguments: <bind port> <receiver address> <receiver port>
     if (argc < 4) {
-        std::cerr << "[!] Incorrect useage!" << std::endl << argv[0] << " <bind port> <receiver address> <receiver port>" << std::endl;
+        std::cerr << "[!] Incorrect usage!" << std::endl << argv[0] << " <bind port> <receiver address> <receiver port>" << std::endl;
         return 1;
     }
 
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
     std::vector<unsigned char> jpeg_buffer;
 
     uint8_t packet_buffer[PACKET_BUFFER_SIZE];
-    uint16_t packet_timestamp = 0;
+    uint16_t packet_timestamp = 1;
 
     for (;;) {
         capture >> frame;
@@ -76,17 +76,12 @@ int main(int argc, char** argv) {
 
         for (uint8_t section_id = 0; section_id < packet_count; section_id++) {
             // Version
-            BUFFERITEM(packet_buffer, 0, uint16_t) = (uint16_t) htons(4);
+            BUFFERITEM(packet_buffer, 0, uint16_t) = htons(4);
             // Packet Type
             BUFFERITEM(packet_buffer, 2, uint8_t) = 2;
             // Timestamp
-            BUFFERITEM(packet_buffer, 3, uint16_t) = (uint16_t) htons(packet_timestamp);
 
-            if (packet_timestamp == UINT16_MAX) {
-                packet_timestamp = 0;
-            } else {
-                packet_timestamp++;
-            }
+            BUFFERITEM(packet_buffer, 3, uint16_t) = htons(packet_timestamp);
 
             // Section ID
             BUFFERITEM(packet_buffer, 5, uint8_t) = section_id;
@@ -101,11 +96,13 @@ int main(int argc, char** argv) {
                 frame_data_size = (uint16_t) (frame_buffer_size % CAMERA_PACKET_DATA_MAX_SIZE);
             }
 
+            std::cout << "FRAME DATA SIZE: " << frame_data_size << std::endl;
+
             // Frame data size
-            BUFFERITEM(packet_buffer, 7, uint16_t) = (uint16_t) htons(frame_data_size);
+            BUFFERITEM(packet_buffer, 7, uint16_t) = htons(frame_data_size);
 
             // Frame data
-            memcpy(&packet_buffer[8], frame_buffer, frame_data_size);
+            memcpy(&packet_buffer[9], frame_buffer, frame_data_size);
 
             // Move frame_buffer pointer along
             frame_buffer += CAMERA_PACKET_DATA_MAX_SIZE;
@@ -120,12 +117,21 @@ int main(int argc, char** argv) {
             // Configure the address
             inet_aton(receiver_address, &send_addr.sin_addr);
 
+            ssize_t sent_size;
+
             // Send the packet
-            if (sendto(socket_fd, packet_buffer, 5 + 4 + frame_buffer_size, 0, (struct sockaddr*) &send_addr, sizeof(send_addr)) < 0)
+            if ((sent_size = sendto(socket_fd, packet_buffer, 5 + 4 + CAMERA_PACKET_DATA_MAX_SIZE, 0, (struct sockaddr*) &send_addr, sizeof(send_addr))) < 0)
             {
                 // Send failure
                 std::cerr << "[!] Failed to send packet!" << std::endl;
+                std::cerr << "[!] Errno: " << errno << std::endl;
             }
+        }
+
+        if (packet_timestamp == UINT16_MAX) {
+            packet_timestamp = 1;
+        } else {
+            packet_timestamp++;
         }
     }
 
