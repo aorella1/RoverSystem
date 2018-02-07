@@ -12,7 +12,7 @@
 
 #include <opencv2/opencv.hpp>
 
-#define CAMERA_PACKET_DATA_MAX_SIZE 40000
+#define CAMERA_PACKET_DATA_MAX_SIZE 50000
 #define CAMERA_FRAME_BUFFER_SIZE 4000000
 #define CAMERA_FRAME_DELAY 5
 
@@ -122,31 +122,31 @@ int main(int argc, char** argv) {
 
     int port = atoi(argv[1]);
     
-     // Set our listening address.
-     struct sockaddr_in address;
-     // Clear its memory.
-     memset((char*)&address, 0, sizeof(address));
-     // Use IP addresses.
-     address.sin_family = AF_INET;
-     // Convert the address "0.0.0.0" to a long representation.
-     inet_aton("0.0.0.0", &address.sin_addr);
-     // Set the desired listening port.
-     address.sin_port = htons(port);
- 
-     if (bind(socket_fd, (struct sockaddr*) &address, sizeof(address)) < 0)
-     {
-         // Bind failure
-         std::cerr << "[!] Failed to bind socket!" << std::endl;
-         return 1;
-     }
+    // Set our listening address.
+    struct sockaddr_in address;
+    // Clear its memory.
+    memset((char*)&address, 0, sizeof(address));
+    // Use IP addresses.
+    address.sin_family = AF_INET;
+    // Convert the address "0.0.0.0" to a long representation.
+    inet_aton("0.0.0.0", &address.sin_addr);
+    // Set the desired listening port.
+    address.sin_port = htons(port);
 
-     FrameBufferContainer buffer_container;
+    if (bind(socket_fd, (struct sockaddr*) &address, sizeof(address)) < 0)
+    {
+        // Bind failure
+        std::cerr << "[!] Failed to bind socket!" << std::endl;
+        return 1;
+    }
 
-     uint8_t packet_buffer[PACKET_BUFFER_SIZE];
-     struct sockaddr src_addr;
-     socklen_t src_addr_len;
+    FrameBufferContainer buffer_container;
 
-     for (;;) {
+    uint8_t packet_buffer[PACKET_BUFFER_SIZE];
+    struct sockaddr src_addr;
+    socklen_t src_addr_len;
+
+    for (;;) {
         src_addr_len = sizeof(src_addr);
         ssize_t res = recvfrom(socket_fd, packet_buffer, PACKET_BUFFER_SIZE, MSG_DONTWAIT, &src_addr, &src_addr_len);
         if (res == -1) {
@@ -173,5 +173,5 @@ int main(int argc, char** argv) {
         //printf("   Packet had read length %d\n", res);
 
         buffer_container.update_buffer(timestamp, section_id, section_count, &packet_buffer[9], frame_data_size);
-     }
+    }
 }
