@@ -14,11 +14,17 @@
 
 #define CAMERA_PACKET_DATA_MAX_SIZE 50000
 #define CAMERA_FRAME_BUFFER_SIZE 4000000
-#define CAMERA_FRAME_DELAY 6
 
 #define PACKET_BUFFER_SIZE CAMERA_PACKET_DATA_MAX_SIZE + 10
 
 #define BUFFERITEM(buf, offset, type) *((type*) &buf[offset])
+
+uint64_t millisecond_time() {
+    struct timespec  ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+
+    return (ts.tv_sec) * 1000 + (ts.tv_nsec) / 1000000;
+}
 
 int main(int argc, char** argv) {
     // Arguments: <bind port> <receiver address> <receiver port>
@@ -72,7 +78,14 @@ int main(int argc, char** argv) {
     encode_options.push_back(CV_IMWRITE_JPEG_QUALITY);
     encode_options.push_back(50);
 
-    for (;;) {
+    uint64_t last_time = millisecond_time();
+    uint64_t cycles = 0;
+
+    while(cycles < 100) {
+        printf("> %f frames per second! %lu\n", (float) cycles / (millisecond_time() - last_time)*1000.0, millisecond_time() - last_time);
+        // printf("Time since last capture: %lu\n", (millisecond_time() - last_time));
+        // last_time = millisecond_time();
+
         capture >> frame;
 
         cv::imencode(".jpg", frame, jpeg_buffer, encode_options);
@@ -138,6 +151,8 @@ int main(int argc, char** argv) {
         } else {
             packet_timestamp++;
         }
+
+        cycles++;
     }
 
     return 0;
