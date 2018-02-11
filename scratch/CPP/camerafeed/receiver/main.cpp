@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <time.h>
 
 #include <iostream>
 #include <vector>
@@ -14,7 +15,7 @@
 
 #define CAMERA_PACKET_DATA_MAX_SIZE 50000
 #define CAMERA_FRAME_BUFFER_SIZE 4000000
-#define CAMERA_FRAME_DELAY 5
+#define CAMERA_FRAME_DELAY 20
 
 #define PACKET_BUFFER_SIZE CAMERA_PACKET_DATA_MAX_SIZE + 5 + 4
 
@@ -75,23 +76,33 @@ public:
             // We did not find a buffer... it is a new frame!
             total_frames_received++;
 
-            if (buffers[next_buffer].timestamp != 0) {
+            FrameBuffer* our_buffer = &buffers[next_buffer];
+
+            if (our_buffer->timestamp != 0) {
                 // It is not a new buffer... it already has a frame in it.
 
-                if (buffers[next_buffer].remaining_sections == 0) {
+                if (our_buffer->remaining_sections == 0) {
                     // We are ready to push to screen!
 
                     // HERE'S WHERE WE NORMALLY PUSH
                 } else {
-                    std::cout << "> Dropped frame with timestamp " << buffers[next_buffer].timestamp << ", dropped perc " << total_frames_dropped / (double) total_frames_received << std::endl;
+                    std::cout << "> Dropped frame with timestamp " << our_buffer->timestamp << ", dropped perc " << total_frames_dropped / (double) total_frames_received << std::endl;
                     total_frames_dropped++;
                 }
             }
 
-            buffers[next_buffer].timestamp = timestamp;
-            buffers[next_buffer].remaining_sections = section_count - 1;
-            memcpy((void*) (buffers[next_buffer].buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_id)), frame_data, frame_data_size);
-            buffers[next_buffer].buffer_size = frame_data_size;
+            our_buffer->timestamp = timestamp;
+            our_buffer->remaining_sections = section_count - 1;
+            memcpy((void*) (our_buffer->buffer + (CAMERA_PACKET_DATA_MAX_SIZE*section_id)), frame_data, frame_data_size);
+            our_buffer->buffer_size = frame_data_size;
+            
+            if (our_buffer->remaining_sections == 0) {
+                std::vector<unsigned char> jpeg_buffer(our_buffer->buffer, our_buffer->buffer + our_buffer->buffer_size);
+
+                cv::Mat jpeg_frame = cv::imdecode(jpeg_buffer, CV_LOAD_IMAGE_COLOR);
+                cv::imshow("feed", jpeg_frame);
+                cv::waitKey(20);
+            }
 
             // Reset our next_buffer.
             next_buffer = (next_buffer + 1) % CAMERA_FRAME_DELAY;
@@ -114,6 +125,13 @@ public:
         }
     }
 };
+
+uint64_t millisecond_time() {
+    struct timespec  ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+
+    return (ts.tv_sec) * 1000 + (ts.tv_nsec) / 1000000;
+}
 
 int main(int argc, char** argv) {
     // Arguments: <bind port>
@@ -157,6 +175,10 @@ int main(int argc, char** argv) {
     struct sockaddr src_addr;
     socklen_t src_addr_len;
 
+    uint64_t start_time = millisecond_time();
+    uint64_t last_update_time = millisecond_time();
+    uint64_t total_bytes = 0;
+
     for (;;) {
         src_addr_len = sizeof(src_addr);
         ssize_t res = recvfrom(socket_fd, packet_buffer, PACKET_BUFFER_SIZE, MSG_DONTWAIT, &src_addr, &src_addr_len);
@@ -172,6 +194,8 @@ int main(int argc, char** argv) {
             }
         }
 
+        total_bytes += res;
+
         uint16_t version = ntohs(BUFFERITEM(packet_buffer, 0, uint16_t));
         uint8_t packet_type = BUFFERITEM(packet_buffer, 2, uint8_t);
         uint16_t timestamp = ntohs(BUFFERITEM(packet_buffer, 3, uint16_t));
@@ -184,5 +208,15 @@ int main(int argc, char** argv) {
         //printf("   Packet had read length %d\n", res);
 
         buffer_container.update_buffer(timestamp, section_id, section_count, &packet_buffer[9], frame_data_size);
+
+        if (millisecond_time() - last_update_time > 1000) {
+            last_update_time = millisecond_time();
+
+            uint64_t bytes_per_second = (uint64_t) ((total_bytes / (double) (millisecond_time() - start_time)) * 1000);
+            uint64_t bits_per_second = bytes_per_second * 8;
+            double megabits_per_second = bits_per_second / (1024.0*1024.0);
+
+            printf("mbps: %f\n", megabits_per_second);
+        }
     }
 }
