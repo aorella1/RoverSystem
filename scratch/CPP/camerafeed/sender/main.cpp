@@ -6,18 +6,24 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #include <iostream>
 #include <vector>
 
 #include <opencv2/opencv.hpp>
 
-#define CAMERA_PACKET_DATA_MAX_SIZE 50000
+#include "camera.h"
+
+#define CAMERA_PACKET_DATA_MAX_SIZE 10000
 #define CAMERA_FRAME_BUFFER_SIZE 4000000
 
 #define PACKET_BUFFER_SIZE CAMERA_PACKET_DATA_MAX_SIZE + 10
 
 #define BUFFERITEM(buf, offset, type) *((type*) &buf[offset])
+
+#define WIDTH 1920
+#define HEIGHT 1080
 
 uint64_t millisecond_time() {
     struct timespec  ts;
@@ -27,9 +33,9 @@ uint64_t millisecond_time() {
 }
 
 int main(int argc, char** argv) {
-    // Arguments: <bind port> <receiver address> <receiver port>
-    if (argc < 4) {
-        std::cerr << "[!] Incorrect usage!" << std::endl << argv[0] << " <bind port> <receiver address> <receiver port>" << std::endl;
+    // Arguments: <bind port> <receiver address> <receiver port> <camera file>
+    if (argc < 5) {
+        std::cerr << "[!] Incorrect usage!" << std::endl << argv[0] << " <bind port> <receiver address> <receiver port> <camera path>" << std::endl;
         return 1;
     }
 
@@ -63,12 +69,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    cv::VideoCapture capture(0);
+    CaptureSession session(WIDTH, HEIGHT);
+    session.open(std::string(argv[4]));
+    session.check_capabilities();
+    session.init_buffers();
+    session.start_stream();
 
-    capture.set(CV_CAP_PROP_FRAME_WIDTH, 1920);
-    capture.set(CV_CAP_PROP_FRAME_HEIGHT, 1080);
-
-    cv::Mat frame;
+    cv::Mat frame(HEIGHT, WIDTH, CV_8UC3);
     std::vector<unsigned char> jpeg_buffer;
 
     uint8_t packet_buffer[PACKET_BUFFER_SIZE];
@@ -81,17 +88,19 @@ int main(int argc, char** argv) {
     uint64_t last_time = millisecond_time();
     uint64_t cycles = 0;
 
-    while(cycles < 100) {
+    uint8_t jpeg_frame_buffer[session.image_size];
+
+    while(true) {
         printf("> %f frames per second! %lu\n", (float) cycles / (millisecond_time() - last_time)*1000.0, millisecond_time() - last_time);
         // printf("Time since last capture: %lu\n", (millisecond_time() - last_time));
         // last_time = millisecond_time();
+        
+        size_t jpeg_size = session.grab_frame(jpeg_frame_buffer);
 
-        capture >> frame;
+        //cv::imencode(".jpg", frame, jpeg_buffer, encode_options);
 
-        cv::imencode(".jpg", frame, jpeg_buffer, encode_options);
-
-        uint8_t* frame_buffer = (uint8_t*) jpeg_buffer.data();
-        size_t frame_buffer_size = (size_t) jpeg_buffer.size();
+        uint8_t* frame_buffer = jpeg_frame_buffer;
+        size_t frame_buffer_size = jpeg_size;
 
         uint8_t packet_count = (uint8_t) ((frame_buffer_size / CAMERA_PACKET_DATA_MAX_SIZE) + 1);
 
@@ -138,7 +147,7 @@ int main(int argc, char** argv) {
             ssize_t sent_size;
 
             // Send the packet
-            if ((sent_size = sendto(socket_fd, packet_buffer, 5 + 4 + CAMERA_PACKET_DATA_MAX_SIZE, 0, (struct sockaddr*) &send_addr, sizeof(send_addr))) < 0)
+            if ((sent_size = sendto(socket_fd, packet_buffer, 5 + 4 + CAMERA_PACKET_DATA_MAX_SIZE, MSG_CONFIRM, (struct sockaddr*) &send_addr, sizeof(send_addr))) < 0)
             {
                 // Send failure
                 std::cerr << "[!] Failed to send packet!" << std::endl;
