@@ -20,7 +20,6 @@ public class PressureMonitor extends InformationObserver
     public PressureMonitor(GuiController loController)
     {
         super();
-
         coController=loController;
     }
 
@@ -32,5 +31,6 @@ public class PressureMonitor extends InformationObserver
         double lfPressure = (double) getJson(loObservable.getCoFileToMonitor(), "pressure");
 
         if (coController != null) coController.updatePressure("The air pressure is: " + lfPressure + "stp" );
+        else System.out.println("Controller is null");
     }
 }

@@ -73,8 +73,10 @@ public class FileUpdatingObservable extends Observable
     {
         cnFileLastUpdatedTime = anUpdateTime;
         setChanged();
+        System.out.println("File was Changed at: " + anUpdateTime);
         notifyObservers(cnFileLastUpdatedTime);
     }
+
 
     public File getCoFileToMonitor()
     {

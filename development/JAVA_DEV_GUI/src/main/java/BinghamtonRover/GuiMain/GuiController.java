@@ -22,6 +22,7 @@ public class GuiController
     private static int gnCameraID = 0;
 
     @FXML private Button coStartCameraBtn;
+    @FXML private Button coStartServerBtn;
     @FXML private ImageView coCameraView;
 
     @FXML private Label coTimeLabel;
@@ -29,7 +30,9 @@ public class GuiController
     @FXML private Label coLatitudeLabel;
     @FXML private Label coPressureLabel;
     @FXML private Label coTemperatureLabel;
-
+    @FXML private Label coBatteryLabel;
+    @FXML private Label coDirectionLabel;
+    @FXML private Label coDistanceLabel;
     private ScheduledExecutorService coTimer;
 
     private VideoCapture coVideoCapture = new VideoCapture();
@@ -141,7 +144,6 @@ public class GuiController
             //System.out.println("RELEASE!");
         }
     }
-
     private void updateImageView(ImageView aoImageView, Image aoImage)
     {
         aoImageView.setImage(aoImage);
@@ -171,18 +173,6 @@ public class GuiController
         });
     }
 
-    public void updateStatus(String lsText)
-    {
-        System.out.println(lsText);
-
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                coStatusLabel.setText(lsText);
-            }
-        });
-    }
-
     public void updateLatitude(String lsText)
     {
         System.out.println(lsText);
@@ -194,15 +184,51 @@ public class GuiController
             }
         });
     }
+//
+//    public void updateTemperature(String lsText)
+//    {
+//        System.out.println(lsText);
+//
+//        Platform.runLater(new Runnable(){
+//            @Override
+//            public void run() {
+//                coTemperatureLabel.setText(lsText);
+//            }
+//        });
+//    }
 
-    public void updateTemperature(String lsText)
+    public void updateBattery(String lsText)
     {
         System.out.println(lsText);
 
         Platform.runLater(new Runnable(){
             @Override
             public void run() {
-                coTemperatureLabel.setText(lsText);
+                coBatteryLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateDirection(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coDirectionLabel.setText(lsText);
+            }
+        });
+    }
+
+    public void updateDistance(String lsText)
+    {
+        System.out.println(lsText);
+
+        Platform.runLater(new Runnable(){
+            @Override
+            public void run() {
+                coDistanceLabel.setText(lsText);
             }
         });
     }

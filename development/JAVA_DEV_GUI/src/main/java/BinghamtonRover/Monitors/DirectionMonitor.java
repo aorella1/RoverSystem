@@ -1,5 +1,7 @@
 package BinghamtonRover.Monitors;
 
+import BinghamtonRover.GuiMain.GuiController;
+
 import java.util.Observable;
 
 /*
@@ -8,9 +10,12 @@ import java.util.Observable;
 
 public class DirectionMonitor extends InformationObserver
 {
-    public DirectionMonitor()
+    private GuiController coController;
+
+    public DirectionMonitor(GuiController aoController)
     {
         super();
+        coController = aoController;
     }
 
     @Override
@@ -21,6 +26,8 @@ public class DirectionMonitor extends InformationObserver
         String lsLatitude = (String) getJson(loObservable.getCoFileToMonitor(), "latitudeDirection");
         String lsLongitude = (String) getJson(loObservable.getCoFileToMonitor(), "longitudeDirection");
 
-        System.out.println("The target is at " + lsLatitude + lsLongitude + " Direction");
+//        System.out.println("The target is at the " + lsLatitude + lsLongitude + " Direction");
+        if (coController != null) coController.updateDirection("Target Direction: " +  lsLatitude + lsLongitude );
+        else System.out.println("Controller is null");
     }
 }

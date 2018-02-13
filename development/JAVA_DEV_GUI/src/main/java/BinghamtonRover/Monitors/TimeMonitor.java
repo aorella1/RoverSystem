@@ -62,11 +62,6 @@ public class TimeMonitor extends InformationObserver
             System.exit(1);
         }
 
-        /*
-         * I used the current time to compare with the time written on the json
-         * maybe we can just use the file last update time.
-         */
-
         String lsFileDate = convertSecondsToHMmSs(loFileDate.getTime());
         String lsCurrentDate = convertSecondsToHMmSs(loCurrentDate.getTime());
         long lnTimeDiff = loCurrentDate.getTime() - loFileDate.getTime();

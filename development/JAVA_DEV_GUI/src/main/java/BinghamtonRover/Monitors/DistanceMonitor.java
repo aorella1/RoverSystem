@@ -1,5 +1,7 @@
 package BinghamtonRover.Monitors;
 
+import BinghamtonRover.GuiMain.GuiController;
+
 import java.util.Observable;
 
 /*
@@ -9,8 +11,12 @@ import java.util.Observable;
 
 public class DistanceMonitor extends InformationObserver
 {
-    public DistanceMonitor(){
+
+    private GuiController coController;
+
+    public DistanceMonitor(GuiController aoController){
         super();
+        coController = aoController;
     }
 
     @Override
@@ -20,6 +26,8 @@ public class DistanceMonitor extends InformationObserver
 
         double lfDistance = (double) getJson(loObservable.getCoFileToMonitor(), "totalDistanceTraveled");
 
-        System.out.println("Total distance traveled is: " + lfDistance);
+//        System.out.println("Total distance traveled is: " + lfDistance);
+        if (coController != null) coController.updateDistance("Distance traveled: " + lfDistance + " units" );
+        else System.out.println("Controller is null");
     }
 }

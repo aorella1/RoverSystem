@@ -1,6 +1,7 @@
 package BinghamtonRover.Monitors;
 
 import BinghamtonRover.GuiMain.GuiController;
+import eu.hansolo.medusa.Gauge;
 
 import java.util.Observable;
 
@@ -11,27 +12,27 @@ import java.util.Observable;
 
 public class TemperatureMonitor extends InformationObserver
 {
-    private GuiController coController;
+    private Gauge coGauge;
 
     public TemperatureMonitor()
     {
         super();
     }
 
-    public TemperatureMonitor(GuiController loController)
+    public TemperatureMonitor(Gauge aoGauge)
     {
         super();
 
-        coController=loController;
+        coGauge = aoGauge;
     }
 
     @Override
     public void update(Observable o, Object arg)
     {
-        FileUpdatingObservable loObservable = (FileUpdatingObservable) o;
 
-        double lfTemperature = (double) getJson(loObservable.getCoFileToMonitor(), "temperature");
+        long lfTemperature = (long)getJson(((FileUpdatingObservable) o).getCoFileToMonitor(), "temperature");
 
-        if (coController != null) coController.updateTemperature("The current temperature is: " + lfTemperature + "°F" );
+        if (coGauge != null) coGauge.setValue(lfTemperature);
+//                updateTemperature("The current temperature is: " + lfTemperature + "°F" );
     }
 }
