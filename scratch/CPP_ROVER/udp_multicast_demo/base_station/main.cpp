@@ -6,6 +6,8 @@
 #include <arpa/inet.h>
 #include <string.h>
 
+#include <errno.h>
+
 #include <string>
 
 #define CONNECTION_DISCOVERY_ADDRESS "233.252.66.85"
@@ -45,6 +47,7 @@ int main() {
     mreq.imr_interface.s_addr=htonl(INADDR_ANY);
     if (setsockopt(socket_fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&mreq,sizeof(mreq)) < 0) {
         printf("[!] Failed to request multicast listening!\n");
+        printf("errno: %d\n", errno);
         return 1;
     }
 
