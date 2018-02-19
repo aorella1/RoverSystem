@@ -158,4 +158,17 @@ public final class Gauges {
         TIMER.start();
     }
 
+    public static void SET_TEMP_VAL(double value){
+        TEMPERATURE_GAUGE.setValue(value);
+    }
+
+    public static void SET_PSUR_VAL(double value){
+        PRESSURE_GAUGE.setValue(value);
+    }
+
+    public static void SET_HUMI_VAL(double value){
+        HUMIDITY_GAUGE.setValue(value);
+    }
+
+
 }

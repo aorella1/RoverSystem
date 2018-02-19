@@ -105,16 +105,18 @@ public class DisplayApplication extends Application
     private HBox buildCameraView() throws IOException {
 
         URL imgURL = getClass().getClassLoader().getResource("gui/owl.jpeg");
-        URL FXMLurl = getClass().getClassLoader().getResource(("gui/Gauges.fxml"));
+        URL FXMLurl = getClass().getClassLoader().getResource("gui/Gauges.fxml");
         FXMLLoader loader = new FXMLLoader(FXMLurl);
 
         HBox cameraView = loader.load();
         cameraView.setBackground(new Background(new BackgroundFill(EERIEBLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        cameraView.setAlignment(Pos.CENTER);
+//        cameraView.setAlignment(Pos.CENTER);
+        cameraView.minWidth(800);
+        cameraView.minHeight(450);
 
         //add gauges
         VBox GaugeBox = (VBox) cameraView.lookup("#GaugeBox");
-        GaugeBox.getChildren().addAll(Gauges.TEMPERATURE_GAUGE, Gauges.PRESSURE_GAUGE, Gauges.HUMIDITY_GAUGE);
+        GaugeBox.getChildren().addAll(Gauges.TEMPERATURE_GAUGE, Gauges.PRESSURE_GAUGE);
 
         //add camera feed view
         BufferedImage img = null;
@@ -125,6 +127,8 @@ public class DisplayApplication extends Application
         }
 
         cameraImageView = new ImageView();
+//        cameraImageView.setFitHeight(400);
+//        cameraImageView.setFitWidth(320);
         cameraImageView.setImage(SwingFXUtils.toFXImage(img, null));
 
         cameraView.getChildren().add(cameraImageView);
