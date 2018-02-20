@@ -31,10 +31,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 public class DisplayApplication extends Application
 {
@@ -116,14 +113,15 @@ public class DisplayApplication extends Application
         //add gauges
         VBox GaugeBox = (VBox) GaugeView.lookup("#GaugeBox");
 
-        Pane TempGauge = (Pane) GaugeBox.lookup("#TempGauge");
-        TempGauge.getChildren().addAll(Gauges.TEMPERATURE_GAUGE);
+        StackPane TempGauge = (StackPane) GaugeBox.lookup("#TempGauge");
+        TempGauge.getChildren().addAll(Gauges.TEMPERATURE_GAUGE, Gauges.TEMPERATURE_GRAPH);
 
-        Pane PsurGauge = (Pane) GaugeBox.lookup("#PsurGauge");
-        PsurGauge.getChildren().addAll(Gauges.PRESSURE_GAUGE);
+        StackPane PsurGauge = (StackPane) GaugeBox.lookup("#PsurGauge");
+        PsurGauge.getChildren().addAll(Gauges.PRESSURE_GAUGE, Gauges.PRESSURE_GRAPH);
 
-
-
+        Gauges.TEMPERATURE_GRAPH.setVisible(false);
+        Gauges.PRESSURE_GRAPH.setVisible(false);
+        Gauges.StartAnimation();
         return GaugeView;
     }
 

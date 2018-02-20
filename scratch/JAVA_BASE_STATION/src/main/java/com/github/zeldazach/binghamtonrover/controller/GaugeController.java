@@ -1,5 +1,6 @@
 package com.github.zeldazach.binghamtonrover.controller;
 
+import BinghamtonRover.gui.Gauges;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -21,11 +22,15 @@ public class GaugeController {
     @FXML
     public void DispTempAvg() {
         if (!TempAvgOn) {
-            TempAvgBtn.setText("Hide Avg");
+            TempAvgBtn.setText("Hide Temp Avg");
+            Gauges.TEMPERATURE_GAUGE.setOpacity(0.4);
+            Gauges.TEMPERATURE_GRAPH.setVisible(true);
             TempAvgOn = true;
         }
         else {
-            TempAvgBtn.setText("Show Avg");
+            TempAvgBtn.setText("Show Temp Avg");
+            Gauges.TEMPERATURE_GAUGE.setOpacity(1.0);
+            Gauges.TEMPERATURE_GRAPH.setVisible(false);
             TempAvgOn = false;
         }
 
@@ -34,23 +39,18 @@ public class GaugeController {
     @FXML
     public void DispPsurAvg(){
         if (!PsurAvgOn) {
-            PsurAvgBtn.setText("Hide Avg");
+            PsurAvgBtn.setText("Hide Psur Avg");
+            Gauges.PRESSURE_GAUGE.setOpacity(0.4);
+            Gauges.PRESSURE_GRAPH.setVisible(true);
             PsurAvgOn = true;
         }
         else {
-            PsurAvgBtn.setText("Show Avg");
+            PsurAvgBtn.setText("Show Psur Avg");
+            Gauges.PRESSURE_GAUGE.setOpacity(1.0);
+            Gauges.PRESSURE_GRAPH.setVisible(false);
             PsurAvgOn = false;
         }
     }
 
-//    @FXML
-//    public void OnPsurGaugeClick(){
-//        PsurGauge.setOpacity(0.4);
-//    }
-//
-//    @FXML
-//    public void OnTempGaugeClick(){
-//        PsurGauge.setOpacity(0.4);
-//    }
 
 }
