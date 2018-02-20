@@ -10,8 +10,27 @@
 #include <string>
 
 #include "network.h"
+#include "util.h"
 
 namespace network {
+
+const int CURRENT_ROVER_PROTOCOL_VERSION = 5;
+
+const int HEADER_LENGTH = 5;
+
+// See camera_spec.txt for details about this value.
+const int CAMERA_PACKET_FRAME_DATA_MAX_SIZE = 40000;
+
+// Must be large enough to fit any packet.
+const int READ_BUFFER_SIZE = 65000;
+
+// Delay between consecutive multicast chirps, in milliseconds.
+const unsigned int CONNECTION_ROVER_CHIRP_DELAY = 500;
+// Time passed before connection is considered dead, in milliseconds.
+const int CONNECTION_TIMEOUT = 6000;
+
+const char* CONNECTION_DISCOVERY_ADDRESS = "233.252.66.85";
+const int CONNECTION_DISCOVERY_PORT = 44444;
 
 PacketType<PacketHeartbeat> PacketTypeHeartbeat(0, 1);
 PacketType<PacketControl> PacketTypeControl(1, 1);
@@ -46,10 +65,15 @@ void register_packet_functions() {
     };
 }
 
-Manager::Manager(std::string address_string, int port)
+Manager::Manager(std::string address_string)
 {
     receive_timestamp = 0;
     send_timestamp = 0;
+
+    last_receive_time = 0;
+    last_chirp_time = 0;
+
+    state = ConnectionState::UNINITIALIZED;
 
     socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
     if (socket_fd < 0)
@@ -58,23 +82,25 @@ Manager::Manager(std::string address_string, int port)
         printf("[!] Failed to open socket!\n");
     }
 
-    //TODO: Explain this block
+    // Begin listening
     struct sockaddr_in address;
     memset((char*)&address, 0, sizeof(address));
     address.sin_family = AF_INET;
     inet_aton(address_string.c_str(), &address.sin_addr);
-    address.sin_port = htons(port);
+    // This forces Linux to give us a random port
+    address.sin_port = 0;
 
     if (bind(socket_fd, (struct sockaddr*) &address, sizeof(address)) < 0)
     {
         // Bind failure
         printf("[!] Failed to bind socket!\n");
     }
-}
 
-Manager::~Manager()
-{
-    close(socket_fd);
+    socklen_t addr_len = sizeof(address);
+    // Get info about the port we were given, reusing our sockaddr_in from above.
+    getsockname(socket_fd, (struct sockaddr*) &address, &addr_len);
+
+    printf("> Bound to port %d\n", ntohs(address.sin_port));
 }
 
 void Manager::send_raw_packet(uint8_t* buffer, size_t size, std::string address, int port)
@@ -96,6 +122,36 @@ void Manager::send_raw_packet(uint8_t* buffer, size_t size, std::string address,
         // Send failure
         printf("[!] Failed to send packet!\n");
     }
+}
+
+void Manager::chirp()
+{
+    // Create a heartbeat PING packet.
+    PacketHeartbeat chirp;
+    chirp.direction = PacketHeartbeat::Direction::PING;
+
+    // Allocate enough space for the header and the packet body.
+    uint8_t* packet_buffer_back = (uint8_t*) alloca(HEADER_LENGTH + chirp.type->max_size);
+    Buffer packet_buffer(packet_buffer_back);
+
+    // Fill the header.
+    packet_buffer.write_value<uint16_t>(htons(CURRENT_ROVER_PROTOCOL_VERSION));
+    packet_buffer.write_value(chirp.type->type);
+    packet_buffer.write_value<uint16_t>(htons(send_timestamp));
+
+    // Do our own overflow, since its undefined for C++.
+    if (send_timestamp == UINT16_MAX)
+        send_timestamp = 0;
+    else
+        send_timestamp++;
+
+    chirp.type->writer(&chirp, packet_buffer);
+	size_t packet_size = packet_buffer.index;
+
+    packet_buffer.reset();
+    send_raw_packet(packet_buffer.get_pointer(), packet_size, std::string(CONNECTION_DISCOVERY_ADDRESS), CONNECTION_DISCOVERY_PORT);
+
+    last_chirp_time = millisecond_time();
 }
 
 void Manager::poll()
@@ -127,10 +183,22 @@ void Manager::poll()
             }
         }
 
+        // Make a note of the time, since we have received a packet.
+        last_receive_time = millisecond_time();
+
         // Get sender information
         struct sockaddr_in src_addr_in = *((struct sockaddr_in*) &src_addr);
         int port = (int) ntohs(src_addr_in.sin_port);
         std::string address(inet_ntoa(src_addr_in.sin_addr));
+
+        if (state == ConnectionState::UNINITIALIZED || state == ConnectionState::DISCONNECTED) {
+            base_station_address = address;
+            base_station_port = port;
+
+            state = ConnectionState::CONNECTED;
+
+            printf("> Found base station at %s:%d\n", address.c_str(), port);
+        }
 
         // We have to convert non-byte values from network order (Big Endian) to host order.
         Buffer buffer(buffer_back);
@@ -166,27 +234,33 @@ void Manager::poll()
         {
             PacketHeartbeat p;
             PacketTypeHeartbeat.reader(&p, buffer);
-            PacketTypeHeartbeat.handler(*this, &p, address, port);
+            PacketTypeHeartbeat.handler(*this, &p);
             break;
         }
         case 1:
         {
             PacketControl p;
             PacketTypeControl.reader(&p, buffer);
-            PacketTypeControl.handler(*this, &p, address, port);            
+            PacketTypeControl.handler(*this, &p);            
             break;
         }
         case 2:
         {
             PacketCamera p;
             PacketTypeCamera.reader(&p, buffer);
-            PacketTypeCamera.handler(*this, &p, address, port);            
+            PacketTypeCamera.handler(*this, &p);            
             break;
         }
         default:
             printf("[!] Unknown packet type %d encountered!\n", type);
             continue;
         }
+    }
+
+    // We have to check the time since the last packet was received if we are connected.
+    if (state == ConnectionState::CONNECTED && millisecond_time() - last_receive_time >= CONNECTION_TIMEOUT) {
+        printf("[!] Connection to base station timed out! Disconnected.\n");
+        state = ConnectionState::DISCONNECTED;
     }
 }
 
