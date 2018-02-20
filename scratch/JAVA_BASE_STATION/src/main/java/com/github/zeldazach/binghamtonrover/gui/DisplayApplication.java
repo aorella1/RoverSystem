@@ -20,6 +20,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -59,6 +60,7 @@ public class DisplayApplication extends Application
     private static final double JOYSTICK_OFFSET_RATIO = 0.02125;
 
     public ImageView cameraImageView;
+
 
     @Override
     public void start(Stage primary) throws IOException
@@ -114,8 +116,13 @@ public class DisplayApplication extends Application
         //add gauges
         VBox GaugeBox = (VBox) GaugeView.lookup("#GaugeBox");
 
-//        ((StackPane) GaugeBox.lookup("#TempGauge")).getChildren().addAll(Gauges.TEMPERATURE_GAUGE);
-//        ((StackPane) GaugeBox.lookup("#PsurGauge")).getChildren().addAll(Gauges.PRESSURE_GAUGE);
+        Pane TempGauge = (Pane) GaugeBox.lookup("#TempGauge");
+        TempGauge.getChildren().addAll(Gauges.TEMPERATURE_GAUGE);
+
+        Pane PsurGauge = (Pane) GaugeBox.lookup("#PsurGauge");
+        PsurGauge.getChildren().addAll(Gauges.PRESSURE_GAUGE);
+
+
 
         return GaugeView;
     }
