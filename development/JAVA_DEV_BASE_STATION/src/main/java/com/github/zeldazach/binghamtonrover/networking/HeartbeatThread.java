@@ -1,6 +1,8 @@
 package com.github.zeldazach.binghamtonrover.networking;
 
 
+import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
+
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
@@ -22,6 +24,7 @@ public class HeartbeatThread extends ServerThread
 
     public long last_heartbeat_send = 0;
     public long last_heartbeat_receive = 0;
+
 
     @Override
     public void run() {

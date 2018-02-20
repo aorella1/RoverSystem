@@ -1,6 +1,8 @@
 package com.github.zeldazach.binghamtonrover.networking;
 
 import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
+import com.github.zeldazach.binghamtonrover.util.ResetTimer;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
@@ -8,6 +10,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 class FrameBuffer {
@@ -117,6 +121,21 @@ class FrameBufferContainer {
 public class PacketCameraHandler implements PacketHandler {
     private FrameBufferContainer frameBufferContainer = new FrameBufferContainer(10);
 
+    private ResetTimer timer = new ResetTimer(
+            ()->
+            {
+                if (DisplayApplication.INSTANCE != null) DisplayApplication.INSTANCE.updateCameraState(true);
+            },
+
+            ()->
+            {
+                if (DisplayApplication.INSTANCE != null) DisplayApplication.INSTANCE.updateCameraState(false);
+            },
+
+            100
+    );
+
+
     @Override
     public void handle(Packet packet) {
         try {
@@ -124,5 +143,7 @@ public class PacketCameraHandler implements PacketHandler {
         } catch (IllegalArgumentException e) {
             System.out.println("Unable to add section to potential frame " + e.getMessage());
         }
+
+        timer.trigger();
     }
 }
