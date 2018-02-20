@@ -24,10 +24,13 @@ public final class Gauges {
             .skinType(Gauge.SkinType.LINEAR)
             .orientation(Orientation.HORIZONTAL)
             .prefSize(260, 200)
+            .lcdVisible(true)
+            .lcdDesign(LcdDesign.FLAT_CUSTOM)
+            .lcdFont(LcdFont.DIGITAL)
             .title("Air Pressure")
             .unit("PSI")
-            .startAngle(270)     //Origin 270
-            .angleRange(180)    //Origin 270
+            .startAngle(270)
+            .angleRange(180)
             .minValue(0)
             .maxValue(2000)
             .averageVisible(true)
@@ -125,7 +128,31 @@ public final class Gauges {
             .minValue(PRESSURE_GAUGE.getMinValue())
             .maxValue(PRESSURE_GAUGE.getMaxValue())
             .barColor(SILVERBLUE)
-            .prefSize(125, 125)
+            .prefSize(200, 125)
+            .averageVisible(true)
+            .averagingEnabled(true)
+            .averagingPeriod(20)
+            .animated(true)
+            .build();
+
+    public static Gauge TEMPERATURE_GRAPH = GaugeBuilder.create()
+            .skinType(Gauge.SkinType.TILE_SPARK_LINE)
+            .minValue(TEMPERATURE_GAUGE.getMinValue())
+            .maxValue(TEMPERATURE_GAUGE.getMaxValue())
+            .barColor(SILVERBLUE)
+            .prefSize(200, 125)
+            .averageVisible(true)
+            .averagingEnabled(true)
+            .averagingPeriod(20)
+            .animated(true)
+            .build();
+
+    public static Gauge HUMIDITY_GRAPH = GaugeBuilder.create()
+            .skinType(Gauge.SkinType.TILE_SPARK_LINE)
+            .minValue(HUMIDITY_GAUGE.getMinValue())
+            .maxValue(HUMIDITY_GAUGE.getMaxValue())
+            .barColor(SILVERBLUE)
+            .prefSize(200, 125)
             .averageVisible(true)
             .averagingEnabled(true)
             .averagingPeriod(20)
@@ -146,7 +173,11 @@ public final class Gauges {
                 PRESSURE_GAUGE.setValue(RND.nextGaussian() * 34 + 600);
                 TEMPERATURE_GAUGE.setValue(RND.nextGaussian() * 25 + 205);
                 HUMIDITY_GAUGE.setValue(RND.nextGaussian() * 10 + 80);
+
                 PRESSURE_GRAPH.setValue(PRESSURE_GAUGE.getValue());
+                TEMPERATURE_GRAPH.setValue(TEMPERATURE_GAUGE.getValue());
+                HUMIDITY_GRAPH.setValue(HUMIDITY_GAUGE.getValue());
+
                 lastTimerCall = now;
                 lastTimerCall = System.nanoTime();
 

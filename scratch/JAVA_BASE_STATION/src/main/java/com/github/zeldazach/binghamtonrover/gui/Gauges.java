@@ -1,4 +1,4 @@
-package com.github.zeldazach.binghamtonrover.gui;
+package BinghamtonRover.gui;
 
 import eu.hansolo.medusa.*;
 import javafx.animation.AnimationTimer;
@@ -26,8 +26,8 @@ public final class Gauges {
             .prefSize(260, 200)
             .title("Air Pressure")
             .unit("PSI")
-            .startAngle(270)     //Origin 270
-            .angleRange(180)    //Origin 270
+            .startAngle(270)
+            .angleRange(180)
             .minValue(0)
             .maxValue(2000)
             .averageVisible(true)
@@ -125,7 +125,31 @@ public final class Gauges {
             .minValue(PRESSURE_GAUGE.getMinValue())
             .maxValue(PRESSURE_GAUGE.getMaxValue())
             .barColor(SILVERBLUE)
-            .prefSize(125, 125)
+            .prefSize(200, 125)
+            .averageVisible(true)
+            .averagingEnabled(true)
+            .averagingPeriod(20)
+            .animated(true)
+            .build();
+
+    public static Gauge TEMPERATURE_GRAPH = GaugeBuilder.create()
+            .skinType(Gauge.SkinType.TILE_SPARK_LINE)
+            .minValue(TEMPERATURE_GAUGE.getMinValue())
+            .maxValue(TEMPERATURE_GAUGE.getMaxValue())
+            .barColor(SILVERBLUE)
+            .prefSize(200, 125)
+            .averageVisible(true)
+            .averagingEnabled(true)
+            .averagingPeriod(20)
+            .animated(true)
+            .build();
+
+    public static Gauge HUMIDITY_GRAPH = GaugeBuilder.create()
+            .skinType(Gauge.SkinType.TILE_SPARK_LINE)
+            .minValue(HUMIDITY_GAUGE.getMinValue())
+            .maxValue(HUMIDITY_GAUGE.getMaxValue())
+            .barColor(SILVERBLUE)
+            .prefSize(200, 125)
             .averageVisible(true)
             .averagingEnabled(true)
             .averagingPeriod(20)
@@ -135,8 +159,8 @@ public final class Gauges {
     public static Clock CLOCK = ClockBuilder.create()
             .skinType(Clock.ClockSkinType.DIGITAL)
             .running(true)
-            .textColor(ONYX)
-            .dateColor(ONYX)
+            .textColor(ALMOND)
+            .dateColor(ALMOND)
             .build();
 
     private static AnimationTimer TIMER  = new AnimationTimer() {
@@ -146,7 +170,11 @@ public final class Gauges {
                 PRESSURE_GAUGE.setValue(RND.nextGaussian() * 34 + 600);
                 TEMPERATURE_GAUGE.setValue(RND.nextGaussian() * 25 + 205);
                 HUMIDITY_GAUGE.setValue(RND.nextGaussian() * 10 + 80);
+
                 PRESSURE_GRAPH.setValue(PRESSURE_GAUGE.getValue());
+                TEMPERATURE_GRAPH.setValue(TEMPERATURE_GAUGE.getValue());
+                HUMIDITY_GRAPH.setValue(HUMIDITY_GAUGE.getValue());
+
                 lastTimerCall = now;
                 lastTimerCall = System.nanoTime();
 
@@ -157,18 +185,5 @@ public final class Gauges {
     public static void StartAnimation(){
         TIMER.start();
     }
-
-    public static void SET_TEMP_VAL(double value){
-        TEMPERATURE_GAUGE.setValue(value);
-    }
-
-    public static void SET_PSUR_VAL(double value){
-        PRESSURE_GAUGE.setValue(value);
-    }
-
-    public static void SET_HUMI_VAL(double value){
-        HUMIDITY_GAUGE.setValue(value);
-    }
-
 
 }

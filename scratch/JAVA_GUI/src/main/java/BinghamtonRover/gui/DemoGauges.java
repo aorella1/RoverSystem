@@ -1,5 +1,6 @@
 package BinghamtonRover.gui;
 
+import eu.hansolo.medusa.Gauge;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -43,12 +44,22 @@ public class DemoGauges extends Application
         FXMLLoader loLoader = new FXMLLoader(loFXMLPath);
         Pane loRoot = loLoader.load();
         loRoot.setBackground(new Background(new BackgroundFill(EERIEBLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        loRoot.getChildren().addAll(Gauges.HUMIDITY_GAUGE, Gauges.PRESSURE_GAUGE, Gauges.TEMPERATURE_GAUGE, Gauges.CLOCK, Gauges.PRESSURE_GRAPH);
+        loRoot.getChildren().addAll(Gauges.HUMIDITY_GAUGE,
+                                    Gauges.PRESSURE_GAUGE,
+                                    Gauges.TEMPERATURE_GAUGE,
+                                    Gauges.CLOCK,
+                                    Gauges.PRESSURE_GRAPH,
+                                    Gauges.TEMPERATURE_GRAPH,
+                                    Gauges.HUMIDITY_GRAPH);
+
         loRoot.setMinSize(1200.0, 1080);
+
         Gauges.HUMIDITY_GAUGE.relocate(0, 470);
         Gauges.PRESSURE_GAUGE.relocate(0, 560);
         Gauges.TEMPERATURE_GAUGE.relocate(0, 650);
         Gauges.PRESSURE_GRAPH.relocate(280, 600);
+        Gauges.TEMPERATURE_GRAPH.relocate(280, 700);
+        Gauges.HUMIDITY_GRAPH.relocate(280, 500);
         Gauges.CLOCK.relocate(1080-280, 700);
 
         aoPrimaryStage.setTitle("Rover Controller");

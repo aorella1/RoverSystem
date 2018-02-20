@@ -1,5 +1,6 @@
 package com.github.zeldazach.binghamtonrover.gui;
 
+import BinghamtonRover.gui.Gauges;
 import com.github.zeldazach.binghamtonrover.controller.ControllerHandler;
 import com.github.zeldazach.binghamtonrover.controller.ControllerState;
 import com.github.zeldazach.binghamtonrover.controller.KeyboardHandler;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -43,7 +45,7 @@ public class DisplayApplication extends Application
     /**
      * These need to be anything with a 16:9 ratio.
      */
-    private static final int XBOX_VIEW_WIDTH = 800, XBOX_VIEW_HEIGHT = 450;
+    private static final int XBOX_VIEW_WIDTH = 450, XBOX_VIEW_HEIGHT = 243;
 
     private static final int CAMERA_VIEW_WIDTH = 400, CAMERA_VIEW_HEIGHT = 400;
 
@@ -84,41 +86,50 @@ public class DisplayApplication extends Application
     private VBox buildRoot() throws IOException
     {
         VBox root = new VBox();
+        root.setBackground(new Background(new BackgroundFill(EERIEBLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(10));
         root.setSpacing(10);
 
-        HBox cameraView = buildCameraView();
+        StackPane cameraView = buildCameraView();
         root.getChildren().add(cameraView);
 
+        HBox GaugeView = buildGauges();
+        root.getChildren().add(GaugeView);
+
         Canvas xboxView = buildXboxView();
-        root.getChildren().add(xboxView);
+        GaugeView.getChildren().add(xboxView);
+
 
         return root;
+    }
+
+    private HBox buildGauges() throws IOException
+    {
+        URL FXMLurl = getClass().getClassLoader().getResource("gui/Gauges.fxml");
+        FXMLLoader loader = new FXMLLoader(FXMLurl);
+
+        HBox GaugeView = loader.load();
+        //add gauges
+        VBox GaugeBox = (VBox) GaugeView.lookup("#GaugeBox");
+
+//        ((StackPane) GaugeBox.lookup("#TempGauge")).getChildren().addAll(Gauges.TEMPERATURE_GAUGE);
+//        ((StackPane) GaugeBox.lookup("#PsurGauge")).getChildren().addAll(Gauges.PRESSURE_GAUGE);
+
+        return GaugeView;
     }
 
     /**
      * Builds the camera feed view. This is a placeholder; for now it simply creates a rectangle.
      * @return The camera feed view.
      */
-    private HBox buildCameraView() throws IOException {
+    private StackPane buildCameraView()
+    {
+        StackPane cameraView = new StackPane();
 
-        URL imgURL = getClass().getClassLoader().getResource("gui/owl.jpeg");
-        URL FXMLurl = getClass().getClassLoader().getResource("gui/Gauges.fxml");
-        FXMLLoader loader = new FXMLLoader(FXMLurl);
-
-        HBox cameraView = loader.load();
-        cameraView.setBackground(new Background(new BackgroundFill(EERIEBLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-//        cameraView.setAlignment(Pos.CENTER);
-        cameraView.minWidth(800);
-        cameraView.minHeight(450);
-
-        //add gauges
-        VBox GaugeBox = (VBox) cameraView.lookup("#GaugeBox");
-        GaugeBox.getChildren().addAll(Gauges.TEMPERATURE_GAUGE, Gauges.PRESSURE_GAUGE);
-
-        //add camera feed view
+        //add a temporary image to cameraView so it don't collapse
+        URL imgURL = getClass().getClassLoader().getResource("gui/mars.jpg");
         BufferedImage img = null;
         try {
             img = ImageIO.read(imgURL);
@@ -127,8 +138,6 @@ public class DisplayApplication extends Application
         }
 
         cameraImageView = new ImageView();
-//        cameraImageView.setFitHeight(400);
-//        cameraImageView.setFitWidth(320);
         cameraImageView.setImage(SwingFXUtils.toFXImage(img, null));
 
         cameraView.getChildren().add(cameraImageView);

@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 
-<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" spacing="40.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="864.0" spacing="30.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.zeldazach.binghamtonrover.controller.GaugeController">
    <children>
-      <VBox id="GaugeBox" prefHeight="430.0" prefWidth="300.0" spacing="10.0">
+      <VBox id="GaugeBox" alignment="CENTER" prefHeight="490.0" prefWidth="300.0">
          <HBox.margin>
-            <Insets right="45.0" />
+            <Insets bottom="30.0" top="30.0" />
          </HBox.margin>
-         <padding>
-            <Insets bottom="60.0" top="60.0" />
-         </padding>
+         <children>
+            <StackPane id="PsurGauge" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Button id="PsurAvgBtn" fx:id="PsurAvgBtn" mnemonicParsing="false" onAction="#DispPsurAvg" text="Button">
+                     <StackPane.margin>
+                        <Insets bottom="80.0" left="50.0" />
+                     </StackPane.margin>
+                  </Button>
+               </children>
+            </StackPane>
+            <StackPane id="TempGauge" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Button id="TempAvgBtn" fx:id="TempAvgBtn" mnemonicParsing="false" onAction="#DispTempAvg" text="Button">
+                     <StackPane.margin>
+                        <Insets bottom="80.0" left="50.0" />
+                     </StackPane.margin>
+                  </Button>
+               </children>
+            </StackPane>
+         </children>
       </VBox>
    </children>
    <padding>
