@@ -20,6 +20,16 @@ int main() {
         return 1;
     }
 
+    // Request addition to a multicast group.
+    struct ip_mreq mreq;
+    mreq.imr_multiaddr.s_addr=inet_addr(CONNECTION_DISCOVERY_ADDRESS);
+    mreq.imr_interface.s_addr=htonl(INADDR_ANY);
+    if (setsockopt(socket_fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&mreq,sizeof(mreq)) < 0) {
+        printf("[!] Failed to request multicast membership!\n");
+        printf("errno: %d\n", errno);
+        return 1;
+    }
+
     std::string message("Hey there!");
 
     while (1) {
