@@ -3,34 +3,32 @@ package com.github.zeldazach.binghamtonrover.gui;
 import com.github.zeldazach.binghamtonrover.controller.ControllerHandler;
 import com.github.zeldazach.binghamtonrover.controller.ControllerState;
 import com.github.zeldazach.binghamtonrover.controller.KeyboardHandler;
+import com.github.zeldazach.binghamtonrover.networking.ConnectionState;
+import com.github.zeldazach.binghamtonrover.networking.Manager;
 import javafx.application.Application;
-import com.github.zeldazach.binghamtonrover.networking.PacketCameraHandler;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
-import com.github.zeldazach.binghamtonrover.networking.PacketCameraHandler.*;
+import static com.github.zeldazach.binghamtonrover.networking.ConnectionState.*;
 
-public class DisplayApplication extends Application
-{
+public class DisplayApplication extends Application {
 
     private static final String WINDOW_TITLE = "Binghamton Rover Base Station";
 
@@ -50,13 +48,15 @@ public class DisplayApplication extends Application
 
     private ImageView cameraImageView;
 
+    private Label connectionLabel;
+
+    private VBox root;
+
     @Override
     public void start(Stage primary) {
-        INSTANCE = this;
-
         primary.setTitle(WINDOW_TITLE);
 
-        VBox root = buildRoot();
+        root = buildRoot();
 
         Scene scene = new Scene(root);
 
@@ -67,19 +67,27 @@ public class DisplayApplication extends Application
         // which is exactly what we want.
         primary.setScene(scene);
         primary.show();
+
+        INSTANCE = this;
     }
 
     /**
      * Builds the GUI, returning the root container.
+     *
      * @return The root container of the GUI.
      */
-    private VBox buildRoot()
-    {
+    private VBox buildRoot() {
         VBox root = new VBox();
 
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(10));
         root.setSpacing(10);
+
+        connectionLabel = new Label();
+        connectionLabel.setFont(Font.font(Font.getDefault().getFamily(), 20));
+        connectionLabel.setTextFill(Color.BLACK);
+        updateConnection(Manager.getInstance().getState());
+        root.getChildren().add(connectionLabel);
 
         StackPane cameraView = buildCameraView();
         root.getChildren().add(cameraView);
@@ -92,10 +100,10 @@ public class DisplayApplication extends Application
 
     /**
      * Builds the camera feed view. This is a placeholder; for now it simply creates a rectangle.
+     *
      * @return The camera feed view.
      */
-    private StackPane buildCameraView()
-    {
+    private StackPane buildCameraView() {
         StackPane cameraView = new StackPane();
         cameraView.setAlignment(Pos.CENTER);
 
@@ -108,10 +116,33 @@ public class DisplayApplication extends Application
         return cameraView;
     }
 
+    public void updateConnection(ConnectionState s) {
+        Platform.runLater(() -> {
+            Label l = connectionLabel;
+            switch (s) {
+                case DISCONNECTED:
+                    l.setText("Disconnected");
+                    root.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
+                    break;
+                case UNINITIALIZED:
+                    l.setText("Uninitialized");
+                    root.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+                    break;
+                case TROUBLED:
+                    l.setText("Troubled");
+                    root.setBackground(new Background(new BackgroundFill(Color.ORANGE, null, null)));
+                    break;
+                case CONNECTED:
+                    l.setText("Connected");
+                    root.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+                    break;
+            }
+        });
+    }
+
     public ImageView getCameraImageView() {
         return cameraImageView;
     }
-
 
     private void renderXboxState(Canvas xboxCanvas) {
         double joystickOffset = JOYSTICK_OFFSET_RATIO * XBOX_VIEW_WIDTH;

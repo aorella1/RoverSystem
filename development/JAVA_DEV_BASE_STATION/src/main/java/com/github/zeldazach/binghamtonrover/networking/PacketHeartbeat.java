@@ -14,10 +14,15 @@ public class PacketHeartbeat extends Packet
 
     private Direction direction;
 
-    PacketHeartbeat(Direction _direction)
+    public PacketHeartbeat(Direction _direction)
     {
         super((byte) 0, 1);
         direction = _direction;
+    }
+
+    public PacketHeartbeat()
+    {
+
     }
 
     @Override

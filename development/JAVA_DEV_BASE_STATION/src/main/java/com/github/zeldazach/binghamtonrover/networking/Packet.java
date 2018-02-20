@@ -74,13 +74,13 @@ public abstract class Packet
      * @param _type The packet type.
      * @param _size The packet size.
      */
-    Packet(byte _type, int _size)
+    public Packet(byte _type, int _size)
     {
         type = _type;
         size = _size;
     }
 
-    Packet() {}
+    public Packet() {}
 
     public byte getType()
     {
