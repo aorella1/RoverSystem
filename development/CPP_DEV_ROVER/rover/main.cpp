@@ -20,7 +20,6 @@ using network::PacketCamera;
 static void handle_heartbeat(network::Manager& manager, PacketHeartbeat* packet)
 {
     if (packet->direction == PacketHeartbeat::Direction::PING) {
-        printf("> Received ping... responding!\n");
         
         PacketHeartbeat response;
         response.direction = PacketHeartbeat::Direction::PONG;
@@ -155,9 +154,9 @@ int main()
         if (manager.state == network::ConnectionState::CONNECTED) {
             grab_frame(manager, camera, frame_buffer_back);            
         } else {
-            // Only chirp once in a while.
-            if (millisecond_time() - manager.last_chirp_time >= network::CONNECTION_ROVER_CHIRP_DELAY)
-                manager.chirp();
+            // // Only chirp once in a while.
+            // if (millisecond_time() - manager.last_chirp_time >= network::CONNECTION_ROVER_CHIRP_DELAY)
+            //     manager.chirp();
         }
         
         if (millisecond_time() - last_time >= 1000) {

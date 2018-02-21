@@ -87,8 +87,7 @@ Manager::Manager(std::string address_string)
     memset((char*)&address, 0, sizeof(address));
     address.sin_family = AF_INET;
     inet_aton(address_string.c_str(), &address.sin_addr);
-    // This forces Linux to give us a random port
-    address.sin_port = 0;
+    address.sin_port = htons(44444);
 
     if (bind(socket_fd, (struct sockaddr*) &address, sizeof(address)) < 0)
     {
