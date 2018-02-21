@@ -4,6 +4,7 @@ import BinghamtonRover.gui.Gauges;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.stage.Popup;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -18,6 +19,7 @@ public class GaugeController {
 
     private boolean TempAvgOn;
     private boolean PsurAvgOn;
+
 
     @FXML
     public void DispTempAvg() {

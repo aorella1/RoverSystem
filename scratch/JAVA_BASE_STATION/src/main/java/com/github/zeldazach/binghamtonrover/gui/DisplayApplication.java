@@ -25,6 +25,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
@@ -118,6 +119,12 @@ public class DisplayApplication extends Application
 
         StackPane PsurGauge = (StackPane) GaugeBox.lookup("#PsurGauge");
         PsurGauge.getChildren().addAll(Gauges.PRESSURE_GAUGE, Gauges.PRESSURE_GRAPH);
+
+//        Popup TempPopup = new Popup();
+//        Popup PsurPopup = new Popup();
+//        TempPopup.getContent().add(Gauges.TEMPERATURE_GRAPH);
+//        PsurPopup.getContent().add(Gauges.PRESSURE_GRAPH);
+
 
         Gauges.TEMPERATURE_GRAPH.setVisible(false);
         Gauges.PRESSURE_GRAPH.setVisible(false);
