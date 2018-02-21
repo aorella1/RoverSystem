@@ -132,7 +132,7 @@ public class PacketCameraHandler implements PacketHandler {
                 if (DisplayApplication.INSTANCE != null) DisplayApplication.INSTANCE.updateCameraState(false);
             },
 
-            100
+            150
     );
 
 

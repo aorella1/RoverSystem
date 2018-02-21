@@ -9,7 +9,6 @@ public class ResetTimer {
 
     private long timeout;
     private AtomicLong last_time = new AtomicLong(0);
-    private boolean was_bad = false;
 
     private ResetThread thread;
 
@@ -19,23 +18,21 @@ public class ResetTimer {
         timeout = t;
 
         thread = new ResetThread();
+        thread.setDaemon(true);
         thread.start();
     }
 
     public void trigger() {
         last_time.set(System.currentTimeMillis());
+            good_runnable.run();
     }
 
     private class ResetThread extends Thread {
         @Override
         public void run() {
             while (true) {
-                if (System.currentTimeMillis() - last_time.get() >= timeout && !was_bad) {
+                if (System.currentTimeMillis() - last_time.get() >= timeout) {
                     bad_runnable.run();
-                    was_bad = true;
-                } else if (System.currentTimeMillis() - last_time.get() < timeout && was_bad) {
-                    good_runnable.run();
-                    was_bad = false;
                 }
 
                 try
