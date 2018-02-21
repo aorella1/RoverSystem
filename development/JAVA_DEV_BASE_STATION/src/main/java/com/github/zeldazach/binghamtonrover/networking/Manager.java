@@ -1,11 +1,18 @@
 package com.github.zeldazach.binghamtonrover.networking;
 
 import com.github.zeldazach.binghamtonrover.BaseStation;
+import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.*;
 import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
+import java.sql.Connection;
 import java.util.*;
 
 public class Manager
@@ -34,23 +41,32 @@ public class Manager
         }
     }
 
+    private static Manager INSTANCE;
+
+    public static Manager getInstance() {
+        return INSTANCE;
+    }
+
     private static final int CURRENT_VERSION = 5; // The current supported version.
+
+    private static final String ROVER_ADDRESS = "10.0.0.100";
+    private static final int ROVER_PORT = 44444;
+
+    private ConnectionState state;
     private InetAddress address;
     private int port;
     private int resendCount;
     private ServerReceiver receiver;
+    private HeartbeatThread heartbeat;
     private boolean started = false;
     private boolean closed = false;
     private char sendTimestamp = 0;
     private char receiveTimestamp = 0;
     private DatagramSocket socket;
-    private Timer serverHeart = new Timer("Server Heart", true);
-    private int serverHeartBeatPeriod = 5;
-    private TimerTask serverHeartState;
 
     private Map<Integer, PacketHandler> handlers = new HashMap<Integer, PacketHandler>() {{
         put(null, new PacketUnknownHandler());
-        put(0, new PacketHearbeatHandler());
+        put(0, new PacketHeartbeatHandler());
         put(2, new PacketCameraHandler());
     }};
     private Map<Integer, Class<? extends Packet>> packetsByType = new HashMap<Integer, Class<? extends Packet>>() {{
@@ -69,14 +85,18 @@ public class Manager
      */
     public Manager(String _address, int _port, int _resendCount) throws SocketException, UnknownHostException
     {
+        state = ConnectionState.UNINITIALIZED;
         address = Inet4Address.getByName(_address);
         port = _port;
         resendCount = _resendCount;
         socket = new DatagramSocket(this.port, this.address);
         receiver = new ServerReceiver(this);
+        heartbeat = new HeartbeatThread(this);
+
+        INSTANCE = this;
     }
 
-    public void startServer() throws AlreadyStarted, SocketException
+    public void startServer() throws AlreadyStarted, IOException
     {
         if (started)
         {
@@ -88,9 +108,11 @@ public class Manager
             socket.bind(new InetSocketAddress(address, port));
         }
 
-        receiver.start();
         started = true;
         closed = false;
+
+        receiver.start();
+        heartbeat.start();
     }
 
     private void closeServer() throws AlreadyClosed, InterruptedException
@@ -101,9 +123,15 @@ public class Manager
         }
 
         socket.close();
-        receiver.join();
         started = false;
         closed = true;
+
+        receiver.join();
+        heartbeat.join();
+    }
+
+    public boolean isClosed() {
+        return closed;
     }
 
     private PacketHandler getHandler(int type)
@@ -129,14 +157,15 @@ public class Manager
             outputVersionMismatch(version);
             return;
         } else if (timestamp <= expectedTimestamp) {
-            // Only output a timestamp mismatch if it is not a camera packet.
-            if (packet == null || !(packet instanceof PacketCamera)) {
+            // Only output a timestamp mismatch if it is not a camera packet
+            // and the timestamp is not zero (which is special).
+            if (!(packet instanceof PacketCamera) && timestamp != 0) {
                 outputTimestampMismatch(timestamp, expectedTimestamp);
                 return;
             }
-        } else if (timestamp >= expectedTimestamp) {
-            setReceiveTimestamp(header.getTimestamp());
         }
+
+        setReceiveTimestamp(header.getTimestamp());
 
         if (packet != null)
         {
@@ -173,50 +202,50 @@ public class Manager
         return socket;
     }
 
-    public synchronized void sendPacket(Packet p, String roverAddress, int roverPort) throws IOException
+    public ConnectionState getState()
     {
-        InetAddress addr = InetAddress.getByName(roverAddress);
+        return state;
+    }
+
+    public void setState(ConnectionState s)
+    {
+        state = s;
+
+        if (DisplayApplication.INSTANCE != null) {
+            DisplayApplication.INSTANCE.updateConnection(s);
+        }
+    }
+
+    public HeartbeatThread getHeartbeat()
+    {
+        return heartbeat;
+    }
+
+    public synchronized void sendPacket(Packet p) throws IOException
+    {
+        InetAddress addr = InetAddress.getByName(ROVER_ADDRESS);
 
         for (int i = 0; i < resendCount; i++)
         {
             // We fill the packet header here, since the user of this API shouldn't have to touch it.
             ByteBuffer buff = packetToBuffer(p);
 
-            DatagramPacket dp = new DatagramPacket(buff.array(), buff.limit(), addr, roverPort);
+            DatagramPacket dp = new DatagramPacket(buff.array(), buff.limit(), addr, ROVER_PORT);
             socket.send(dp);
         }
     }
 
+    public synchronized void sendPacketNoRepeat(Packet p) throws IOException
+    {
+        InetAddress addr = InetAddress.getByName(ROVER_ADDRESS);
 
-    public synchronized void requestHeartBeat() {
-        if (serverHeartState != null) {
-            serverHeartState.cancel();
-        }
-        try {
-            sendPacket(new PacketHeartbeat(PacketHeartbeat.Direction.PING), BaseStation.roverAddress, BaseStation.roverPort);
-        } catch (IOException e) {
-            System.err.println("Unable to request heartbeat.");
-            if (serverHeartState != null) System.out.println("WARNING: Previously requested hearbeat unrequested");
-            return;
-        }
-        serverHeartState = new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("Hearbeat not received in " + serverHeartBeatPeriod + "seconds, closing server");
-                try {
-                    closeServer();
-                } catch (AlreadyClosed alreadyClosed) {
-                    System.err.println(alreadyClosed.getMessage());
-                } catch (InterruptedException e) {
-                    System.err.println("Socket already closed");
-                }
-            }
-        };
-        serverHeart.schedule(serverHeartState, serverHeartBeatPeriod * 1000);
-    }
 
-    protected synchronized void onHeartBeatReceive() {
-        if (serverHeartState != null) serverHeartState.cancel();
+        // We fill the packet header here, since the user of this API shouldn't have to touch it.
+        ByteBuffer buff = packetToBuffer(p);
+
+        DatagramPacket dp = new DatagramPacket(buff.array(), buff.limit(), addr, ROVER_PORT);
+        socket.send(dp);
+
     }
 
     /**

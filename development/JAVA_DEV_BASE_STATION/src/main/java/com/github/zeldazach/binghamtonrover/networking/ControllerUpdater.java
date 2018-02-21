@@ -18,10 +18,6 @@ public class ControllerUpdater implements Observer
     //  Use the Manager to send packets to the rover
     private Manager managerUpdates;
 
-    //  Gets the port and address of the rover from the variables in the BaseStation class
-    private static int port = BaseStation.roverPort;
-    private static String address = BaseStation.roverAddress;
-
     //  The previous status of the DPAD to compare to
     private float dpadState = controllerObservable.dpad;
 
@@ -54,35 +50,35 @@ public class ControllerUpdater implements Observer
                     if (currentDpadState == 0)
                     {
                         PacketControl stopMoving = new PacketControl(MovementDirection.STOP);
-                        managerUpdates.sendPacket(stopMoving, address, port);
+                        managerUpdates.sendPacket(stopMoving);
                     }
 
                     //  Case 1 when only up is pushed
                     if (currentDpadState == .25)
                     {
                         PacketControl moveForward = new PacketControl(PacketControl.MovementDirection.FORWARD);
-                        managerUpdates.sendPacket(moveForward, address, port);
+                        managerUpdates.sendPacket(moveForward);
                     }
 
                     //  Case 2 when only right is pushed
                     if (currentDpadState == .5)
                     {
                         PacketControl moveRight = new PacketControl(PacketControl.MovementDirection.RIGHT);
-                        managerUpdates.sendPacket(moveRight, address, port);
+                        managerUpdates.sendPacket(moveRight);
                     }
 
                     //  Case 3 when only down is pushed
                     if (currentDpadState == .75)
                     {
                         PacketControl moveBack = new PacketControl(PacketControl.MovementDirection.BACKWARD);
-                        managerUpdates.sendPacket(moveBack, address, port); // <-----PacketControl extends Packet
+                        managerUpdates.sendPacket(moveBack); // <-----PacketControl extends Packet
                     }
 
                     //  Case 4 when only left is pushed
                     if (currentDpadState == 1.0)
                     {
                         PacketControl moveLeft = new PacketControl(PacketControl.MovementDirection.LEFT);
-                        managerUpdates.sendPacket(moveLeft, address, port);
+                        managerUpdates.sendPacket(moveLeft);
                     }
 
                     //  Additions if we decide to allow pushing two directions on the DPAD at the same time
