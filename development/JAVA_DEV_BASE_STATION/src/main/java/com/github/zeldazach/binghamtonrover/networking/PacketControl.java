@@ -4,27 +4,23 @@ import java.nio.ByteBuffer;
 
 public class PacketControl extends Packet
 {
-    public enum MovementDirection
-    {
-        STOP,
-        FORWARD,
-        LEFT,
-        RIGHT,
-        BACKWARD
-    }
 
     private MovementDirection direction;
 
-    PacketControl(MovementDirection _direction)
+    private int cameraSelected;
+
+    PacketControl(RoverState redRover)
     {
         super((byte) 1, 1);
-        direction = _direction;
+        direction = redRover.getDirection();
+        cameraSelected = redRover.getCamera();
     }
 
     @Override
     public void writeToBuffer(ByteBuffer buff)
     {
         buff.put((byte) direction.ordinal());
+        // Add the camera field in here
     }
 
     /*
@@ -35,6 +31,7 @@ public class PacketControl extends Packet
     @Override
     public void readFromBuffer(ByteBuffer buff)
     {
+        // Add the camera field in here
         direction = MovementDirection.values()[buff.get()];
     }
 }
