@@ -49,7 +49,7 @@ public class Manager
 
     private static final int CURRENT_VERSION = 5; // The current supported version.
 
-    private static final String ROVER_ADDRESS = "10.0.0.100";
+    private static final String ROVER_ADDRESS = "192.168.1.100";
     private static final int ROVER_PORT = 44444;
 
     private ConnectionState state;
