@@ -29,7 +29,7 @@ extern const unsigned int CONNECTION_ROVER_CHIRP_DELAY;
 extern const int CONNECTION_TIMEOUT;
 
 extern const char* CONNECTION_DISCOVERY_ADDRES;
-extern const int CONNECTION_DISCOVERY_PORT44444;
+extern const int CONNECTION_DISCOVERY_PORT;
 
 // Forward declarations of packet classes.
 struct PacketHeartbeat;
