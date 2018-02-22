@@ -1,0 +1,9 @@
+workspace to create package ieee_rover with node rover_server
+
+need to run this first to run catkin_make:
+source /opt/ros/kinetic/setup.bash
+
+need to run this to run custom packages:
+(in catkin_ws/)
+source devel/setup.bash
+

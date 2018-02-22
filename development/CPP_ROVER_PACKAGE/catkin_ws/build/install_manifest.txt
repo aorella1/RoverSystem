@@ -1,0 +1,10 @@
+/home/dude/Desktop/catkin_ws/install/_setup_util.py
+/home/dude/Desktop/catkin_ws/install/env.sh
+/home/dude/Desktop/catkin_ws/install/setup.bash
+/home/dude/Desktop/catkin_ws/install/setup.sh
+/home/dude/Desktop/catkin_ws/install/setup.zsh
+/home/dude/Desktop/catkin_ws/install/.rosinstall
+/home/dude/Desktop/catkin_ws/install/lib/pkgconfig/ieee_rover.pc
+/home/dude/Desktop/catkin_ws/install/share/ieee_rover/cmake/ieee_roverConfig.cmake
+/home/dude/Desktop/catkin_ws/install/share/ieee_rover/cmake/ieee_roverConfig-version.cmake
+/home/dude/Desktop/catkin_ws/install/share/ieee_rover/package.xml

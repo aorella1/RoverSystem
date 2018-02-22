@@ -1,0 +1,8 @@
+prefix=/home/dude/Desktop/catkin_ws/install
+
+Name: ieee_rover
+Description: Description of ieee_rover
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/dude/Desktop/catkin_ws/install/lib 
+Requires: 
