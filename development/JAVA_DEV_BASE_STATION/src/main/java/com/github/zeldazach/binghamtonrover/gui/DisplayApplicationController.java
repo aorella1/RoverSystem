@@ -1,11 +1,18 @@
 package com.github.zeldazach.binghamtonrover.gui;
 
+import com.github.zeldazach.binghamtonrover.BaseStation;
 import com.github.zeldazach.binghamtonrover.controller.ControllerHandler;
 import com.github.zeldazach.binghamtonrover.controller.ControllerState;
+import com.github.zeldazach.binghamtonrover.networking.RoverState;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -24,6 +31,10 @@ public class DisplayApplicationController {
     @FXML
     private Canvas xboxView;
 
+    @FXML
+    private ChoiceBox<String> currentCameraView;
+
+
     private GraphicsContext xboxViewGraphicsContext;
 
     /**
@@ -41,6 +52,21 @@ public class DisplayApplicationController {
         // we can reuse our canvas context rather than continue to call upon this method each time
         xboxViewGraphicsContext = xboxView.getGraphicsContext2D();
         buildXboxView();
+
+        // Set up the choiceBox on the GUI
+        ObservableList<String> availableChoices = FXCollections.observableArrayList("Camera 0", "Camera 1", "Camera 2", "Camera 3");
+        currentCameraView.setValue("Camera 0");
+        currentCameraView.setItems(availableChoices);
+
+        // Add a listener to set the Camera when a new item is chosen in the choiceBox
+        currentCameraView.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                RoverState roverState = new RoverState;
+                // Make Manager a singleton and create a Manager object to use as a parameter
+                roverState.getInstance().setCamera(t1, MANAGER, BaseStation.roverAddress, BaseStation.roverPort);
+            }
+        });
     }
 
     private void buildXboxView()
@@ -134,5 +160,6 @@ public class DisplayApplicationController {
 
         xboxViewGraphicsContext.drawImage(image, x, y, xboxView.getWidth(), xboxView.getHeight());
     }
+
 
 }

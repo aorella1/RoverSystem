@@ -18,9 +18,9 @@
             <ImageView fx:id="cameraImageView" fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
          </children>
       </StackPane>
-      <ChoiceBox prefWidth="150.0">
+      <ChoiceBox fx:id="currentCameraView" prefWidth="150.0">
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor></ChoiceBox>
       <Canvas height="450.0" width="800.0" fx:id="xboxView" />
    </children>
