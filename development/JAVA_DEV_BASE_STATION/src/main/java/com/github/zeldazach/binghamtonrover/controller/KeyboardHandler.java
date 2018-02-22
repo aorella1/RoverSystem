@@ -1,5 +1,6 @@
 package com.github.zeldazach.binghamtonrover.controller;
 
+import com.github.zeldazach.binghamtonrover.BaseStation;
 import com.github.zeldazach.binghamtonrover.networking.RoverState;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -27,10 +28,12 @@ public class KeyboardHandler {
                 case D:
                     ControllerHandler.getInstance().getControllerState().update("pov", 0.5f);
                     break;
-                case C:     // Change the Camera viewed in the GUI and sent in the packets
+                /*
+                case C:     // Change the Camera viewed in the GUI and sent in the packets when the C key is pressed
                     RoverState roverState = new RoverState();
-                    roverState.getInstance().setCamera(roverState.getInstance().getCamera() + 1);
+                    roverState.getInstance().setCamera(roverState.getInstance().getCamera() + 1, MANAGER, BaseStation.roverAddress, BaseStation.roverPort);
                     break;
+                */
                 default:
                     break;
             }

@@ -77,6 +77,11 @@ public class ControllerUpdater implements Observer
                     roverState.getInstance().setDirection(MovementDirection.LEFT, managerUpdates, address, port);
                 }
 
+                //  When the left bumper is pressed the camera view will change
+                if (((ControllerState)obs).buttonLBumper == true) {
+                    roverState.getInstance().setCamera(roverState.getInstance().getCamera() + 1, managerUpdates, address, port);
+                }
+
                 //  Additions if we decide to allow pushing two directions on the DPAD at the same time
                 /*
                 if(currentDpadState == .125)
