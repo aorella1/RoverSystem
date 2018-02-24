@@ -3,16 +3,16 @@
 <?import eu.hansolo.medusa.Gauge?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.zeldazach.binghamtonrover.gui.DisplayApplicationController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" stylesheets="@CSS/JavaFx_CSS.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.zeldazach.binghamtonrover.gui.DisplayApplicationController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -20,29 +20,53 @@
       <StackPane fx:id="cameraView" prefHeight="150.0" prefWidth="200.0">
          <children>
             <ImageView fx:id="cameraImageView" fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER" />
-            <LineChart axisSortingPolicy="NONE" title="Gauge Average">
-              <xAxis>
-                <CategoryAxis label="Time" side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
          </children>
       </StackPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="280.0" prefWidth="239.0" spacing="30.0" style="-fx-border-width: 3; -fx-border-color: Black; -fx-background-color: rgba(161,161,161,1);" styleClass="GaugeWrapper">
-               <children>
-                  <Gauge id="TempGauge" fx:id="tempGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="Temperature Gauge" unit="K" />
-                  <Gauge id="PsurGauge" fx:id="psurGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="PsurGuge" unit="PSI" />
-                  <Button id="DispAverage" mnemonicParsing="false" text="Show Averages" textAlignment="CENTER">
-                     <VBox.margin>
-                        <Insets top="-10.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
+            <TabPane prefHeight="315.0" prefWidth="251.0" stylesheets="@CSS/JavaFx_CSS.css" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Gauges">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="282.0" prefWidth="240.0" spacing="20.0" styleClass="vbox-gaugewrapper">
+                                 <children>
+                                    <Gauge id="TempGauge" fx:id="tempGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="Temperature Gauge" unit="K" />
+                                    <Gauge id="PsurGauge" fx:id="psurGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="PsurGuge" unit="PSI" />
+                                    <Button id="DispAverage" mnemonicParsing="false" text="Show Averages" textAlignment="CENTER">
+                                       <VBox.margin>
+                                          <Insets top="-10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Average">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="282.0" prefWidth="240.0" spacing="10.0" style="-fx-border-width: 3; -fx-border-color: black;" styleClass="vbox-gaugewrapper">
+                                 <children>
+                                    <Gauge fx:id="tempAvg" animated="true" maxValue="1000.0" skinType="TILE_SPARK_LINE" />
+                                    <Gauge fx:id="psurAvg" animated="true" maxValue="1000.0" minMeasuredValue="0.0" skinType="TILE_SPARK_LINE" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
             <Canvas height="315.0" width="560.0" fx:id="xboxView" />
          </children>
       </HBox>

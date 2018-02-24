@@ -62,7 +62,7 @@ class PacketCameraHandler implements PacketHandler {
             Platform.runLater(() -> {
                 DisplayApplication app = DisplayApplication.INSTANCE;
                 if (app != null) {
-                    app.cameraImageView.setImage(currentFrame);
+                    app.getCameraImageView().setImage(currentFrame);
                 }
             });
         } catch (IllegalStateException e) {

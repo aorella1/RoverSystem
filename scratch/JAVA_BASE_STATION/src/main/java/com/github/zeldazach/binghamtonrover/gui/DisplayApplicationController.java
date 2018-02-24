@@ -29,7 +29,8 @@ public class DisplayApplicationController {
 
     @FXML private Gauge tempGauge;
     @FXML private Gauge psurGauge;
-    @FXML private LineChart avgChart;
+    @FXML private Gauge tempAvg;
+    @FXML private Gauge psurAvg;
 
     private GraphicsContext xboxViewGraphicsContext;
 
@@ -145,10 +146,12 @@ public class DisplayApplicationController {
 
     public synchronized void updateTempGauges(double value){
         tempGauge.setValue(value);
+        tempAvg.setValue(value);
     }
 
     public synchronized void updatePsurGauge(double value){
         psurGauge.setValue(value);
+        psurAvg.setValue(value);
     }
 
 }
