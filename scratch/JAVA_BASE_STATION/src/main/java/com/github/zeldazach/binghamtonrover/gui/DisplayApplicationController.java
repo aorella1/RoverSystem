@@ -5,15 +5,21 @@ import com.github.zeldazach.binghamtonrover.controller.ControllerState;
 import eu.hansolo.medusa.Gauge;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.chart.Chart;
-import javafx.scene.chart.LineChart;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +38,13 @@ public class DisplayApplicationController {
     @FXML private Gauge tempAvg;
     @FXML private Gauge psurAvg;
 
+    @FXML private Button AverageBtn;
+    private Stage PopupStage;
+    private boolean AverageOn = false;
+    private AveragePopupController avgController;
+
     private GraphicsContext xboxViewGraphicsContext;
+
 
     /**
      * Yes, this is hardcoded. It's used in the calculation of the offset of the joystick "pressed" image.
@@ -45,11 +57,20 @@ public class DisplayApplicationController {
         return cameraImageView;
     }
 
-    public void initialize() {
+    public void initialize() throws IOException {
         // we can reuse our canvas context rather than continue to call upon this method each time
         xboxViewGraphicsContext = xboxView.getGraphicsContext2D();
         buildXboxView();
-//        startGauge();
+
+        //Add a popup window
+        PopupStage = new Stage();
+        PopupStage.initModality(Modality.NONE);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AveragePopup.fxml"));
+        AnchorPane root = loader.load();
+        avgController = loader.getController();
+        PopupStage.setScene(new Scene(root));
+//        PopupStage.initOwner(AverageBtn.getScene().getWindow());
+
     }
 
     private void buildXboxView()
@@ -147,11 +168,27 @@ public class DisplayApplicationController {
     public synchronized void updateTempGauges(double value){
         tempGauge.setValue(value);
         tempAvg.setValue(value);
+//        avgController.addTempData(value);
     }
 
     public synchronized void updatePsurGauge(double value){
         psurGauge.setValue(value);
         psurAvg.setValue(value);
+    }
+
+    @FXML
+    public void AverageBtnHandler(){
+        //Add a popup window
+        if(!AverageOn) {
+            AverageOn = true;
+            AverageBtn.setText("close Averages");
+            PopupStage.show();
+        }
+        else{
+            AverageOn = false;
+            AverageBtn.setText("Show Averages");
+            PopupStage.close();
+        }
     }
 
 }

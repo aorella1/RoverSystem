@@ -2,6 +2,7 @@
 
 <?import eu.hansolo.medusa.Gauge?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Tab?>
@@ -34,10 +35,13 @@
                                  <children>
                                     <Gauge id="TempGauge" fx:id="tempGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="Temperature Gauge" unit="K" />
                                     <Gauge id="PsurGauge" fx:id="psurGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="PsurGuge" unit="PSI" />
-                                    <Button id="DispAverage" mnemonicParsing="false" text="Show Averages" textAlignment="CENTER">
+                                    <Button id="DispAverage" fx:id="AverageBtn" mnemonicParsing="false" onAction="#AverageBtnHandler" text="Show Averages" textAlignment="CENTER">
                                        <VBox.margin>
                                           <Insets top="-10.0" />
                                        </VBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
                                  </children>
                                  <padding>

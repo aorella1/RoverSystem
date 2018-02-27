@@ -3,21 +3,33 @@
 }
 
 .tab {
-    -fx-background: linear-gradient(to bottom, #b5bdc8 0%,#828c95 36%,#28343b 100%);
+    -fx-background-color: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%);;
     -fx-background-radius: 0;
     -fx-background-inset: 1;
 }
 
 .tab-label{
-    -fx-text-fill: white;
+    -fx-text-fill: gray;
 }
 
 .tab:selected {
-    -fx-background-color: linear-gradient(to bottom, #565656 12%, #2f4545 100%);
+    -fx-background-color: linear-gradient(to bottom, #7a8c90 12%, #484a4b 100%);
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #ffc3a3;
 }
 
 .vbox-gaugewrapper {
     -fx-border-color: black;
     -fx-border-width: 3px;
-    -fx-background-color: linear-gradient(to bottom, #58b596 0%, #8c8dc7 51%, #df7d66 100%);
+    -fx-background-color: linear-gradient(to bottom, #61b593 0%, #978db7 51%, #df7d66 100%);
+}
+
+#DispAverage {
+    -fx-text-fill: #ffc3a3;
+    -fx-background-color: linear-gradient(to bottom, #565656 12%, #2f4545 100%);;
+    -fx-background-radius: 0;
+    -fx-background-inset: 1;
+    -fx-border-radius: 0;
 }

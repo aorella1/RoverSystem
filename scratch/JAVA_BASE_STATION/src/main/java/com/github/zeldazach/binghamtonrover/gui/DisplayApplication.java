@@ -2,10 +2,16 @@ package com.github.zeldazach.binghamtonrover.gui;
 
 import com.github.zeldazach.binghamtonrover.controller.KeyboardHandler;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +32,6 @@ public class DisplayApplication extends Application
         INSTANCE = this;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DisplayApplication.fxml"));
         Parent root = loader.load();
-
         controller = loader.getController();
 
         Scene scene = new Scene(root);
@@ -38,6 +43,8 @@ public class DisplayApplication extends Application
         primaryStage.setScene(scene);
         primaryStage.show();
 
+
+        //Update random values to the gauges
         Random rand = new Random();
         Runnable randGauge  = () -> {
             while (true) {
