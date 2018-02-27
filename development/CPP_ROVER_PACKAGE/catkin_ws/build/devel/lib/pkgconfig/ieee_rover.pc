@@ -1,0 +1,8 @@
+prefix=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/devel
+
+Name: ieee_rover
+Description: Description of ieee_rover
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/devel/lib 
+Requires: 

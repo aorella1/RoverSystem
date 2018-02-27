@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/devel/setup.sh

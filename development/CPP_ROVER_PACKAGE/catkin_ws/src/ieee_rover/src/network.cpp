@@ -45,7 +45,7 @@ void register_packet_functions() {
     };
 
     PacketTypeControl.reader = [](PacketControl* packet, Buffer& buffer) {
-        packet->movement_state = buffer.read_value<PacketControl::MovementState>();
+        packet->movement_state = (int)buffer.read_value<char>();
     };
     PacketTypeControl.writer = [](PacketControl* packet, Buffer& buffer) {
         buffer.write_value(packet->movement_state);
@@ -205,6 +205,7 @@ void Manager::poll()
         uint8_t type = buffer.read_value<uint8_t>();
         uint16_t timestamp = ntohs(buffer.read_value<uint16_t>());
 
+        /*
         // Handle the version.
         if (version != CURRENT_ROVER_PROTOCOL_VERSION)
         {
@@ -225,6 +226,7 @@ void Manager::poll()
                 continue;
             }
         }
+        */
 
         receive_timestamp = timestamp;
 

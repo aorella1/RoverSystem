@@ -1,8 +1,8 @@
-# Install script for directory: /home/dude/Desktop/catkin_ws/src/ieee_rover
+# Install script for directory: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/dude/Desktop/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/dude/Desktop/catkin_ws/build/ieee_rover/catkin_generated/installspace/ieee_rover.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover/catkin_generated/installspace/ieee_rover.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ieee_rover/cmake" TYPE FILE FILES
-    "/home/dude/Desktop/catkin_ws/build/ieee_rover/catkin_generated/installspace/ieee_roverConfig.cmake"
-    "/home/dude/Desktop/catkin_ws/build/ieee_rover/catkin_generated/installspace/ieee_roverConfig-version.cmake"
+    "/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover/catkin_generated/installspace/ieee_roverConfig.cmake"
+    "/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover/catkin_generated/installspace/ieee_roverConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ieee_rover" TYPE FILE FILES "/home/dude/Desktop/catkin_ws/src/ieee_rover/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ieee_rover" TYPE FILE FILES "/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/package.xml")
 endif()
 

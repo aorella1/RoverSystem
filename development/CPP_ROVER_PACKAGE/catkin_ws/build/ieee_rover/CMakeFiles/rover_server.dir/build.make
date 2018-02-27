@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dude/Desktop/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dude/Desktop/catkin_ws/build
+CMAKE_BINARY_DIR = /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build
 
 # Include any dependencies generated for this target.
 include ieee_rover/CMakeFiles/rover_server.dir/depend.make
@@ -58,17 +58,17 @@ include ieee_rover/CMakeFiles/rover_server.dir/progress.make
 include ieee_rover/CMakeFiles/rover_server.dir/flags.make
 
 ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o: ieee_rover/CMakeFiles/rover_server.dir/flags.make
-ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o: /home/dude/Desktop/catkin_ws/src/ieee_rover/src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dude/Desktop/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/main.cpp.o -c /home/dude/Desktop/catkin_ws/src/ieee_rover/src/main.cpp
+ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o"
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/main.cpp.o -c /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/main.cpp
 
 ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rover_server.dir/src/main.cpp.i"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dude/Desktop/catkin_ws/src/ieee_rover/src/main.cpp > CMakeFiles/rover_server.dir/src/main.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/main.cpp > CMakeFiles/rover_server.dir/src/main.cpp.i
 
 ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rover_server.dir/src/main.cpp.s"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dude/Desktop/catkin_ws/src/ieee_rover/src/main.cpp -o CMakeFiles/rover_server.dir/src/main.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/main.cpp -o CMakeFiles/rover_server.dir/src/main.cpp.s
 
 ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o.requires:
 
@@ -82,17 +82,17 @@ ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o.provides.build: ieee_rover
 
 
 ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o: ieee_rover/CMakeFiles/rover_server.dir/flags.make
-ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o: /home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dude/Desktop/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/network.cpp.o -c /home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.cpp
+ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o"
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/network.cpp.o -c /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.cpp
 
 ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rover_server.dir/src/network.cpp.i"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.cpp > CMakeFiles/rover_server.dir/src/network.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.cpp > CMakeFiles/rover_server.dir/src/network.cpp.i
 
 ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rover_server.dir/src/network.cpp.s"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.cpp -o CMakeFiles/rover_server.dir/src/network.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.cpp -o CMakeFiles/rover_server.dir/src/network.cpp.s
 
 ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o.requires:
 
@@ -106,17 +106,17 @@ ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o.provides.build: ieee_ro
 
 
 ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o: ieee_rover/CMakeFiles/rover_server.dir/flags.make
-ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o: /home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dude/Desktop/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/camera.cpp.o -c /home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.cpp
+ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o"
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/camera.cpp.o -c /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.cpp
 
 ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rover_server.dir/src/camera.cpp.i"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.cpp > CMakeFiles/rover_server.dir/src/camera.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.cpp > CMakeFiles/rover_server.dir/src/camera.cpp.i
 
 ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rover_server.dir/src/camera.cpp.s"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.cpp -o CMakeFiles/rover_server.dir/src/camera.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.cpp -o CMakeFiles/rover_server.dir/src/camera.cpp.s
 
 ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o.requires:
 
@@ -130,17 +130,17 @@ ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o.provides.build: ieee_rov
 
 
 ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o: ieee_rover/CMakeFiles/rover_server.dir/flags.make
-ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o: /home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dude/Desktop/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/util.cpp.o -c /home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.cpp
+ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o"
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/rover_server.dir/src/util.cpp.o -c /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.cpp
 
 ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rover_server.dir/src/util.cpp.i"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.cpp > CMakeFiles/rover_server.dir/src/util.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.cpp > CMakeFiles/rover_server.dir/src/util.cpp.i
 
 ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rover_server.dir/src/util.cpp.s"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.cpp -o CMakeFiles/rover_server.dir/src/util.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.cpp -o CMakeFiles/rover_server.dir/src/util.cpp.s
 
 ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o.requires:
 
@@ -163,36 +163,38 @@ rover_server_OBJECTS = \
 # External object files for target rover_server
 rover_server_EXTERNAL_OBJECTS =
 
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/build.make
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libroscpp.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_signals.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librosconsole.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librosconsole_log4cxx.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librosconsole_backend_interface.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_regex.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libroscpp_serialization.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librostime.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libxmlrpcpp.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libcpp_common.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_system.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_thread.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libpthread.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so
-/home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dude/Desktop/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable /home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server"
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rover_server.dir/link.txt --verbose=$(VERBOSE)
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/build.make
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libroscpp.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_filesystem.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_signals.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librosconsole.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librosconsole_log4cxx.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librosconsole_backend_interface.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/liblog4cxx.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_regex.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libroscpp_serialization.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/librostime.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libxmlrpcpp.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /opt/ros/kinetic/lib/libcpp_common.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_system.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_thread.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_chrono.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_date_time.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libboost_atomic.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libconsole_bridge.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/libserial.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/librt.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: /usr/lib/arm-linux-gnueabihf/libpthread.so
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server: ieee_rover/CMakeFiles/rover_server.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server"
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rover_server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-ieee_rover/CMakeFiles/rover_server.dir/build: /home/dude/Desktop/catkin_ws/devel/lib/ieee_rover/rover_server
+ieee_rover/CMakeFiles/rover_server.dir/build: /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel/lib/ieee_rover/rover_server
 
 .PHONY : ieee_rover/CMakeFiles/rover_server.dir/build
 
@@ -204,10 +206,10 @@ ieee_rover/CMakeFiles/rover_server.dir/requires: ieee_rover/CMakeFiles/rover_ser
 .PHONY : ieee_rover/CMakeFiles/rover_server.dir/requires
 
 ieee_rover/CMakeFiles/rover_server.dir/clean:
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && $(CMAKE_COMMAND) -P CMakeFiles/rover_server.dir/cmake_clean.cmake
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && $(CMAKE_COMMAND) -P CMakeFiles/rover_server.dir/cmake_clean.cmake
 .PHONY : ieee_rover/CMakeFiles/rover_server.dir/clean
 
 ieee_rover/CMakeFiles/rover_server.dir/depend:
-	cd /home/dude/Desktop/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dude/Desktop/catkin_ws/src /home/dude/Desktop/catkin_ws/src/ieee_rover /home/dude/Desktop/catkin_ws/build /home/dude/Desktop/catkin_ws/build/ieee_rover /home/dude/Desktop/catkin_ws/build/ieee_rover/CMakeFiles/rover_server.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover/CMakeFiles/rover_server.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : ieee_rover/CMakeFiles/rover_server.dir/depend
 

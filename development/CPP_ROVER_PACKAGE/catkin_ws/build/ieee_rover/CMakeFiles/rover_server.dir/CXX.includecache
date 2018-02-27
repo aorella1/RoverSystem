@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/buffer.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/buffer.h
 stdint.h
 -
 string.h
 -
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.cpp
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.cpp
 iostream
 -
 camera.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.h
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.h
 stdio.h
 -
 linux/videodev2.h
@@ -42,7 +42,7 @@ stdint.h
 string
 -
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/main.cpp
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/main.cpp
 cstdlib
 -
 string
@@ -56,17 +56,19 @@ sstream
 iostream
 -
 network.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.h
 camera.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/camera.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/camera.h
 util.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.h
 ros/ros.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/ros/ros.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/ros/ros.h
 geometry_msgs/Twist.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/geometry_msgs/Twist.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/geometry_msgs/Twist.h
+serial/serial.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/serial/serial.h
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.cpp
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.cpp
 sys/socket.h
 -
 netinet/in.h
@@ -86,11 +88,11 @@ cstring
 string
 -
 network.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.h
 util.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.h
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/network.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/network.h
 arpa/inet.h
 -
 unordered_map
@@ -100,18 +102,44 @@ cstdint
 cstdlib
 -
 buffer.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/buffer.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/buffer.h
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.cpp
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.cpp
 util.h
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.h
 
-/home/dude/Desktop/catkin_ws/src/ieee_rover/src/util.h
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover/src/util.h
 unistd.h
 -
 stdint.h
 -
 time.h
+-
+
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/serial/include/serial/serial.h
+limits
+-
+vector
+-
+string
+-
+cstring
+-
+sstream
+-
+exception
+-
+stdexcept
+-
+serial/v8stdint.h
+-
+
+/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/serial/include/serial/v8stdint.h
+stddef.h
+-
+stdio.h
+-
+stdint.h
 -
 
 /opt/ros/kinetic/include/geometry_msgs/Twist.h

@@ -1,2 +1,2 @@
-ieee_rover
--DCATKIN_DEVEL_PREFIX=/home/dude/Desktop/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/dude/Desktop/catkin_ws/install -G Unix Makefiles
+ieee_rover:serial
+-DCATKIN_DEVEL_PREFIX=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/install -G Unix Makefiles

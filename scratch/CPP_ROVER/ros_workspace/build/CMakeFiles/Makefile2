@@ -57,7 +57,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/IEEE_PI/ros_workspace/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/IEEE_PI/ros_workspace/build
+CMAKE_BINARY_DIR = /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/clean_test_results.dir
@@ -66,14 +66,14 @@ CMAKE_BINARY_DIR = /home/IEEE_PI/ros_workspace/build
 CMakeFiles/clean_test_results.dir/all:
 	$(MAKE) -f CMakeFiles/clean_test_results.dir/build.make CMakeFiles/clean_test_results.dir/depend
 	$(MAKE) -f CMakeFiles/clean_test_results.dir/build.make CMakeFiles/clean_test_results.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target clean_test_results"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target clean_test_results"
 .PHONY : CMakeFiles/clean_test_results.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/clean_test_results.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/clean_test_results.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : CMakeFiles/clean_test_results.dir/rule
 
 # Convenience name for target.
@@ -95,17 +95,17 @@ clean: CMakeFiles/clean_test_results.dir/clean
 # Target rules for target CMakeFiles/run_tests.dir
 
 # All Build rule for target.
-CMakeFiles/run_tests.dir/all:
+CMakeFiles/run_tests.dir/all: serial/tests/CMakeFiles/_run_tests_serial.dir/all
 	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/depend
 	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target run_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target run_tests"
 .PHONY : CMakeFiles/run_tests.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/run_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/run_tests.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : CMakeFiles/run_tests.dir/rule
 
 # Convenience name for target.
@@ -130,14 +130,14 @@ clean: CMakeFiles/run_tests.dir/clean
 CMakeFiles/doxygen.dir/all:
 	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/depend
 	$(MAKE) -f CMakeFiles/doxygen.dir/build.make CMakeFiles/doxygen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target doxygen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target doxygen"
 .PHONY : CMakeFiles/doxygen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/doxygen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/doxygen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : CMakeFiles/doxygen.dir/rule
 
 # Convenience name for target.
@@ -159,17 +159,18 @@ clean: CMakeFiles/doxygen.dir/clean
 # Target rules for target CMakeFiles/tests.dir
 
 # All Build rule for target.
-CMakeFiles/tests.dir/all:
+CMakeFiles/tests.dir/all: serial/tests/CMakeFiles/serial-test-timer.dir/all
+CMakeFiles/tests.dir/all: serial/tests/CMakeFiles/serial-test.dir/all
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/depend
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target tests"
 .PHONY : CMakeFiles/tests.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/tests.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : CMakeFiles/tests.dir/rule
 
 # Convenience name for target.
@@ -194,14 +195,14 @@ clean: CMakeFiles/tests.dir/clean
 CMakeFiles/download_extra_data.dir/all:
 	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/depend
 	$(MAKE) -f CMakeFiles/download_extra_data.dir/build.make CMakeFiles/download_extra_data.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target download_extra_data"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target download_extra_data"
 .PHONY : CMakeFiles/download_extra_data.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/download_extra_data.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/download_extra_data.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : CMakeFiles/download_extra_data.dir/rule
 
 # Convenience name for target.
@@ -245,14 +246,14 @@ gtest/preinstall:
 gtest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num=1,2 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=1,2 "Built target gtest"
 .PHONY : gtest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/CMakeFiles/gtest.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 gtest/CMakeFiles/gtest.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : gtest/CMakeFiles/gtest.dir/rule
 
 # Convenience name for target.
@@ -277,14 +278,14 @@ clean: gtest/CMakeFiles/gtest.dir/clean
 gtest/CMakeFiles/gtest_main.dir/all: gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num=3,4 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=3,4 "Built target gtest_main"
 .PHONY : gtest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
 gtest/CMakeFiles/gtest_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 gtest/CMakeFiles/gtest_main.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : gtest/CMakeFiles/gtest_main.dir/rule
 
 # Convenience name for target.
@@ -303,11 +304,530 @@ clean: gtest/CMakeFiles/gtest_main.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Directory level rules for directory serial
+
+# Convenience name for "all" pass in the directory.
+serial/all: serial/CMakeFiles/serial_example.dir/all
+serial/all: serial/CMakeFiles/serial.dir/all
+serial/all: serial/tests/all
+
+.PHONY : serial/all
+
+# Convenience name for "clean" pass in the directory.
+serial/clean: serial/CMakeFiles/_catkin_empty_exported_target.dir/clean
+serial/clean: serial/CMakeFiles/serial_example.dir/clean
+serial/clean: serial/CMakeFiles/serial.dir/clean
+serial/clean: serial/tests/clean
+
+.PHONY : serial/clean
+
+# Convenience name for "preinstall" pass in the directory.
+serial/preinstall: serial/tests/preinstall
+
+.PHONY : serial/preinstall
+
+#=============================================================================
+# Target rules for target serial/CMakeFiles/_catkin_empty_exported_target.dir
+
+# All Build rule for target.
+serial/CMakeFiles/_catkin_empty_exported_target.dir/all:
+	$(MAKE) -f serial/CMakeFiles/_catkin_empty_exported_target.dir/build.make serial/CMakeFiles/_catkin_empty_exported_target.dir/depend
+	$(MAKE) -f serial/CMakeFiles/_catkin_empty_exported_target.dir/build.make serial/CMakeFiles/_catkin_empty_exported_target.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target _catkin_empty_exported_target"
+.PHONY : serial/CMakeFiles/_catkin_empty_exported_target.dir/all
+
+# Build rule for subdir invocation for target.
+serial/CMakeFiles/_catkin_empty_exported_target.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 serial/CMakeFiles/_catkin_empty_exported_target.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/CMakeFiles/_catkin_empty_exported_target.dir/rule
+
+# Convenience name for target.
+_catkin_empty_exported_target: serial/CMakeFiles/_catkin_empty_exported_target.dir/rule
+
+.PHONY : _catkin_empty_exported_target
+
+# clean rule for target.
+serial/CMakeFiles/_catkin_empty_exported_target.dir/clean:
+	$(MAKE) -f serial/CMakeFiles/_catkin_empty_exported_target.dir/build.make serial/CMakeFiles/_catkin_empty_exported_target.dir/clean
+.PHONY : serial/CMakeFiles/_catkin_empty_exported_target.dir/clean
+
+# clean rule for target.
+clean: serial/CMakeFiles/_catkin_empty_exported_target.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/CMakeFiles/serial_example.dir
+
+# All Build rule for target.
+serial/CMakeFiles/serial_example.dir/all: serial/CMakeFiles/serial.dir/all
+	$(MAKE) -f serial/CMakeFiles/serial_example.dir/build.make serial/CMakeFiles/serial_example.dir/depend
+	$(MAKE) -f serial/CMakeFiles/serial_example.dir/build.make serial/CMakeFiles/serial_example.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=15,16 "Built target serial_example"
+.PHONY : serial/CMakeFiles/serial_example.dir/all
+
+# Include target in all.
+all: serial/CMakeFiles/serial_example.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+serial/CMakeFiles/serial_example.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 serial/CMakeFiles/serial_example.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/CMakeFiles/serial_example.dir/rule
+
+# Convenience name for target.
+serial_example: serial/CMakeFiles/serial_example.dir/rule
+
+.PHONY : serial_example
+
+# clean rule for target.
+serial/CMakeFiles/serial_example.dir/clean:
+	$(MAKE) -f serial/CMakeFiles/serial_example.dir/build.make serial/CMakeFiles/serial_example.dir/clean
+.PHONY : serial/CMakeFiles/serial_example.dir/clean
+
+# clean rule for target.
+clean: serial/CMakeFiles/serial_example.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/CMakeFiles/serial.dir
+
+# All Build rule for target.
+serial/CMakeFiles/serial.dir/all:
+	$(MAKE) -f serial/CMakeFiles/serial.dir/build.make serial/CMakeFiles/serial.dir/depend
+	$(MAKE) -f serial/CMakeFiles/serial.dir/build.make serial/CMakeFiles/serial.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=7,8,9,10 "Built target serial"
+.PHONY : serial/CMakeFiles/serial.dir/all
+
+# Include target in all.
+all: serial/CMakeFiles/serial.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+serial/CMakeFiles/serial.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 serial/CMakeFiles/serial.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/CMakeFiles/serial.dir/rule
+
+# Convenience name for target.
+serial: serial/CMakeFiles/serial.dir/rule
+
+.PHONY : serial
+
+# clean rule for target.
+serial/CMakeFiles/serial.dir/clean:
+	$(MAKE) -f serial/CMakeFiles/serial.dir/build.make serial/CMakeFiles/serial.dir/clean
+.PHONY : serial/CMakeFiles/serial.dir/clean
+
+# clean rule for target.
+clean: serial/CMakeFiles/serial.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory serial/tests
+
+# Convenience name for "all" pass in the directory.
+serial/tests/all:
+
+.PHONY : serial/tests/all
+
+# Convenience name for "clean" pass in the directory.
+serial/tests/clean: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/run_tests_serial_gtest.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/serial-test-timer.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/run_tests_serial.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/serial-test.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/_run_tests_serial.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/clean
+serial/tests/clean: serial/tests/CMakeFiles/clean_test_results_serial.dir/clean
+
+.PHONY : serial/tests/clean
+
+# Convenience name for "preinstall" pass in the directory.
+serial/tests/preinstall:
+
+.PHONY : serial/tests/preinstall
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/all: CMakeFiles/tests.dir/all
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/all: serial/tests/CMakeFiles/serial-test-timer.dir/all
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/all: serial/tests/CMakeFiles/clean_test_results_serial.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target _run_tests_serial_gtest_serial-test-timer"
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/rule
+
+# Convenience name for target.
+_run_tests_serial_gtest_serial-test-timer: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/rule
+
+.PHONY : _run_tests_serial_gtest_serial-test-timer
+
+# clean rule for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/clean
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/run_tests_serial_gtest.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest.dir/all: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/all
+serial/tests/CMakeFiles/run_tests_serial_gtest.dir/all: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target run_tests_serial_gtest"
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/run_tests_serial_gtest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest.dir/rule
+
+# Convenience name for target.
+run_tests_serial_gtest: serial/tests/CMakeFiles/run_tests_serial_gtest.dir/rule
+
+.PHONY : run_tests_serial_gtest
+
+# clean rule for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest.dir/clean
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/run_tests_serial_gtest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/serial-test-timer.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/serial-test-timer.dir/all: gtest/CMakeFiles/gtest.dir/all
+serial/tests/CMakeFiles/serial-test-timer.dir/all: gtest/CMakeFiles/gtest_main.dir/all
+serial/tests/CMakeFiles/serial-test-timer.dir/all: serial/CMakeFiles/serial.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/serial-test-timer.dir/build.make serial/tests/CMakeFiles/serial-test-timer.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/serial-test-timer.dir/build.make serial/tests/CMakeFiles/serial-test-timer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=13,14 "Built target serial-test-timer"
+.PHONY : serial/tests/CMakeFiles/serial-test-timer.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/serial-test-timer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/serial-test-timer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/serial-test-timer.dir/rule
+
+# Convenience name for target.
+serial-test-timer: serial/tests/CMakeFiles/serial-test-timer.dir/rule
+
+.PHONY : serial-test-timer
+
+# clean rule for target.
+serial/tests/CMakeFiles/serial-test-timer.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/serial-test-timer.dir/build.make serial/tests/CMakeFiles/serial-test-timer.dir/clean
+.PHONY : serial/tests/CMakeFiles/serial-test-timer.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/serial-test-timer.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/run_tests_serial.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/run_tests_serial.dir/all: serial/tests/CMakeFiles/run_tests_serial_gtest.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial.dir/build.make serial/tests/CMakeFiles/run_tests_serial.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial.dir/build.make serial/tests/CMakeFiles/run_tests_serial.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target run_tests_serial"
+.PHONY : serial/tests/CMakeFiles/run_tests_serial.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/run_tests_serial.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/run_tests_serial.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/run_tests_serial.dir/rule
+
+# Convenience name for target.
+run_tests_serial: serial/tests/CMakeFiles/run_tests_serial.dir/rule
+
+.PHONY : run_tests_serial
+
+# clean rule for target.
+serial/tests/CMakeFiles/run_tests_serial.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial.dir/build.make serial/tests/CMakeFiles/run_tests_serial.dir/clean
+.PHONY : serial/tests/CMakeFiles/run_tests_serial.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/run_tests_serial.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/all: CMakeFiles/tests.dir/all
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/all: serial/tests/CMakeFiles/serial-test.dir/all
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/all: serial/tests/CMakeFiles/clean_test_results_serial.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target _run_tests_serial_gtest_serial-test"
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/rule
+
+# Convenience name for target.
+_run_tests_serial_gtest_serial-test: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/rule
+
+.PHONY : _run_tests_serial_gtest_serial-test
+
+# clean rule for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/clean
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/serial-test.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/serial-test.dir/all: gtest/CMakeFiles/gtest.dir/all
+serial/tests/CMakeFiles/serial-test.dir/all: gtest/CMakeFiles/gtest_main.dir/all
+serial/tests/CMakeFiles/serial-test.dir/all: serial/CMakeFiles/serial.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/serial-test.dir/build.make serial/tests/CMakeFiles/serial-test.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/serial-test.dir/build.make serial/tests/CMakeFiles/serial-test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=11,12 "Built target serial-test"
+.PHONY : serial/tests/CMakeFiles/serial-test.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/serial-test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/serial-test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/serial-test.dir/rule
+
+# Convenience name for target.
+serial-test: serial/tests/CMakeFiles/serial-test.dir/rule
+
+.PHONY : serial-test
+
+# clean rule for target.
+serial/tests/CMakeFiles/serial-test.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/serial-test.dir/build.make serial/tests/CMakeFiles/serial-test.dir/clean
+.PHONY : serial/tests/CMakeFiles/serial-test.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/serial-test.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/_run_tests_serial.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/_run_tests_serial.dir/all: serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial.dir/build.make serial/tests/CMakeFiles/_run_tests_serial.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial.dir/build.make serial/tests/CMakeFiles/_run_tests_serial.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target _run_tests_serial"
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/_run_tests_serial.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/_run_tests_serial.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial.dir/rule
+
+# Convenience name for target.
+_run_tests_serial: serial/tests/CMakeFiles/_run_tests_serial.dir/rule
+
+.PHONY : _run_tests_serial
+
+# clean rule for target.
+serial/tests/CMakeFiles/_run_tests_serial.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial.dir/build.make serial/tests/CMakeFiles/_run_tests_serial.dir/clean
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/_run_tests_serial.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/_run_tests_serial_gtest.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/all: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test-timer.dir/all
+serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/all: serial/tests/CMakeFiles/_run_tests_serial_gtest_serial-test.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target _run_tests_serial_gtest"
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 12
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/rule
+
+# Convenience name for target.
+_run_tests_serial_gtest: serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/rule
+
+.PHONY : _run_tests_serial_gtest
+
+# clean rule for target.
+serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/build.make serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/clean
+.PHONY : serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/_run_tests_serial_gtest.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/all: serial/tests/CMakeFiles/serial-test.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target run_tests_serial_gtest_serial-test"
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/rule
+
+# Convenience name for target.
+run_tests_serial_gtest_serial-test: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/rule
+
+.PHONY : run_tests_serial_gtest_serial-test
+
+# clean rule for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/clean
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/all: serial/tests/CMakeFiles/serial-test-timer.dir/all
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target run_tests_serial_gtest_serial-test-timer"
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 10
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/rule
+
+# Convenience name for target.
+run_tests_serial_gtest_serial-test-timer: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/rule
+
+.PHONY : run_tests_serial_gtest_serial-test-timer
+
+# clean rule for target.
+serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/build.make serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/clean
+.PHONY : serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/run_tests_serial_gtest_serial-test-timer.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target serial/tests/CMakeFiles/clean_test_results_serial.dir
+
+# All Build rule for target.
+serial/tests/CMakeFiles/clean_test_results_serial.dir/all:
+	$(MAKE) -f serial/tests/CMakeFiles/clean_test_results_serial.dir/build.make serial/tests/CMakeFiles/clean_test_results_serial.dir/depend
+	$(MAKE) -f serial/tests/CMakeFiles/clean_test_results_serial.dir/build.make serial/tests/CMakeFiles/clean_test_results_serial.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target clean_test_results_serial"
+.PHONY : serial/tests/CMakeFiles/clean_test_results_serial.dir/all
+
+# Build rule for subdir invocation for target.
+serial/tests/CMakeFiles/clean_test_results_serial.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+	$(MAKE) -f CMakeFiles/Makefile2 serial/tests/CMakeFiles/clean_test_results_serial.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : serial/tests/CMakeFiles/clean_test_results_serial.dir/rule
+
+# Convenience name for target.
+clean_test_results_serial: serial/tests/CMakeFiles/clean_test_results_serial.dir/rule
+
+.PHONY : clean_test_results_serial
+
+# clean rule for target.
+serial/tests/CMakeFiles/clean_test_results_serial.dir/clean:
+	$(MAKE) -f serial/tests/CMakeFiles/clean_test_results_serial.dir/build.make serial/tests/CMakeFiles/clean_test_results_serial.dir/clean
+.PHONY : serial/tests/CMakeFiles/clean_test_results_serial.dir/clean
+
+# clean rule for target.
+clean: serial/tests/CMakeFiles/clean_test_results_serial.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Directory level rules for directory automatic_rover_boy
 
 # Convenience name for "all" pass in the directory.
-automatic_rover_boy/all: automatic_rover_boy/CMakeFiles/talker.dir/all
-automatic_rover_boy/all: automatic_rover_boy/CMakeFiles/listener.dir/all
+automatic_rover_boy/all: automatic_rover_boy/CMakeFiles/test_run.dir/all
+automatic_rover_boy/all: automatic_rover_boy/CMakeFiles/navigator.dir/all
 
 .PHONY : automatic_rover_boy/all
 
@@ -327,8 +847,8 @@ automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_mess
 automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean
 automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/clean
-automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/talker.dir/clean
-automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/listener.dir/clean
+automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/test_run.dir/clean
+automatic_rover_boy/clean: automatic_rover_boy/CMakeFiles/navigator.dir/clean
 
 .PHONY : automatic_rover_boy/clean
 
@@ -344,14 +864,14 @@ automatic_rover_boy/preinstall:
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_lisp"
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -376,14 +896,14 @@ clean: automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/c
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_cpp"
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -408,14 +928,14 @@ clean: automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/cl
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_py"
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -440,14 +960,14 @@ clean: automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/clean
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_nodejs"
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -472,14 +992,14 @@ clean: automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_cpp"
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -504,14 +1024,14 @@ clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_cpp.dir/clean
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_cpp"
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -536,14 +1056,14 @@ clean: automatic_rover_boy/CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_eus"
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -568,14 +1088,14 @@ clean: automatic_rover_boy/CMakeFiles/roscpp_generate_messages_eus.dir/clean
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_py"
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -600,14 +1120,14 @@ clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_eus"
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -632,14 +1152,14 @@ clean: automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/cl
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_lisp"
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -664,14 +1184,14 @@ clean: automatic_rover_boy/CMakeFiles/roscpp_generate_messages_lisp.dir/clean
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target roscpp_generate_messages_nodejs"
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -696,14 +1216,14 @@ clean: automatic_rover_boy/CMakeFiles/roscpp_generate_messages_nodejs.dir/clean
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_eus"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_eus"
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -728,14 +1248,14 @@ clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_lisp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_lisp"
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -760,14 +1280,14 @@ clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_nodejs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target std_msgs_generate_messages_nodejs"
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -792,14 +1312,14 @@ clean: automatic_rover_boy/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clea
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all:
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/depend
 	$(MAKE) -f automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_py"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num= "Built target rosgraph_msgs_generate_messages_py"
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
 
 # Build rule for subdir invocation for target.
 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
 .PHONY : automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -818,76 +1338,76 @@ clean: automatic_rover_boy/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/cle
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target automatic_rover_boy/CMakeFiles/talker.dir
+# Target rules for target automatic_rover_boy/CMakeFiles/test_run.dir
 
 # All Build rule for target.
-automatic_rover_boy/CMakeFiles/talker.dir/all:
-	$(MAKE) -f automatic_rover_boy/CMakeFiles/talker.dir/build.make automatic_rover_boy/CMakeFiles/talker.dir/depend
-	$(MAKE) -f automatic_rover_boy/CMakeFiles/talker.dir/build.make automatic_rover_boy/CMakeFiles/talker.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num=7,8 "Built target talker"
-.PHONY : automatic_rover_boy/CMakeFiles/talker.dir/all
+automatic_rover_boy/CMakeFiles/test_run.dir/all: serial/CMakeFiles/serial.dir/all
+	$(MAKE) -f automatic_rover_boy/CMakeFiles/test_run.dir/build.make automatic_rover_boy/CMakeFiles/test_run.dir/depend
+	$(MAKE) -f automatic_rover_boy/CMakeFiles/test_run.dir/build.make automatic_rover_boy/CMakeFiles/test_run.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=17,18 "Built target test_run"
+.PHONY : automatic_rover_boy/CMakeFiles/test_run.dir/all
 
 # Include target in all.
-all: automatic_rover_boy/CMakeFiles/talker.dir/all
+all: automatic_rover_boy/CMakeFiles/test_run.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-automatic_rover_boy/CMakeFiles/talker.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/talker.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
-.PHONY : automatic_rover_boy/CMakeFiles/talker.dir/rule
+automatic_rover_boy/CMakeFiles/test_run.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/test_run.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : automatic_rover_boy/CMakeFiles/test_run.dir/rule
 
 # Convenience name for target.
-talker: automatic_rover_boy/CMakeFiles/talker.dir/rule
+test_run: automatic_rover_boy/CMakeFiles/test_run.dir/rule
 
-.PHONY : talker
-
-# clean rule for target.
-automatic_rover_boy/CMakeFiles/talker.dir/clean:
-	$(MAKE) -f automatic_rover_boy/CMakeFiles/talker.dir/build.make automatic_rover_boy/CMakeFiles/talker.dir/clean
-.PHONY : automatic_rover_boy/CMakeFiles/talker.dir/clean
+.PHONY : test_run
 
 # clean rule for target.
-clean: automatic_rover_boy/CMakeFiles/talker.dir/clean
+automatic_rover_boy/CMakeFiles/test_run.dir/clean:
+	$(MAKE) -f automatic_rover_boy/CMakeFiles/test_run.dir/build.make automatic_rover_boy/CMakeFiles/test_run.dir/clean
+.PHONY : automatic_rover_boy/CMakeFiles/test_run.dir/clean
+
+# clean rule for target.
+clean: automatic_rover_boy/CMakeFiles/test_run.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target automatic_rover_boy/CMakeFiles/listener.dir
+# Target rules for target automatic_rover_boy/CMakeFiles/navigator.dir
 
 # All Build rule for target.
-automatic_rover_boy/CMakeFiles/listener.dir/all:
-	$(MAKE) -f automatic_rover_boy/CMakeFiles/listener.dir/build.make automatic_rover_boy/CMakeFiles/listener.dir/depend
-	$(MAKE) -f automatic_rover_boy/CMakeFiles/listener.dir/build.make automatic_rover_boy/CMakeFiles/listener.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/ros_workspace/build/CMakeFiles --progress-num=5,6 "Built target listener"
-.PHONY : automatic_rover_boy/CMakeFiles/listener.dir/all
+automatic_rover_boy/CMakeFiles/navigator.dir/all: serial/CMakeFiles/serial.dir/all
+	$(MAKE) -f automatic_rover_boy/CMakeFiles/navigator.dir/build.make automatic_rover_boy/CMakeFiles/navigator.dir/depend
+	$(MAKE) -f automatic_rover_boy/CMakeFiles/navigator.dir/build.make automatic_rover_boy/CMakeFiles/navigator.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles --progress-num=5,6 "Built target navigator"
+.PHONY : automatic_rover_boy/CMakeFiles/navigator.dir/all
 
 # Include target in all.
-all: automatic_rover_boy/CMakeFiles/listener.dir/all
+all: automatic_rover_boy/CMakeFiles/navigator.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-automatic_rover_boy/CMakeFiles/listener.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/listener.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/ros_workspace/build/CMakeFiles 0
-.PHONY : automatic_rover_boy/CMakeFiles/listener.dir/rule
+automatic_rover_boy/CMakeFiles/navigator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 automatic_rover_boy/CMakeFiles/navigator.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/CMakeFiles 0
+.PHONY : automatic_rover_boy/CMakeFiles/navigator.dir/rule
 
 # Convenience name for target.
-listener: automatic_rover_boy/CMakeFiles/listener.dir/rule
+navigator: automatic_rover_boy/CMakeFiles/navigator.dir/rule
 
-.PHONY : listener
-
-# clean rule for target.
-automatic_rover_boy/CMakeFiles/listener.dir/clean:
-	$(MAKE) -f automatic_rover_boy/CMakeFiles/listener.dir/build.make automatic_rover_boy/CMakeFiles/listener.dir/clean
-.PHONY : automatic_rover_boy/CMakeFiles/listener.dir/clean
+.PHONY : navigator
 
 # clean rule for target.
-clean: automatic_rover_boy/CMakeFiles/listener.dir/clean
+automatic_rover_boy/CMakeFiles/navigator.dir/clean:
+	$(MAKE) -f automatic_rover_boy/CMakeFiles/navigator.dir/build.make automatic_rover_boy/CMakeFiles/navigator.dir/clean
+.PHONY : automatic_rover_boy/CMakeFiles/navigator.dir/clean
+
+# clean rule for target.
+clean: automatic_rover_boy/CMakeFiles/navigator.dir/clean
 
 .PHONY : clean
 

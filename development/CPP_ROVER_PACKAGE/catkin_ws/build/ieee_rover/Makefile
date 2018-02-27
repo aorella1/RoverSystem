@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dude/Desktop/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dude/Desktop/catkin_ws/build
+CMAKE_BINARY_DIR = /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,27 +67,16 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target install/local
-install/local/fast: install/local
+# Special rule for the target test
+test/fast: test
 
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-
-.PHONY : install/strip/fast
+.PHONY : test/fast
 
 # Special rule for the target install
 install: preinstall
@@ -101,16 +90,26 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target test
-test/fast: test
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
 
-.PHONY : test/fast
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -123,26 +122,27 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target install/strip
+install/strip/fast: install/strip
 
-.PHONY : list_install_components/fast
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/dude/Desktop/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/dude/Desktop/catkin_ws/build/CMakeFiles /home/dude/Desktop/catkin_ws/build/ieee_rover/CMakeFiles/progress.marks
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dude/Desktop/catkin_ws/build/CMakeFiles 0
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/CMakeFiles /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover/CMakeFiles/progress.marks
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/clean
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/clean
 .PHONY : clean
 
 # The main clean target
@@ -152,217 +152,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/preinstall
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/preinstall
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/dude/Desktop/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-ieee_rover/CMakeFiles/rover_server.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rover_server.dir/rule
-.PHONY : ieee_rover/CMakeFiles/rover_server.dir/rule
-
-# Convenience name for target.
-rover_server: ieee_rover/CMakeFiles/rover_server.dir/rule
-
-.PHONY : rover_server
-
-# fast build rule for target.
-rover_server/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/build
-.PHONY : rover_server/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_lisp: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_eus: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-.PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_cpp: ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_py: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_py
-
-# fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_lisp: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_lisp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_nodejs: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-geometry_msgs_generate_messages_nodejs/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
-.PHONY : geometry_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_lisp: ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_cpp: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : geometry_msgs_generate_messages_cpp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_cpp: ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_py: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_nodejs: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-.PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_eus: ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
-
-.PHONY : std_msgs_generate_messages_eus
-
-# fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-.PHONY : std_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
 ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 .PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -372,27 +177,12 @@ std_msgs_generate_messages_lisp: ieee_rover/CMakeFiles/std_msgs_generate_message
 
 # fast build rule for target.
 std_msgs_generate_messages_lisp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
 .PHONY : std_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_cpp: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_cpp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
 ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 .PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -402,57 +192,72 @@ std_msgs_generate_messages_nodejs: ieee_rover/CMakeFiles/std_msgs_generate_messa
 
 # fast build rule for target.
 std_msgs_generate_messages_nodejs/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
 .PHONY : std_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-roscpp_generate_messages_eus: ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+std_msgs_generate_messages_cpp: ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
-.PHONY : roscpp_generate_messages_eus
+.PHONY : std_msgs_generate_messages_cpp
 
 # fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/build
-.PHONY : roscpp_generate_messages_eus/fast
+std_msgs_generate_messages_cpp/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
-ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
+.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-std_msgs_generate_messages_py: ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+rosgraph_msgs_generate_messages_nodejs: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : std_msgs_generate_messages_py
+.PHONY : rosgraph_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
+rosgraph_msgs_generate_messages_nodejs/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
+.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
+.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
-roscpp_generate_messages_nodejs: ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+geometry_msgs_generate_messages_py: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
 
-.PHONY : roscpp_generate_messages_nodejs
+.PHONY : geometry_msgs_generate_messages_py
 
 # fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-.PHONY : roscpp_generate_messages_nodejs/fast
+geometry_msgs_generate_messages_py/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
+.PHONY : geometry_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_lisp: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_lisp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_lisp/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
 .PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -462,12 +267,192 @@ geometry_msgs_generate_messages_eus: ieee_rover/CMakeFiles/geometry_msgs_generat
 
 # fast build rule for target.
 geometry_msgs_generate_messages_eus/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_eus.dir/build
 .PHONY : geometry_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
+ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_py: ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_lisp: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_lisp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_lisp/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
+.PHONY : geometry_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_eus: ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/rule
+
+.PHONY : roscpp_generate_messages_eus
+
+# fast build rule for target.
+roscpp_generate_messages_eus/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_eus.dir/build
+.PHONY : roscpp_generate_messages_eus/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_nodejs: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+geometry_msgs_generate_messages_nodejs/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_nodejs.dir/build
+.PHONY : geometry_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+.PHONY : ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+geometry_msgs_generate_messages_cpp: ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : geometry_msgs_generate_messages_cpp
+
+# fast build rule for target.
+geometry_msgs_generate_messages_cpp/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
+.PHONY : geometry_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_cpp: ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
+
+.PHONY : roscpp_generate_messages_cpp
+
+# fast build rule for target.
+roscpp_generate_messages_cpp/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_cpp.dir/build
+.PHONY : roscpp_generate_messages_cpp/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+.PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_eus: ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_nodejs: ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
+
+.PHONY : roscpp_generate_messages_nodejs
+
+# fast build rule for target.
+roscpp_generate_messages_nodejs/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
+.PHONY : roscpp_generate_messages_nodejs/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_py: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_py
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_py/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
+.PHONY : rosgraph_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_cpp: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_cpp
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_cpp/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
+.PHONY : rosgraph_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+.PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+roscpp_generate_messages_lisp: ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
+
+.PHONY : roscpp_generate_messages_lisp
+
+# fast build rule for target.
+roscpp_generate_messages_lisp/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_lisp.dir/build
+.PHONY : roscpp_generate_messages_lisp/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+.PHONY : ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+rosgraph_msgs_generate_messages_eus: ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
+
+.PHONY : rosgraph_msgs_generate_messages_eus
+
+# fast build rule for target.
+rosgraph_msgs_generate_messages_eus/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make ieee_rover/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
+.PHONY : rosgraph_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
 ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/rule:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/rule
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/rule
 .PHONY : ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -477,8 +462,23 @@ roscpp_generate_messages_py: ieee_rover/CMakeFiles/roscpp_generate_messages_py.d
 
 # fast build rule for target.
 roscpp_generate_messages_py/fast:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/build
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/build.make ieee_rover/CMakeFiles/roscpp_generate_messages_py.dir/build
 .PHONY : roscpp_generate_messages_py/fast
+
+# Convenience name for target.
+ieee_rover/CMakeFiles/rover_server.dir/rule:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 ieee_rover/CMakeFiles/rover_server.dir/rule
+.PHONY : ieee_rover/CMakeFiles/rover_server.dir/rule
+
+# Convenience name for target.
+rover_server: ieee_rover/CMakeFiles/rover_server.dir/rule
+
+.PHONY : rover_server
+
+# fast build rule for target.
+rover_server/fast:
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/build
+.PHONY : rover_server/fast
 
 src/camera.o: src/camera.cpp.o
 
@@ -486,7 +486,7 @@ src/camera.o: src/camera.cpp.o
 
 # target to build an object file
 src/camera.cpp.o:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.o
 .PHONY : src/camera.cpp.o
 
 src/camera.i: src/camera.cpp.i
@@ -495,7 +495,7 @@ src/camera.i: src/camera.cpp.i
 
 # target to preprocess a source file
 src/camera.cpp.i:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.i
 .PHONY : src/camera.cpp.i
 
 src/camera.s: src/camera.cpp.s
@@ -504,7 +504,7 @@ src/camera.s: src/camera.cpp.s
 
 # target to generate assembly for a file
 src/camera.cpp.s:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/camera.cpp.s
 .PHONY : src/camera.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -513,7 +513,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -522,7 +522,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -531,7 +531,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/network.o: src/network.cpp.o
@@ -540,7 +540,7 @@ src/network.o: src/network.cpp.o
 
 # target to build an object file
 src/network.cpp.o:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.o
 .PHONY : src/network.cpp.o
 
 src/network.i: src/network.cpp.i
@@ -549,7 +549,7 @@ src/network.i: src/network.cpp.i
 
 # target to preprocess a source file
 src/network.cpp.i:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.i
 .PHONY : src/network.cpp.i
 
 src/network.s: src/network.cpp.s
@@ -558,7 +558,7 @@ src/network.s: src/network.cpp.s
 
 # target to generate assembly for a file
 src/network.cpp.s:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/network.cpp.s
 .PHONY : src/network.cpp.s
 
 src/util.o: src/util.cpp.o
@@ -567,7 +567,7 @@ src/util.o: src/util.cpp.o
 
 # target to build an object file
 src/util.cpp.o:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.o
 .PHONY : src/util.cpp.o
 
 src/util.i: src/util.cpp.i
@@ -576,7 +576,7 @@ src/util.i: src/util.cpp.i
 
 # target to preprocess a source file
 src/util.cpp.i:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.i
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.i
 .PHONY : src/util.cpp.i
 
 src/util.s: src/util.cpp.s
@@ -585,7 +585,7 @@ src/util.s: src/util.cpp.s
 
 # target to generate assembly for a file
 src/util.cpp.s:
-	cd /home/dude/Desktop/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.s
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(MAKE) -f ieee_rover/CMakeFiles/rover_server.dir/build.make ieee_rover/CMakeFiles/rover_server.dir/src/util.cpp.s
 .PHONY : src/util.cpp.s
 
 # Help Target
@@ -595,33 +595,33 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... rover_server"
-	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... install"
-	@echo "... rosgraph_msgs_generate_messages_eus"
-	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... test"
+	@echo "... install"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... rosgraph_msgs_generate_messages_nodejs"
+	@echo "... geometry_msgs_generate_messages_py"
+	@echo "... rosgraph_msgs_generate_messages_lisp"
+	@echo "... geometry_msgs_generate_messages_eus"
+	@echo "... list_install_components"
+	@echo "... std_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_lisp"
+	@echo "... roscpp_generate_messages_eus"
+	@echo "... install/local"
 	@echo "... edit_cache"
 	@echo "... geometry_msgs_generate_messages_nodejs"
-	@echo "... roscpp_generate_messages_lisp"
 	@echo "... geometry_msgs_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_cpp"
-	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_eus"
-	@echo "... std_msgs_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... std_msgs_generate_messages_nodejs"
-	@echo "... roscpp_generate_messages_eus"
-	@echo "... std_msgs_generate_messages_py"
 	@echo "... roscpp_generate_messages_nodejs"
-	@echo "... list_install_components"
-	@echo "... geometry_msgs_generate_messages_eus"
+	@echo "... install/strip"
+	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... rosgraph_msgs_generate_messages_cpp"
+	@echo "... roscpp_generate_messages_lisp"
+	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... roscpp_generate_messages_py"
+	@echo "... rover_server"
 	@echo "... src/camera.o"
 	@echo "... src/camera.i"
 	@echo "... src/camera.s"
@@ -645,6 +645,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/dude/Desktop/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

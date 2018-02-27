@@ -1,29 +1,62 @@
+#include <std_msgs/String.h>
 #include "ros/ros.h"
-#include "std_msgs/String.h"
+#include "geometry_msgs/Twist.h"
 
-#include <sstream>
+#include <stdio.h>
+#include <string>
+#include <iostream>
+#include <cstdio>
+#include <unistd.h>
+#include "serial/serial.h"
+
+using namespace std;
+
+serial::Serial my_serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));
+
+void moveCallback(const geometry_msgs::Twist& msg){
+
+    unsigned char dataFF[2], dataFE[2], dataFD[2], dataFC[2], data02[2], data03[2];
+    dataFF[0] = 0xFF; dataFF[1]=0;
+    dataFE[0] = 0xFE; dataFE[1]=0;
+    dataFD[0] = 0xFD; dataFD[1]=0;
+    dataFC[0] = 0xFC; dataFC[1]=0;
+    data02[0] = 0x02; data02[1]=0;
+    data03[0] = 0x03; data03[1]=0;
+
+    printf("msg.linear.y: %f msg.angular.z: %f \n", msg.linear.y, msg.angular.z);
+
+    int test;
+
+    test = (int)(msg.linear.y*32.0) + (msg.angular.z/2);
+    test = (test * 4);
+    if (test<0) test = 2-test;
+    dataFF[0] = test;
+    printf("left motor: %1x\n", dataFF[0]);
+    my_serial.write(dataFF,1);
+    test = (int)(msg.linear.y*32.0) - (msg.angular.z/2);
+    test = (test * 4);
+    if (test<0) test = 2-test;
+    dataFF[0] = test+1;
+    printf("right motor: %1x\n", dataFF[0]);
+    my_serial.write(dataFF,1);
+}
 
 int main(int argc, char **argv) {
-    ros::init(argc, argv, "test_run"); //specify argc and argv, and our unique node name(test_run)
-    ros::NodeHandle n; //handler to help initialize node for us
-    ros::Publisher output_pub = n.advertise<std_msgs::String>("test", 1000); //create Publisher object that publishes std_msgs::String objects over the "test" topic at max 1000 char limit
-    ros::Rate loop_rate(10); //loop at 10Hz (10 times a second)
-    int count = 0;
-    while(ros::ok()) { //ros::ok() lets us know if the signal handler has recieved a signal to kill the program. Return of true means its okay to go :)
-        std_msgs::String msg;
-        std::stringstream ss;
-        ss << "test " << count;
-        msg.data = ss.str();
 
-        ROS_INFO("%s", msg.data.c_str()); //ROS_INFO is replacement for cout
+    /*----SETUP BEGIN----*/
+    /*-ROS node setup-*/
+    ros::init(argc, argv, "rover_tester"); //init node
+    ros::NodeHandle n; //node handler
+    ros::Subscriber sub = n.subscribe("move", 1000, moveCallback);
 
-        output_pub.publish(msg); //finally, publish msg to topic
+    printf("Node started!");
 
-        /*http://wiki.ros.org/roscpp/Overview/Callbacks%20and%20Spinning*/
-        ros::spinOnce(); //visit above link for more info, but essentially, if this node were subscribed to a topic (it isn't now), it would be able to process the subscriber callback during *this* time frame. This lets you run callback code while having your own program be running as well
-        loop_rate.sleep(); //sleep until our specified loop_rate is reached
-        count++;
+    while(ros::ok()){
+        ros::spinOnce();
     }
+
+    //ros::spin();
 
     return 0;
 }
+

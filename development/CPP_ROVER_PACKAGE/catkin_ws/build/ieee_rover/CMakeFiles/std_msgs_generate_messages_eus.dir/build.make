@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dude/Desktop/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dude/Desktop/catkin_ws/build
+CMAKE_BINARY_DIR = /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build
 
 # Utility rule file for std_msgs_generate_messages_eus.
 
@@ -63,10 +63,10 @@ ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/build: std_msgs_generat
 .PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/build
 
 ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/clean:
-	cd /home/dude/Desktop/catkin_ws/build/ieee_rover && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_eus.dir/cmake_clean.cmake
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_eus.dir/cmake_clean.cmake
 .PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 
 ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/depend:
-	cd /home/dude/Desktop/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dude/Desktop/catkin_ws/src /home/dude/Desktop/catkin_ws/src/ieee_rover /home/dude/Desktop/catkin_ws/build /home/dude/Desktop/catkin_ws/build/ieee_rover /home/dude/Desktop/catkin_ws/build/ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/src/ieee_rover /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover /home/IEEE_PI/BinghamtonRover2017/development/CPP_ROVER_PACKAGE/catkin_ws/build/ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : ieee_rover/CMakeFiles/std_msgs_generate_messages_eus.dir/depend
 

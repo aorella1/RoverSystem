@@ -99,7 +99,7 @@ struct PacketControl
 
     PacketType<PacketControl>* type;
 
-    MovementState movement_state;
+    int movement_state;
 
     PacketControl():
         type(&PacketTypeControl) {}

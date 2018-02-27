@@ -46,7 +46,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/IEEE_PI/ros_workspace/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/IEEE_PI/ros_workspace/build
+CMAKE_BINARY_DIR = /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build
 
 # Utility rule file for roscpp_generate_messages_py.
 
@@ -63,10 +63,10 @@ automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/build: roscpp_gen
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/build
 
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/clean:
-	cd /home/IEEE_PI/ros_workspace/build/automatic_rover_boy && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/automatic_rover_boy && $(CMAKE_COMMAND) -P CMakeFiles/roscpp_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/clean
 
 automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/depend:
-	cd /home/IEEE_PI/ros_workspace/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/IEEE_PI/ros_workspace/src /home/IEEE_PI/ros_workspace/src/automatic_rover_boy /home/IEEE_PI/ros_workspace/build /home/IEEE_PI/ros_workspace/build/automatic_rover_boy /home/IEEE_PI/ros_workspace/build/automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/IEEE_PI/ros_workspace/src /home/IEEE_PI/ros_workspace/src/automatic_rover_boy /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/automatic_rover_boy /home/IEEE_PI/BinghamtonRover2017/scratch/CPP_ROVER/ros_workspace/build/automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : automatic_rover_boy/CMakeFiles/roscpp_generate_messages_py.dir/depend
 
