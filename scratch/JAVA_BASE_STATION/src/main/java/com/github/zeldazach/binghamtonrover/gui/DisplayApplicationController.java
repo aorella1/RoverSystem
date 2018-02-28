@@ -168,7 +168,7 @@ public class DisplayApplicationController {
     public synchronized void updateTempGauges(double value){
         tempGauge.setValue(value);
         tempAvg.setValue(value);
-//        avgController.addTempData(value);
+        avgController.addTempData(value);
     }
 
     public synchronized void updatePsurGauge(double value){

@@ -13,19 +13,16 @@ import java.util.ResourceBundle;
 public class AveragePopupController implements Initializable{
 
     @FXML
-    private static LineChart<Number, Number> AverageChart;
+    private LineChart<Number, Number> AverageChart;
 
     private static XYChart.Series tempData;
     private static int tempCount = 1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        NumberAxis xAxis = new NumberAxis();
-        xAxis.setLabel("Time");
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Value");
+        AverageChart.getXAxis().setAutoRanging(true);
+        AverageChart.getYAxis().setAutoRanging(true);
 
-        AverageChart = new LineChart<>(xAxis, yAxis);
         tempData = new XYChart.Series();
         tempData.getData().add(new XYChart.Data<Number, Number>(tempCount++, 17));
         tempData.getData().add(new XYChart.Data<Number, Number>(tempCount++, 18));
