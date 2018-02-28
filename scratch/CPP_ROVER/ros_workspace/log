@@ -1,0 +1,18 @@
+[ 40%] Built target serial
+[ 60%] Built target serial_example
+[ 70%] Building CXX object automatic_rover_boy/CMakeFiles/test_run.dir/src/test_run.cpp.o
+[ 90%] Built target navigator
+automatic_rover_boy/CMakeFiles/test_run.dir/build.make:62: recipe for target 'automatic_rover_boy/CMakeFiles/test_run.dir/src/test_run.cpp.o' failed
+CMakeFiles/Makefile2:1345: recipe for target 'automatic_rover_boy/CMakeFiles/test_run.dir/all' failed
+Makefile:138: recipe for target 'all' failed
+Base path: /home/IEEE_PI/ros_workspace
+Source space: /home/IEEE_PI/ros_workspace/src
+Build space: /home/IEEE_PI/ros_workspace/build
+Devel space: /home/IEEE_PI/ros_workspace/devel
+Install space: /home/IEEE_PI/ros_workspace/install
+####
+#### Running command: "make cmake_check_build_system" in "/home/IEEE_PI/ros_workspace/build"
+####
+####
+#### Running command: "make -j4 -l4" in "/home/IEEE_PI/ros_workspace/build"
+####
