@@ -6,7 +6,6 @@ import eu.hansolo.medusa.Gauge;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -40,8 +39,8 @@ public class DisplayApplicationController {
 
     @FXML private Button AverageBtn;
     private Stage PopupStage;
-    private boolean AverageOn = false;
-    private AveragePopupController avgController;
+    private boolean PopupShown = false;
+    private PastValuePopupController pstValController;
 
     private GraphicsContext xboxViewGraphicsContext;
 
@@ -65,11 +64,10 @@ public class DisplayApplicationController {
         //Add a popup window
         PopupStage = new Stage();
         PopupStage.initModality(Modality.NONE);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AveragePopup.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("PastValuePopup.fxml"));
         AnchorPane root = loader.load();
-        avgController = loader.getController();
+        pstValController = loader.getController();
         PopupStage.setScene(new Scene(root));
-//        PopupStage.initOwner(AverageBtn.getScene().getWindow());
 
     }
 
@@ -168,25 +166,26 @@ public class DisplayApplicationController {
     public synchronized void updateTempGauges(double value){
         tempGauge.setValue(value);
         tempAvg.setValue(value);
-        avgController.addTempData(value);
+        pstValController.addTempData(value);
     }
 
     public synchronized void updatePsurGauge(double value){
         psurGauge.setValue(value);
         psurAvg.setValue(value);
+        pstValController.addPsurData(value);
     }
 
     @FXML
-    public void AverageBtnHandler(){
+    public void PastValBtnHandler(){
         //Add a popup window
-        if(!AverageOn) {
-            AverageOn = true;
-            AverageBtn.setText("close Averages");
+        if(!PopupShown) {
+            PopupShown = true;
+            AverageBtn.setText("close Popup");
             PopupStage.show();
         }
         else{
-            AverageOn = false;
-            AverageBtn.setText("Show Averages");
+            PopupShown = false;
+            AverageBtn.setText("Show Popup");
             PopupStage.close();
         }
     }

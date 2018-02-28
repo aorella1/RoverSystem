@@ -51,7 +51,7 @@ public class DisplayApplication extends Application
                 controller.updateTempGauges(rand.nextGaussian() * 15 + 205);
                 controller.updatePsurGauge(rand.nextGaussian() * 10 + 500);
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
