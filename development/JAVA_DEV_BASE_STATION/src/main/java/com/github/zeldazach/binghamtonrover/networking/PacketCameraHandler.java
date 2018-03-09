@@ -36,12 +36,7 @@ public class PacketCameraHandler implements PacketHandler
 
             Image image = new Image(new ByteArrayInputStream(frame_buffer));
             Platform.runLater(() ->
-            {
-                if (DisplayApplication.INSTANCE != null)
-                {
-                    DisplayApplication.INSTANCE.getCameraImageView().setImage(image);
-                }
-            });
+                DisplayApplication.getInstance().getCameraImageView().setImage(image));
         }
     }
 

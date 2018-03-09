@@ -1,133 +1,43 @@
 package com.github.zeldazach.binghamtonrover.input;
 
-// TODO: Change this to import what you need instead of wildcard
-import net.java.games.input.*;
-
-// TODO: Change this to import what you need instead of wildcard
-import javax.swing.*;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-public class ControllerHandler implements Runnable
+public class ControllerHandler
 {
-    private static ControllerHandler controllerHandler;
-    private Controller controller;
-    private ControllerState controllerState;
+    private static final String DEVICE_CLASS_DISCOVERY_PATH = "/sys/class/input";
+    private static final String JOYSTICK_DEVICE_PREFIX = "js";
 
-    public static void init()
-    {
-        if (controllerHandler != null)
-        {
-            throw new IllegalStateException("ControllerHandler was already initialized!");
-        }
-
-        ControllerEnvironment controllerEnvironment = ControllerEnvironment.getDefaultEnvironment();
-
-        // This prevents JInput from spamming stderr with useless warning messages.
-        Logger.getLogger(ControllerEnvironment.class.getName()).setUseParentHandlers(false);
-
-        // Holds potentially valid controllers.
-        List<Controller> validControllersList = new ArrayList<>();
-
-        for (Controller controller : controllerEnvironment.getControllers())
-        {
-            if (controller.getType() != Controller.Type.GAMEPAD)
-            {
-                continue;
-            }
-
-            validControllersList.add(controller);
-        }
-
-        if (validControllersList.isEmpty()) {
-            System.out.println("> No valid controllers were found! Defaulting to keyboard input.");
-        }
-
-        // The input chosen by the user.
-        // Will remain null if no controllers exist.
-        Controller chosenController = null;
-
-        if (validControllersList.size() > 1) {
-            System.out.println("There are more than one USB input connected!");
-
-            Controller selectedController =
-                    (Controller) JOptionPane.showInputDialog(null,
-                                                             "Select the input:",
-                                                             "More than one USB input was found!",
-                                                             JOptionPane.INFORMATION_MESSAGE,
-                                                             null,
-                                                             validControllersList.toArray(),
-                                                             validControllersList.get(0));
-
-            chosenController = selectedController;
-            System.out.println("> User selected input: " + chosenController);
-        }
-        else if (validControllersList.size() == 1)
-        {
-            chosenController = validControllersList.get(0);
-            System.out.println("> Defaulting to only input: " + chosenController);
-        }
-
-        controllerHandler = new ControllerHandler(chosenController);
-
-        // Only start listening if we have a input.
-        if (chosenController != null) {
-            // Launch thread to listen for input input.
-            Thread controllerHandlerThread = new Thread(controllerHandler);
-            controllerHandlerThread.setDaemon(true);
-            controllerHandlerThread.start();
-        } else {
-            System.out.println("> No input found or selected. Using keyboard input only.");
-        }
-    }
-
+    private static ControllerHandler INSTANCE = null;
 
     public static ControllerHandler getInstance()
     {
-        if (controllerHandler == null)
+        if (INSTANCE == null)
         {
-            throw new IllegalStateException("ControllerHandler.init() MUST be called before ControllerHandler.getInstance() !!!!!");
+            INSTANCE = new ControllerHandler();
         }
 
-        return controllerHandler;
+        return INSTANCE;
     }
 
-    private ControllerHandler(Controller c)
+    private ControllerHandler()
     {
-        controller = c;
-        controllerState = new ControllerState();
+
     }
 
-    public ControllerState getControllerState()
+    public void getControllers() throws IOException
     {
-        return controllerState;
-    }
+        // Search for available joysticks.
+        List<Path> possibleJoysticks = new ArrayList<>();
 
-    @Override
-    public void run()
-    {
-        // Continuously polls the input.
-        while (true) {
-            controller.poll();
-
-            EventQueue queue = controller.getEventQueue();
-
-            Event event = new Event();
-
-            while (queue.getNextEvent(event))
-            {
-                controllerState.update(event.getComponent().getName(), event.getValue());
-            }
-
-            try
-            {
-                Thread.sleep(100);
-            }
-            catch (InterruptedException e)
-            {
-                System.exit(0);
+        for (Path p : Files.newDirectoryStream(Paths.get(DEVICE_CLASS_DISCOVERY_PATH))) {
+            // Must convert it to string to properly evaluate just the file name.
+            if (p.getFileName().toString().startsWith(JOYSTICK_DEVICE_PREFIX)) {
+                possibleJoysticks.add(p);
             }
         }
     }
