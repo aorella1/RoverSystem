@@ -12,15 +12,21 @@
 // Contains all networking stuff.
 namespace network {
 
-const int CURRENT_ROVER_PROTOCOL_VERSION = 5;
+// The definitions for these are in network.cpp.
+extern const int CURRENT_ROVER_PROTOCOL_VERSION;
 
-const int HEADER_LENGTH = 5;
+extern const int HEADER_LENGTH;
 
 // See camera_spec.txt for details about this value.
-const int CAMERA_PACKET_FRAME_DATA_MAX_SIZE = 40000;
+extern const int CAMERA_PACKET_FRAME_DATA_MAX_SIZE;
 
 // Must be large enough to fit any packet.
-const int READ_BUFFER_SIZE = 65000;
+extern const int READ_BUFFER_SIZE;
+
+// Time passed before connection is considered dead, in milliseconds.
+extern const int CONNECTION_TIMEOUT;
+
+extern const int CONNECTION_PORT;
 
 // Forward declarations of packet classes.
 struct PacketHeartbeat;
@@ -30,9 +36,9 @@ struct PacketCamera;
 // Forward declaration of Manager for PacketHandler.
 class Manager;
 
-// Reference to manager, pointer to packet, sender address, sender port.
+// Reference to manager, pointer to packet.
 template <class P>
-using PacketHandler = void (*)(Manager&, P*, std::string, int);
+using PacketHandler = void (*)(Manager&, P*);
 
 // Represents a packet type.
 // These are filled at runtime.
@@ -112,25 +118,41 @@ struct PacketCamera
 // Sets the reader and writer for each packet type. Must be called before setting up the Manager.
 void register_packet_functions();
 
+// Enumerates the state of the base station/rover connection.
+enum class ConnectionState
+{
+    UNINITIALIZED,
+    CONNECTED,
+    DISCONNECTED
+};
+
 class Manager
 {
     public:
+        ConnectionState state;
         int socket_fd;
+        
+        uint64_t last_receive_time;
+        uint64_t last_chirp_time;
+
         uint16_t receive_timestamp, send_timestamp;
 
-        void send_raw_packet(uint8_t*, size_t, std::string, int);
+        std::string base_station_address;
+        int base_station_port;
 
-        Manager(std::string, int);
-        ~Manager();
+        void send_raw_packet(uint8_t*, size_t, std::string, int);
+        void chirp();
+
+        Manager(std::string);
 
         template <class P>
-        void send_packet(P*, std::string, int);
+        void send_packet(P*);
         void poll();
 };
 
 // Declaration here due to template.
 template <class P>
-void Manager::send_packet(P* packet, std::string send_address, int send_port)
+void Manager::send_packet(P* packet)
 {
     // Allocate enough space for the header and the packet body.
     uint8_t* packet_buffer_back = (uint8_t*) alloca(HEADER_LENGTH + packet->type->max_size);
@@ -153,7 +175,7 @@ void Manager::send_packet(P* packet, std::string send_address, int send_port)
 	size_t packet_size = packet_buffer.index;
 
     packet_buffer.reset();
-    send_raw_packet(packet_buffer.get_pointer(), packet_size, send_address, send_port);
+    send_raw_packet(packet_buffer.get_pointer(), packet_size, base_station_address, base_station_port);
 }
 
 } // namespace network
