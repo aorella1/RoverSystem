@@ -4,37 +4,28 @@ import java.nio.ByteBuffer;
 
 public class PacketControl extends Packet
 {
-    public enum MovementDirection
+    private byte selectedCameraUnsigned;
+
+    public PacketControl(int selectedCamera)
     {
-        STOP,
-        FORWARD,
-        LEFT,
-        RIGHT,
-        BACKWARD
+        selectedCameraUnsigned = (byte) selectedCamera;
     }
 
-    private MovementDirection direction;
-
-    PacketControl(MovementDirection _direction)
+    public PacketControl()
     {
-        super((byte) 1, 1);
-        direction = _direction;
+
     }
 
     @Override
     public void writeToBuffer(ByteBuffer buff)
     {
-        buff.put((byte) direction.ordinal());
+        buff.put(selectedCameraUnsigned);
     }
 
-    /*
-    TODO: THe point of this method is to make an appropriate packet object from
-    a ByteBuffer... but since we won't ever do this for this packet type it's
-    unnecessary, maybe we should throw an exception instead?
-    */
+
     @Override
     public void readFromBuffer(ByteBuffer buff)
     {
-        direction = MovementDirection.values()[buff.get()];
+        throw new IllegalStateException("Control packets are only base station -> rover!");
     }
 }

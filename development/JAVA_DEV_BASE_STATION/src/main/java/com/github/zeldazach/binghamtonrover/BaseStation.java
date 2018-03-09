@@ -1,79 +1,59 @@
 package com.github.zeldazach.binghamtonrover;
 
-import com.github.zeldazach.binghamtonrover.controller.ControllerHandler;
 import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
-import com.github.zeldazach.binghamtonrover.networking.Manager;
-import com.github.zeldazach.binghamtonrover.networking.ControllerUpdater;
+import com.github.zeldazach.binghamtonrover.input.InputHandler;
+import com.github.zeldazach.binghamtonrover.networking.NetworkManager;
 import javafx.application.Application;
 
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.io.IOException;
 
 public class BaseStation
 {
-    private static String baseStationBindAddress;
-    private static int baseStationBindPort;
-
-    public static String roverAddress;
-    public static int roverPort;
-
     /**
      * The entry point for the base station control program.
+     *
      * @param args Command-line arguments.
      */
     public static void main(String[] args)
     {
-        if (args.length != 4)
-        {
-            System.err.println("Args: 0=Base_Address, 1=Base_Port, 2=Rover_Address, 3=Rover_Port");
-            System.exit(1);
-        }
+        // Initialize input by triggering the singleton construction.
+        InputHandler inputHandler = InputHandler.getInstance();
 
-        baseStationBindAddress = args[0];
-        baseStationBindPort = Integer.parseInt(args[1]);
-        roverAddress = args[2];
-        roverPort = Integer.parseInt(args[3]);
+        // Initialize the network manager.
+        NetworkManager manager = NetworkManager.getInstance();
 
-        ControllerHandler.init();
+        // First, launch the JavaFX application in another thread.
+        // Then we wait for it to start before starting networking.
+        Thread applicationThread = new Thread(() -> Application.launch(DisplayApplication.class));
+        applicationThread.setDaemon(true);
+        applicationThread.start();
 
-        Manager networkManager = null;
+        // Wait for the application to start.
+        DisplayApplication.waitForStart();
+
+        // Start the networking.
         try
         {
-            networkManager = new Manager(baseStationBindAddress, baseStationBindPort, 5);
-        }
-        catch (SocketException e)
+            manager.start();
+        } catch (IOException e)
         {
-            System.err.println("Failed to open network UDP socket: " + e.getMessage());
-            System.exit(1);
-        }
-        catch (UnknownHostException e)
-        {
-            System.err.println("Failed to find the specified host: "+ e.getMessage());
-            System.exit(1);
+            throw new RuntimeException("Failed to start: IO Exception while starting network manager", e);
         }
 
-        try
+        // Do our main loop.
+        while (true)
         {
-            networkManager.startServer();
-        }
-        catch (Manager.AlreadyStarted | SocketException e1)
-        {
-            e1.printStackTrace();
-            System.exit(1);
-        }
+            try
+            {
+                inputHandler.poll();
 
-        //  Create a ControllerUpdater object to send updates of the DPAD buttons to the rover
-        try
-        {
-            ControllerUpdater sendDpad = new ControllerUpdater(networkManager);
-            ControllerHandler.getInstance().getControllerState().addObserver(sendDpad);
-        }
-        catch (Exception e)
-        {
-            System.out.println("Failed to observe things: " + e.getMessage());
+                manager.poll();
 
+                // TODO: Update GUI
+            } catch (IOException e)
+            {
+                // TODO: Log network failure
+            }
         }
-
-        Application.launch(DisplayApplication.class);
     }
 }

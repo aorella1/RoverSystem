@@ -1,4 +1,4 @@
-package com.github.zeldazach.binghamtonrover.controller;
+package com.github.zeldazach.binghamtonrover.input;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

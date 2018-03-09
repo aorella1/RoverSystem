@@ -14,10 +14,14 @@ public class PacketHeartbeat extends Packet
 
     private Direction direction;
 
-    PacketHeartbeat(Direction _direction)
+    public PacketHeartbeat()
     {
-        super((byte) 0, 1);
-        direction = _direction;
+
+    }
+
+    public PacketHeartbeat(Direction d)
+    {
+        direction = d;
     }
 
     @Override
@@ -33,7 +37,8 @@ public class PacketHeartbeat extends Packet
         direction = Direction.values()[buff.get()];
     }
 
-    public Direction getDirection() {
+    public Direction getDirection()
+    {
         return direction;
     }
 }

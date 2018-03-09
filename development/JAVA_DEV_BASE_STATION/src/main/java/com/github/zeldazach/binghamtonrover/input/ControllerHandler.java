@@ -1,4 +1,4 @@
-package com.github.zeldazach.binghamtonrover.controller;
+package com.github.zeldazach.binghamtonrover.input;
 
 // TODO: Change this to import what you need instead of wildcard
 import net.java.games.input.*;
@@ -45,41 +45,41 @@ public class ControllerHandler implements Runnable
             System.out.println("> No valid controllers were found! Defaulting to keyboard input.");
         }
 
-        // The controller chosen by the user.
+        // The input chosen by the user.
         // Will remain null if no controllers exist.
         Controller chosenController = null;
 
         if (validControllersList.size() > 1) {
-            System.out.println("There are more than one USB controller connected!");
+            System.out.println("There are more than one USB input connected!");
 
             Controller selectedController =
                     (Controller) JOptionPane.showInputDialog(null,
-                                                             "Select the controller:",
-                                                             "More than one USB controller was found!",
+                                                             "Select the input:",
+                                                             "More than one USB input was found!",
                                                              JOptionPane.INFORMATION_MESSAGE,
                                                              null,
                                                              validControllersList.toArray(),
                                                              validControllersList.get(0));
 
             chosenController = selectedController;
-            System.out.println("> User selected controller: " + chosenController);
+            System.out.println("> User selected input: " + chosenController);
         }
         else if (validControllersList.size() == 1)
         {
             chosenController = validControllersList.get(0);
-            System.out.println("> Defaulting to only controller: " + chosenController);
+            System.out.println("> Defaulting to only input: " + chosenController);
         }
 
         controllerHandler = new ControllerHandler(chosenController);
 
-        // Only start listening if we have a controller.
+        // Only start listening if we have a input.
         if (chosenController != null) {
-            // Launch thread to listen for controller input.
+            // Launch thread to listen for input input.
             Thread controllerHandlerThread = new Thread(controllerHandler);
             controllerHandlerThread.setDaemon(true);
             controllerHandlerThread.start();
         } else {
-            System.out.println("> No controller found or selected. Using keyboard input only.");
+            System.out.println("> No input found or selected. Using keyboard input only.");
         }
     }
 
@@ -108,7 +108,7 @@ public class ControllerHandler implements Runnable
     @Override
     public void run()
     {
-        // Continuously polls the controller.
+        // Continuously polls the input.
         while (true) {
             controller.poll();
 

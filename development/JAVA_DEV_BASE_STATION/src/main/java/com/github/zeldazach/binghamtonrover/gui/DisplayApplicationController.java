@@ -1,7 +1,7 @@
 package com.github.zeldazach.binghamtonrover.gui;
 
-import com.github.zeldazach.binghamtonrover.controller.ControllerHandler;
-import com.github.zeldazach.binghamtonrover.controller.ControllerState;
+import com.github.zeldazach.binghamtonrover.input.ControllerHandler;
+import com.github.zeldazach.binghamtonrover.input.ControllerState;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;

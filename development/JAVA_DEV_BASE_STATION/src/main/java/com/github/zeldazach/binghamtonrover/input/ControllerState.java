@@ -1,9 +1,9 @@
-package com.github.zeldazach.binghamtonrover.controller;
+package com.github.zeldazach.binghamtonrover.input;
 
 import java.util.Observable;
 
 /**
- * ControllerState represents the state of the XBox controller at a given moment in time.
+ * ControllerState represents the state of the XBox input at a given moment in time.
  */
 public class ControllerState extends Observable
 {
