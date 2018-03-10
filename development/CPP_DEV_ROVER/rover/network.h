@@ -9,6 +9,11 @@
 
 #include "buffer.h"
 
+// Useful routines for 64-bit integer endian swapping.
+// Copied from https://stackoverflow.com/questions/3022552/.
+#define htonll(x) ((1==htonl(1)) ? (x) : ((uint64_t)htonl((x) & 0xFFFFFFFF) << 32) | htonl((x) >> 32))
+#define ntohll(x) ((1==ntohl(1)) ? (x) : ((uint64_t)ntohl((x) & 0xFFFFFFFF) << 32) | ntohl((x) >> 32))
+
 // Contains all networking stuff.
 namespace network {
 
@@ -32,6 +37,7 @@ extern const int CONNECTION_PORT;
 struct PacketHeartbeat;
 struct PacketControl;
 struct PacketCamera;
+struct PacketInput;
 
 // Forward declaration of Manager for PacketHandler.
 class Manager;
@@ -65,6 +71,8 @@ extern PacketType<PacketControl> PacketTypeControl;
 
 extern PacketType<PacketCamera> PacketTypeCamera;
 
+extern PacketType<PacketInput> PacketTypeInput;
+
 // Structs for instances of packets.
 
 struct PacketHeartbeat
@@ -85,18 +93,9 @@ struct PacketHeartbeat
 
 struct PacketControl
 {
-    enum class MovementState : uint8_t
-    {
-        STOP = 0,
-        FORWARD = 1,
-        LEFT = 2,
-        RIGHT = 3,
-        BACKWARD = 4
-    };
-
     PacketType<PacketControl>* type;
 
-    MovementState movement_state;
+    uint8_t selected_camera;
 
     PacketControl():
         type(&PacketTypeControl) {}
@@ -113,6 +112,24 @@ struct PacketCamera
 
     PacketCamera():
         type(&PacketTypeCamera) {}
+};
+
+struct PacketInput
+{
+    PacketType<PacketInput>* type;
+
+    uint8_t controller_dpad;
+    int16_t controller_lsx;
+    int16_t controller_lsy;
+    int16_t controller_rsx;
+    int16_t controller_rsy;
+    uint16_t controller_buttons;
+    int16_t controller_lt;
+    int16_t controller_rt;
+    uint64_t keyboard_buttons;
+
+    PacketInput():
+        type(&PacketTypeInput) {}
 };
 
 // Sets the reader and writer for each packet type. Must be called before setting up the Manager.

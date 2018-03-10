@@ -33,6 +33,7 @@ const int CONNECTION_PORT = 44444;
 PacketType<PacketHeartbeat> PacketTypeHeartbeat(0, 1);
 PacketType<PacketControl> PacketTypeControl(1, 1);
 PacketType<PacketCamera> PacketTypeCamera(2, 4 + CAMERA_PACKET_FRAME_DATA_MAX_SIZE);
+PacketType<PacketInput> PacketTypeInput(3, 23);
 
 void register_packet_functions() {
     PacketTypeHeartbeat.reader = [](PacketHeartbeat* packet, Buffer& buffer) {
@@ -43,10 +44,10 @@ void register_packet_functions() {
     };
 
     PacketTypeControl.reader = [](PacketControl* packet, Buffer& buffer) {
-        packet->movement_state = buffer.read_value<PacketControl::MovementState>();
+        packet->selected_camera = buffer.read_value<uint8_t>();
     };
     PacketTypeControl.writer = [](PacketControl* packet, Buffer& buffer) {
-        buffer.write_value(packet->movement_state);
+        buffer.write_value(packet->selected_camera);
     };
 
     PacketTypeCamera.reader = [](PacketCamera* packet, Buffer& buffer) {
@@ -60,6 +61,29 @@ void register_packet_functions() {
         buffer.write_value(packet->section_count);
         buffer.write_value(htons(packet->size));
         buffer.write_bytes(packet->data, packet->size);
+    };
+
+    PacketTypeInput.reader = [](PacketInput* packet, Buffer& buffer) {
+        packet->controller_dpad = buffer.read_value<uint8_t>();
+        packet->controller_lsx = ntohs(buffer.read_value<int16_t>());
+        packet->controller_lsy = ntohs(buffer.read_value<int16_t>());
+        packet->controller_rsx = ntohs(buffer.read_value<int16_t>());
+        packet->controller_rsy = ntohs(buffer.read_value<int16_t>());
+        packet->controller_buttons = ntohs(buffer.read_value<uint16_t>());
+        packet->controller_lt = ntohs(buffer.read_value<int16_t>());
+        packet->controller_rt = ntohs(buffer.read_value<int16_t>());
+        packet->keyboard_buttons = ntohll(buffer.read_value<uint64_t>());
+    };
+    PacketTypeInput.writer = [](PacketInput* packet, Buffer& buffer) {
+        buffer.write_value(packet->controller_dpad);
+        buffer.write_value(htons(packet->controller_lsx));
+        buffer.write_value(htons(packet->controller_lsy));
+        buffer.write_value(htons(packet->controller_rsx));
+        buffer.write_value(htons(packet->controller_rsy));
+        buffer.write_value(htons(packet->controller_buttons));
+        buffer.write_value(htons(packet->controller_lt));
+        buffer.write_value(htons(packet->controller_rt));
+        buffer.write_value(htonll(packet->keyboard_buttons));
     };
 }
 

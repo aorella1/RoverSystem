@@ -31,44 +31,22 @@ static void handle_heartbeat(network::Manager& manager, PacketHeartbeat* packet)
     }
 }
 
-static PacketControl::MovementState lastState = PacketControl::MovementState::STOP;
+static uint8_t selected_camera = 0;
 
 static void handle_control(network::Manager& manager, PacketControl* packet) {
-    // We do not use these.
+    // We do not use this.
     (void)manager;
 
-    if (packet->movement_state == lastState)
-    {
-        return;
-    }
+    selected_camera = packet->selected_camera;
 
-    std::string message;
+    printf("> Updated selected camera to %u\n", selected_camera);
+}
 
-    switch (packet->movement_state)
-    {
-        case PacketControl::MovementState::STOP:
-            message = "stop";
-            break;
-        case PacketControl::MovementState::FORWARD:
-            message = "move forward";
-            break;
-        case PacketControl::MovementState::LEFT:
-            message = "turn left";
-            break;
-        case PacketControl::MovementState::RIGHT:
-            message = "turn right";
-            break;
-        case PacketControl::MovementState::BACKWARD:
-            message = "move backward";
-            break;
-        default:
-            message = "?";
-            break;
-    }
+static void handle_input(network::Manager& manager, PacketInput* packet) {
+    // We do not use this.
+    (void)manager;
 
-    printf("> Received CONTROL packet: %s\n", message.c_str());
 
-    lastState = packet->movement_state;
 }
 
 static void grab_frame(network::Manager& manager, camera::CaptureSession& camera, uint8_t* frame_buffer_back) {
@@ -114,7 +92,13 @@ static void grab_frame(network::Manager& manager, camera::CaptureSession& camera
         manager.send_timestamp = 0;
     else
         manager.send_timestamp++;
+}
 
+bool open_camera(camera::CaptureSession* session, char* video_path) {
+    if (!camera->open(video_path)) return false;
+    if (!camera->check_capabilities()) return false;
+    if (!camera->init_buffers()) return false;
+    if (!camera->start_stream()) return false;
 }
 
 int main()
@@ -128,19 +112,20 @@ int main()
     // Register packet handlers.
     network::PacketTypeHeartbeat.handler = handle_heartbeat;
     network::PacketTypeControl.handler = handle_control;
+    network::PacketTypeInput.handler = handle_input;
 
     // Set up camera feed.
-    camera::CaptureSession camera(CAMERA_WIDTH, CAMERA_HEIGHT);
+    camera::CaptureSession* camera = new camera::CaptureSession(CAMERA_WIDTH, CAMERA_HEIGHT);
+    if (!open_camera(camera, "/dev/video0"))
+    {
+        printf("[!] Failed to open camera!\n");
+        return 1;
+    }
 
-    if (!camera.open("/dev/video0")) return 1;
-    if (!camera.check_capabilities()) return 1;
-    if (!camera.init_buffers()) return 1;
-    if (!camera.start_stream()) return 1;
-
-    printf("> Frame size: %lu\n", camera.image_size);
+    printf("> Frame size: %lu\n", camera->image_size);
     
     // Create buffer for image data.
-    uint8_t* frame_buffer_back = (uint8_t*) malloc(camera.image_size);
+    uint8_t* frame_buffer_back = (uint8_t*) malloc(camera->image_size);
 
     // For cycles per second tracking.
     uint64_t start_time = millisecond_time();
@@ -153,7 +138,7 @@ int main()
 
         // Only send frames if we are connected.
         if (manager.state == network::ConnectionState::CONNECTED) {
-            grab_frame(manager, camera, frame_buffer_back);            
+            grab_frame(manager, &camera, frame_buffer_back);            
         }
                 
         if (millisecond_time() - last_time >= 1000) {
@@ -164,4 +149,5 @@ int main()
     }
 
     free(frame_buffer_back);
+    free(camera);
 }
