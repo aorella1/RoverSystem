@@ -10,7 +10,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controller {
+public class Controller
+{
 
     /**
      * The size of each controller event.
@@ -28,13 +29,16 @@ public class Controller {
     private ControllerThread thread;
     private ByteBuffer buffer = ByteBuffer.allocateDirect(DEFAULT_BUFFER_SIZE);
 
-    Controller(String n, String dp) {
+    Controller(String n, String dp)
+    {
         name = n;
         devPath = dp;
     }
 
-    public void open() throws IOException {
-        if (thread != null) {
+    public void open() throws IOException
+    {
+        if (thread != null)
+        {
             throw new IllegalStateException("Controller already opened!");
         }
 
@@ -42,29 +46,35 @@ public class Controller {
         thread.start();
     }
 
-    public void close() {
+    public void close()
+    {
         thread.interrupt();
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public List<ControllerEvent> poll() throws IOException {
-        if (thread == null) {
+    public List<ControllerEvent> poll() throws IOException
+    {
+        if (thread == null)
+        {
             throw new IllegalStateException("The controller must be opened before polling!");
         }
 
         List<ControllerEvent> events = new ArrayList<>();
 
-        while (true) {
+        while (true)
+        {
             int bread = thread.pipe.source().read(buffer);
             if (bread == 0) break;
 
             buffer.order(ByteOrder.nativeOrder());
             buffer.flip();
 
-            for (int j = 0; j < bread / EVENT_SIZE; j++) {
+            for (int j = 0; j < bread / EVENT_SIZE; j++)
+            {
                 int timestampUnsigned = buffer.getInt();
                 short value = buffer.getShort();
                 byte typeUnsigned = buffer.get();

@@ -1,12 +1,16 @@
 package com.github.zeldazach.binghamtonrover.networking;
 
+import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
 import com.github.zeldazach.binghamtonrover.input.Controller;
 import com.github.zeldazach.binghamtonrover.input.ControllerEvent;
+import com.github.zeldazach.binghamtonrover.input.ControllerManager;
 import com.github.zeldazach.binghamtonrover.input.ControllerState;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.github.zeldazach.binghamtonrover.input.ControllerState.normalizeAxis;
 import static com.github.zeldazach.binghamtonrover.input.ControllerState.clampStickValue;
@@ -25,9 +29,9 @@ public class InputEventHandler
 
     private static InputEventHandler INSTANCE = null;
 
-    public static void init(Controller controller)
+    public static void init() throws IOException
     {
-        INSTANCE = new InputEventHandler(controller);
+        INSTANCE = new InputEventHandler();
     }
 
     public static InputEventHandler getInstance()
@@ -53,20 +57,42 @@ public class InputEventHandler
         }
     }
 
+    /**
+     * The chosen controller.
+     * May be null, in which case there is no controller.
+     */
     private Controller controller;
+
+    private KeyboardListener listener;
 
     /**
      * Note: the application instance must already be started!
      */
-    private InputEventHandler(Controller _controller)
+    private InputEventHandler() throws IOException
     {
-        controller = _controller;
+        List<Controller> controllers = ControllerManager.queryControllers();
+        if (controllers.isEmpty())
+        {
+            // TODO: Log that we are not using a controller.
+        } else
+        {
+            // TODO: Log that we are using the first controller. Also log its name.
+            controller = controllers.get(0);
+        }
+
+        listener = new KeyboardListener();
+
+        DisplayApplication.getInstance().getStage().getScene().setOnKeyPressed(listener);
+        DisplayApplication.getInstance().getStage().getScene().setOnKeyReleased(listener);
+
+        // We need to open the controller, if we have one.
+        if (controller != null)
+        {
+            controller.open();
+        }
     }
 
-    /**
-     * This is for reading the recent controller events.
-     */
-    public void poll() throws IOException
+    private void pollController() throws IOException
     {
         ControllerState state = ControllerState.getInstance();
 
@@ -169,6 +195,17 @@ public class InputEventHandler
                         break;
                 }
             }
+        }
+    }
+
+    /**
+     * This is for reading the recent controller events.
+     */
+    public void poll() throws IOException
+    {
+        if (controller != null)
+        {
+            pollController();
         }
     }
 

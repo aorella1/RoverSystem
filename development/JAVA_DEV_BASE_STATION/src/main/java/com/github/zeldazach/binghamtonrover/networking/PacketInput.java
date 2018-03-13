@@ -5,17 +5,13 @@ import java.nio.ByteBuffer;
 public class PacketInput extends Packet
 {
     // Controller and keyboard button index definitions
-    public enum ControllerButton {
+    public enum ControllerButton
+    {
         A, B, X, Y,
         VIEW, XBOX, MENU,
         LB, RB,
         LSP, RSP
     }
-
-    public enum KeyboardButton {
-        A, B, C, D, E, F, G, H, I, J, K, L, M, 
-    }
-
 
     private byte controllerDpad;
     private short controllerLeftStickX;
@@ -27,7 +23,8 @@ public class PacketInput extends Packet
     private short controllerRightTrigger;
     private long keyboardButtonsUnsigned;
 
-    public PacketInput() {
+    public PacketInput()
+    {
 
     }
 

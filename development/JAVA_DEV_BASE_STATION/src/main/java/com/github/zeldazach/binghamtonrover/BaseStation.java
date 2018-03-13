@@ -29,6 +29,16 @@ public class BaseStation
         DisplayApplication.waitForStart();
 
         // Init the input event handler.
+        try
+        {
+            InputEventHandler.init();
+
+        } catch (IOException e)
+        {
+            throw new RuntimeException("Failed to start: IO Exception while starting input handler", e);
+        }
+
+        // Get a handle for the input event handler.
         InputEventHandler inputEventHandler = InputEventHandler.getInstance();
 
         // Start the networking.
@@ -52,7 +62,8 @@ public class BaseStation
                 // TODO: Update GUI
             } catch (IOException e)
             {
-                // TODO: Log network failure
+                // TODO: Log network or input handler failure.
+                // TODO: Possibly separate these two poll calls into separate try blocks.
             }
         }
     }

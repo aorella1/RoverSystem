@@ -42,6 +42,7 @@ public class DisplayApplication extends Application
     }
 
     private DisplayApplicationController controller;
+    private Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws IOException
@@ -53,12 +54,11 @@ public class DisplayApplication extends Application
 
         Scene scene = new Scene(root);
 
-        // Register keyboard control
-        KeyboardHandler.registerHandlers(scene);
-
         primaryStage.setTitle(WINDOW_TITLE);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        stage = primaryStage;
 
         INSTANCE = this;
         startupLatch.countDown();
@@ -68,6 +68,11 @@ public class DisplayApplication extends Application
     public ImageView getCameraImageView()
     {
         return controller.getCameraImageView();
+    }
+
+    public Stage getStage()
+    {
+        return stage;
     }
 
 }

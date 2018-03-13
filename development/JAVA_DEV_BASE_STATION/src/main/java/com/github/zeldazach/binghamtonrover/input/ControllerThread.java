@@ -5,12 +5,14 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.Pipe;
 
-public class ControllerThread extends Thread {
+public class ControllerThread extends Thread
+{
 
     protected Pipe pipe;
     private FileChannel channel;
 
-    public ControllerThread(FileChannel channel) throws IOException {
+    public ControllerThread(FileChannel channel) throws IOException
+    {
         super("ControllerThread");
 
         pipe = Pipe.open();
@@ -22,16 +24,20 @@ public class ControllerThread extends Thread {
     }
 
     @Override
-    public void run() {
-        try {
+    public void run()
+    {
+        try
+        {
             ByteBuffer buffer = ByteBuffer.allocateDirect(8 * 5);
-            while (this.isAlive()) {
+            while (this.isAlive())
+            {
                 channel.read(buffer);
                 buffer.flip();
                 pipe.sink().write(buffer);
                 buffer.flip();
             }
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }

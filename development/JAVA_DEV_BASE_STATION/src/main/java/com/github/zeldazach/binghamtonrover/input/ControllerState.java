@@ -6,7 +6,7 @@ package com.github.zeldazach.binghamtonrover.input;
  */
 public class ControllerState
 {
-     /**
+    /**
      * The threshold about 0.0 at which a stick movement will actually be processed.
      * This is fixed for now, but could be calibrated at runtime if necessary.
      */
@@ -68,6 +68,7 @@ public class ControllerState
 
     /**
      * Clamps stick values under STICK_THRESHOLD to zero.
+     *
      * @param value The stick value to evaluate.
      * @return 0 if the value is < STICK_THRESHOLD, and value otherwise.
      */
@@ -83,6 +84,7 @@ public class ControllerState
 
     /**
      * Normalizes an axis value. Assumes the Linux joystick API.
+     *
      * @param value The un-normalized axis value, from -32,767 to 32,767.
      * @return A value between 0 and 1, inclusive on both ends.
      */

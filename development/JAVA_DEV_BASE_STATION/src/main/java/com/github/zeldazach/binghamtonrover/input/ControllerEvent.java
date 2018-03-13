@@ -1,13 +1,15 @@
 package com.github.zeldazach.binghamtonrover.input;
 
-public class ControllerEvent {
+public class ControllerEvent
+{
 
     /**
      * The bit of an event's type value which indicates if the event is for a button or an axis.
      */
     private static final short BUTTON_BIT = 0x01;
 
-    public enum Type {
+    public enum Type
+    {
         BUTTON,
         AXIS
     }
@@ -19,7 +21,8 @@ public class ControllerEvent {
 
     private Controller source;
 
-    ControllerEvent(Controller src, long ts, short v, short t, short n) {
+    ControllerEvent(Controller src, long ts, short v, short t, short n)
+    {
         source = src;
         timestamp = ts;
         value = v;
@@ -28,23 +31,28 @@ public class ControllerEvent {
         number = n;
     }
 
-    public long getTimestamp() {
+    public long getTimestamp()
+    {
         return timestamp;
     }
 
-    public short getValue() {
+    public short getValue()
+    {
         return value;
     }
 
-    public Type getType() {
+    public Type getType()
+    {
         return type;
     }
 
-    public short getNumber() {
+    public short getNumber()
+    {
         return number;
     }
 
-    public Controller getSource() {
+    public Controller getSource()
+    {
         return source;
     }
 
