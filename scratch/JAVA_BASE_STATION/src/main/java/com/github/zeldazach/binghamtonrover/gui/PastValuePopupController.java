@@ -3,6 +3,7 @@ package com.github.zeldazach.binghamtonrover.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import java.net.URL;
@@ -20,6 +21,7 @@ public class PastValuePopupController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         PastValueChart.getXAxis().setAutoRanging(true);
+        ((NumberAxis)PastValueChart.getXAxis()).setForceZeroInRange(false);
         PastValueChart.getYAxis().setAutoRanging(true);
 
         tempData = new XYChart.Series();
