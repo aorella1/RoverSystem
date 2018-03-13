@@ -1,6 +1,5 @@
 package com.github.zeldazach.binghamtonrover.gui;
 
-import com.github.zeldazach.binghamtonrover.input.KeyboardHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,6 +1,5 @@
 package com.github.zeldazach.binghamtonrover.gui;
 
-import com.github.zeldazach.binghamtonrover.input.ControllerHandler;
 import com.github.zeldazach.binghamtonrover.input.ControllerState;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -48,16 +47,13 @@ public class DisplayApplicationController {
         xboxViewGraphicsContext.setFill(Color.BLUE);
         xboxViewGraphicsContext.fillRect(0, 0, xboxView.getWidth(), xboxView.getHeight());
 
-        ControllerHandler.getInstance().getControllerState().addObserver(
-                (obs, o) -> Platform.runLater(this::renderXboxState));
-
         // Render this now to show the initial state.
         renderXboxState();
     }
 
     private void renderXboxState() {
         double joystickOffset = JOYSTICK_OFFSET_RATIO * xboxView.getWidth();
-        ControllerState controllerState = ControllerHandler.getInstance().getControllerState();
+        ControllerState controllerState = ControllerState.getInstance();
 
         xboxViewGraphicsContext.setFill(Color.BLACK);
         xboxViewGraphicsContext.fillRect(0, 0, xboxView.getWidth(), xboxView.getHeight());
@@ -66,9 +62,9 @@ public class DisplayApplicationController {
         drawImage(controllerState.buttonB ? "b_pressed" : "b_unpressed");
         drawImage(controllerState.buttonX ? "x_pressed" : "x_unpressed");
         drawImage(controllerState.buttonY ? "y_pressed" : "y_unpressed");
-        drawImage(controllerState.buttonSelect ? "view_pressed" : "view_unpressed");
-        drawImage(controllerState.buttonMode ? "xbox_pressed" : "xbox_unpressed");
-        drawImage(controllerState.buttonStart ? "menu_pressed" : "menu_unpressed");
+        drawImage(controllerState.buttonView ? "view_pressed" : "view_unpressed");
+        drawImage(controllerState.buttonXbox ? "xbox_pressed" : "xbox_unpressed");
+        drawImage(controllerState.buttonMenu ? "menu_pressed" : "menu_unpressed");
         drawImage(controllerState.buttonLBumper ? "lb_pressed" : "lb_unpressed");
         drawImage(controllerState.buttonRBumper ? "rb_pressed" : "rb_unpressed");
 
@@ -95,10 +91,10 @@ public class DisplayApplicationController {
         }
 
         drawImage("dpad_unpressed");
-        if (controllerState.dpad == 0.25) drawImage("dpad_pressed_up");
-        if (controllerState.dpad == 0.50) drawImage("dpad_pressed_right");
-        if (controllerState.dpad == 0.75) drawImage("dpad_pressed_down");
-        if (controllerState.dpad == 1.00) drawImage("dpad_pressed_left");
+        if (controllerState.dpad == ControllerState.Dpad.UP) drawImage("dpad_pressed_up");
+        if (controllerState.dpad == ControllerState.Dpad.RIGHT) drawImage("dpad_pressed_right");
+        if (controllerState.dpad == ControllerState.Dpad.DOWN) drawImage("dpad_pressed_down");
+        if (controllerState.dpad == ControllerState.Dpad.LEFT) drawImage("dpad_pressed_left");
 
         drawImage("lt_unpressed");
         xboxViewGraphicsContext.setGlobalAlpha((controllerState.lTrigger + 1.0) / 2.0);

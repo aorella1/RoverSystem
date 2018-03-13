@@ -1,7 +1,7 @@
 package com.github.zeldazach.binghamtonrover;
 
 import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
-import com.github.zeldazach.binghamtonrover.input.InputHandler;
+import com.github.zeldazach.binghamtonrover.networking.InputEventHandler;
 import com.github.zeldazach.binghamtonrover.networking.NetworkManager;
 import javafx.application.Application;
 
@@ -16,9 +16,6 @@ public class BaseStation
      */
     public static void main(String[] args)
     {
-        // Initialize input by triggering the singleton construction.
-        InputHandler inputHandler = InputHandler.getInstance();
-
         // Initialize the network manager.
         NetworkManager manager = NetworkManager.getInstance();
 
@@ -30,6 +27,9 @@ public class BaseStation
 
         // Wait for the application to start.
         DisplayApplication.waitForStart();
+
+        // Init the input event handler.
+        InputEventHandler inputEventHandler = InputEventHandler.getInstance();
 
         // Start the networking.
         try
@@ -45,7 +45,7 @@ public class BaseStation
         {
             try
             {
-                inputHandler.poll();
+                inputEventHandler.poll();
 
                 manager.poll();
 
