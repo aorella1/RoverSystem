@@ -16,7 +16,12 @@ public class PastValuePopupController implements Initializable{
 
     private XYChart.Series tempData;
     private XYChart.Series psurData;
-    private int tempCount = 1, psurCount = 1;
+    private XYChart.Series humidData;
+    private XYChart.Series windSpeedData;
+    private XYChart.Series methaneData;
+
+
+    private int tempCount = 1, psurCount = 1, humidCount = 1, windSpeedCount = 1, methaneCount = 1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -26,11 +31,18 @@ public class PastValuePopupController implements Initializable{
 
         tempData = new XYChart.Series();
         psurData = new XYChart.Series();
+        humidData = new XYChart.Series();
+        windSpeedData = new XYChart.Series();
+        methaneData = new XYChart.Series();
 
         tempData.setName("Temperature");
         psurData.setName("Air Pressure");
+        humidData.setName("Air Humidity");
+        windSpeedData.setName("Wind Speed");
+        methaneData.setName("Methane");
 
-        PastValueChart.getData().addAll(tempData, psurData);
+
+        PastValueChart.getData().addAll(tempData, psurData, humidData, windSpeedData, methaneData);
 
     }
 
@@ -46,6 +58,27 @@ public class PastValuePopupController implements Initializable{
         psurData.getData().add(new XYChart.Data<Number, Number>(psurCount++, value));
         if(psurCount > 30){
             psurData.getData().remove(0,1);
+        }
+    }
+
+    public void addHumidData(double value){
+        humidData.getData().add(new XYChart.Data<Number, Number>(humidCount++, value));
+        if(humidCount > 30){
+            humidData.getData().remove(0,1);
+        }
+    }
+
+    public void addWindSpeedData(double value){
+        windSpeedData.getData().add(new XYChart.Data<Number, Number>(windSpeedCount++, value));
+        if(windSpeedCount > 30){
+            windSpeedData.getData().remove(0,1);
+        }
+    }
+
+    public void addMethanData(double value){
+        methaneData.getData().add(new XYChart.Data<Number, Number>(methaneCount++, value));
+        if(methaneCount > 30){
+            methaneData.getData().remove(0,1);
         }
     }
 

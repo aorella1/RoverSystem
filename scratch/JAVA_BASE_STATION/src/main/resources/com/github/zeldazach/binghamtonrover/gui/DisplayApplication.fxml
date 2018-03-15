@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.weathericons.WeatherIconView?>
 <?import eu.hansolo.medusa.Gauge?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -27,14 +28,35 @@
          <children>
             <TabPane prefHeight="315.0" prefWidth="251.0" stylesheets="@CSS/JavaFx_CSS.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="Gauges">
+                <Tab text="Weather">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
+                              <VBox alignment="CENTER" prefHeight="282.0" prefWidth="240.0" spacing="5.0" styleClass="vbox-gaugewrapper">
+                                 <children>
+                                    <Gauge id="TempGauge" fx:id="tempGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" prefHeight="82.0" prefWidth="230.0" skinType="LCD" title="Temperature Gauge" unit="K" />
+                                    <Gauge id="PsurGauge" fx:id="humidGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" minMeasuredValue="0.0" prefHeight="82.0" prefWidth="230.0" skinType="LCD" title="PsurGuge" unit="\%" />
+                                    <Gauge id="TempGauge" fx:id="windSpeedGauge" animated="true" averageVisible="true" averagingEnabled="true" layoutX="13.0" layoutY="23.0" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="500.0" minMeasuredValue="0.0" prefHeight="82.0" prefWidth="230.0" skinType="LCD" title="WindSpeed Gauge" unit="mph" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                     <graphic>
+                        <WeatherIconView fill="#adb07f" />
+                     </graphic>
+                </Tab>
+                  <Tab text="Atmoshere">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
                               <VBox alignment="CENTER" prefHeight="282.0" prefWidth="240.0" spacing="20.0" styleClass="vbox-gaugewrapper">
                                  <children>
-                                    <Gauge id="TempGauge" fx:id="tempGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="Temperature Gauge" unit="K" />
-                                    <Gauge id="PsurGauge" fx:id="psurGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="PsurGuge" unit="PSI" />
+                                    <Gauge id="TempGauge" fx:id="psurGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="pressure Gauge" unit="PSI" />
+                                    <Gauge id="PsurGauge" fx:id="methaneGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="Humidity Guge" unit="\%" />
                                     <Button id="DispAverage" fx:id="AverageBtn" mnemonicParsing="false" onAction="#PastValBtnHandler" text="Past Readings " textAlignment="CENTER">
                                        <VBox.margin>
                                           <Insets top="-10.0" />
@@ -50,8 +72,11 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                  </content>
-                </Tab>
+                     </content>
+                     <graphic>
+                        <WeatherIconView fill="#adb07f" glyphName="SMOG" />
+                     </graphic>
+                  </Tab>
                 <Tab text="Average">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

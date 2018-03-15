@@ -50,6 +50,9 @@ public class DisplayApplication extends Application
             while (true) {
                 controller.updateTempGauges(rand.nextGaussian() * 15 + 205);
                 controller.updatePsurGauge(rand.nextGaussian() * 10 + 500);
+                controller.updateHumidGauge(rand.nextGaussian() * 10 + 25);
+                controller.updateWinsSpeedGauge(rand.nextGaussian() * 8 + 35);
+                controller.updateMethaneGauge(rand.nextGaussian() * 2 + 47);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {

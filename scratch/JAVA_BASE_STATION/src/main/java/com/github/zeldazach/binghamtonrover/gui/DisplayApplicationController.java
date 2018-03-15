@@ -34,6 +34,9 @@ public class DisplayApplicationController {
 
     @FXML private Gauge tempGauge;
     @FXML private Gauge psurGauge;
+    @FXML private Gauge humidGauge;
+    @FXML private Gauge methaneGauge;
+    @FXML private Gauge windSpeedGauge;
     @FXML private Gauge tempAvg;
     @FXML private Gauge psurAvg;
 
@@ -173,6 +176,21 @@ public class DisplayApplicationController {
         psurGauge.setValue(value);
         psurAvg.setValue(value);
         pstValController.addPsurData(value);
+    }
+    public synchronized void updateHumidGauge(double value){
+        humidGauge.setValue(value);
+        psurAvg.setValue(value);
+        pstValController.addHumidData(value);
+    }
+    public synchronized void updateWinsSpeedGauge(double value){
+        windSpeedGauge.setValue(value);
+        psurAvg.setValue(value);
+        pstValController.addWindSpeedData(value);
+    }
+    public synchronized void updateMethaneGauge(double value){
+        methaneGauge.setValue(value);
+        psurAvg.setValue(value);
+        pstValController.addMethanData(value);
     }
 
     @FXML
