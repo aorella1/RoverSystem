@@ -16,6 +16,7 @@ const int CAMERA_HEIGHT = 360;
 using network::PacketHeartbeat;
 using network::PacketControl;
 using network::PacketCamera;
+using network::PacketInput;
 
 static void handle_heartbeat(network::Manager& manager, PacketHeartbeat* packet)
 {
@@ -45,8 +46,12 @@ static void handle_control(network::Manager& manager, PacketControl* packet) {
 static void handle_input(network::Manager& manager, PacketInput* packet) {
     // We do not use this.
     (void)manager;
+    (void)packet;
 
-
+    // Read the values of the packet here.
+    // Then change movement as you need based upon what those values are.
+    // Use the input namespace to help with values.
+    // Ex: input::get_controller_button(packet->controller_buttons, input::ControllerButton::A)
 }
 
 static void grab_frame(network::Manager& manager, camera::CaptureSession& camera, uint8_t* frame_buffer_back) {
@@ -94,11 +99,13 @@ static void grab_frame(network::Manager& manager, camera::CaptureSession& camera
         manager.send_timestamp++;
 }
 
-bool open_camera(camera::CaptureSession* session, char* video_path) {
+bool open_camera(camera::CaptureSession* camera, char* video_path) {
     if (!camera->open(video_path)) return false;
     if (!camera->check_capabilities()) return false;
     if (!camera->init_buffers()) return false;
     if (!camera->start_stream()) return false;
+
+    return true;
 }
 
 int main()
@@ -116,7 +123,7 @@ int main()
 
     // Set up camera feed.
     camera::CaptureSession* camera = new camera::CaptureSession(CAMERA_WIDTH, CAMERA_HEIGHT);
-    if (!open_camera(camera, "/dev/video0"))
+    if (!open_camera(camera, (char*)"/dev/video0"))
     {
         printf("[!] Failed to open camera!\n");
         return 1;
@@ -138,10 +145,11 @@ int main()
 
         // Only send frames if we are connected.
         if (manager.state == network::ConnectionState::CONNECTED) {
-            grab_frame(manager, &camera, frame_buffer_back);            
+            grab_frame(manager, *camera, frame_buffer_back);            
         }
                 
         if (millisecond_time() - last_time >= 1000) {
+            // Print average cycles per second every second (or so).
             std::cout << "> " << ((float) cycles / (millisecond_time() - start_time)*1000.0) << " cycles per second at millisecond mark " << (millisecond_time() - start_time) << std::endl;
             last_time = millisecond_time();
         }

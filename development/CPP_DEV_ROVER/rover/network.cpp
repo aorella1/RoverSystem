@@ -109,7 +109,7 @@ Manager::Manager(std::string address_string)
     memset((char*)&address, 0, sizeof(address));
     address.sin_family = AF_INET;
     inet_aton(address_string.c_str(), &address.sin_addr);
-    address.sin_port = CONNECTION_PORT;
+    address.sin_port = htons(CONNECTION_PORT);
 
     if (bind(socket_fd, (struct sockaddr*) &address, sizeof(address)) < 0)
     {
@@ -128,7 +128,7 @@ void Manager::send_raw_packet(uint8_t* buffer, size_t size, std::string address,
 {
     // Create an address structure.
     struct sockaddr_in send_addr;
-    // Initialize it to zero.
+    // Initialize it to sessionzero.
     memset((char*)&send_addr, 0, sizeof(send_addr));
     // Specify the IP protocol.
     send_addr.sin_family = AF_INET;
