@@ -37,13 +37,19 @@ public class DisplayApplicationController {
     @FXML private Gauge humidGauge;
     @FXML private Gauge methaneGauge;
     @FXML private Gauge windSpeedGauge;
-    @FXML private Gauge tempAvg;
-    @FXML private Gauge psurAvg;
+//    @FXML private Gauge tempAvg;
+//    @FXML private Gauge psurAvg;
 
-    @FXML private Button AverageBtn;
+    @FXML private Button PastValueBtn;
     private Stage PopupStage;
     private boolean PopupShown = false;
     private PastValuePopupController pstValController;
+
+    private GaugeWrapper tempGaugeWrapper;
+    private GaugeWrapper humidGaugeWrapper;
+    private GaugeWrapper pressureGaugeWrapper;
+    private GaugeWrapper windSpeedGaugeWrapper;
+    private GaugeWrapper methaneGaugeWrapper;
 
     private GraphicsContext xboxViewGraphicsContext;
 
@@ -71,6 +77,12 @@ public class DisplayApplicationController {
         AnchorPane root = loader.load();
         pstValController = loader.getController();
         PopupStage.setScene(new Scene(root));
+
+        tempGaugeWrapper = new GaugeWrapper(tempGauge, pstValController.getLineChart(), "Temperature");
+        humidGaugeWrapper = new GaugeWrapper(humidGauge, pstValController.getLineChart(), "Humidity");
+        pressureGaugeWrapper = new GaugeWrapper(psurGauge, pstValController.getLineChart(), "Air Pressure");
+        windSpeedGaugeWrapper = new GaugeWrapper(windSpeedGauge, pstValController.getLineChart(), "Wind Speed");
+        methaneGaugeWrapper = new GaugeWrapper(methaneGauge, pstValController.getLineChart(), "Methane level");
 
     }
 
@@ -167,30 +179,20 @@ public class DisplayApplicationController {
     }
 
     public synchronized void updateTempGauges(double value){
-        tempGauge.setValue(value);
-        tempAvg.setValue(value);
-        pstValController.addTempData(value);
+        tempGaugeWrapper.update(value);
     }
 
     public synchronized void updatePsurGauge(double value){
-        psurGauge.setValue(value);
-        psurAvg.setValue(value);
-        pstValController.addPsurData(value);
+        pressureGaugeWrapper.update(value);
     }
     public synchronized void updateHumidGauge(double value){
-        humidGauge.setValue(value);
-        psurAvg.setValue(value);
-        pstValController.addHumidData(value);
+        humidGaugeWrapper.update(value);
     }
-    public synchronized void updateWinsSpeedGauge(double value){
-        windSpeedGauge.setValue(value);
-        psurAvg.setValue(value);
-        pstValController.addWindSpeedData(value);
+    public synchronized void updateWinsSpeedGauge(double value) {
+        windSpeedGaugeWrapper.update(value);
     }
     public synchronized void updateMethaneGauge(double value){
-        methaneGauge.setValue(value);
-        psurAvg.setValue(value);
-        pstValController.addMethanData(value);
+        methaneGaugeWrapper.update(value);
     }
 
     @FXML
@@ -198,12 +200,12 @@ public class DisplayApplicationController {
         //Add a popup window
         if(!PopupShown) {
             PopupShown = true;
-            AverageBtn.setText("close Popup");
+            PastValueBtn.setText("close Popup");
             PopupStage.show();
         }
         else{
             PopupShown = false;
-            AverageBtn.setText("Show Popup");
+            PastValueBtn.setText("Show Popup");
             PopupStage.close();
         }
     }
