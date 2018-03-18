@@ -2,6 +2,19 @@
     -fx-background-color: #383838;
 }
 
+.chart-title {
+    -fx-text-fill: #4682b4;
+    -fx-font-size: 1.6em;
+}
+
+.axis-label {
+    -fx-text-fill: #4682b4;
+}
+
+
+/*-----------------------*/
+/*DisplayAplication.fxml*/
+/*-----------------------*/
 .tab {
     -fx-background-color: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%);;
     -fx-background-radius: 0;

@@ -78,11 +78,11 @@ public class DisplayApplicationController {
         pstValController = loader.getController();
         PopupStage.setScene(new Scene(root));
 
-        tempGaugeWrapper = new GaugeWrapper(tempGauge, pstValController.getLineChart(), "Temperature");
-        humidGaugeWrapper = new GaugeWrapper(humidGauge, pstValController.getLineChart(), "Humidity");
-        pressureGaugeWrapper = new GaugeWrapper(psurGauge, pstValController.getLineChart(), "Air Pressure");
-        windSpeedGaugeWrapper = new GaugeWrapper(windSpeedGauge, pstValController.getLineChart(), "Wind Speed");
-        methaneGaugeWrapper = new GaugeWrapper(methaneGauge, pstValController.getLineChart(), "Methane level");
+        tempGaugeWrapper = new GaugeWrapper(tempGauge, pstValController.getTempChart(), "Temperature");
+        humidGaugeWrapper = new GaugeWrapper(humidGauge, pstValController.getHumidChart(), "Humidity");
+        pressureGaugeWrapper = new GaugeWrapper(psurGauge, pstValController.getPsurChart(), "Air Pressure");
+        windSpeedGaugeWrapper = new GaugeWrapper(windSpeedGauge, pstValController.getWindSpeedChart(), "Wind Speed");
+        methaneGaugeWrapper = new GaugeWrapper(methaneGauge, pstValController.getMethaneChart(), "Methane level");
 
     }
 
@@ -181,7 +181,6 @@ public class DisplayApplicationController {
     public synchronized void updateTempGauges(double value){
         tempGaugeWrapper.update(value);
     }
-
     public synchronized void updatePsurGauge(double value){
         pressureGaugeWrapper.update(value);
     }

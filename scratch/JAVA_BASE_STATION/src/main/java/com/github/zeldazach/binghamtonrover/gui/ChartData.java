@@ -1,6 +1,7 @@
 package com.github.zeldazach.binghamtonrover.gui;
 
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 public class ChartData {
@@ -13,8 +14,15 @@ public class ChartData {
     public ChartData(LineChart<Number, Number> chart, String gaugeName){
         data = new XYChart.Series();
         data.setName(gaugeName);
-        this.chart = chart;
         dataCount = 0;
+
+        chart.getYAxis().setAutoRanging(true);
+        chart.getXAxis().setAutoRanging(true);
+        ((NumberAxis)chart.getXAxis()).setForceZeroInRange(false);
+        chart.setLegendVisible(false);
+//        chart.setAnimated(false);
+
+        this.chart = chart;
         this.chart.getData().add(data);
     }
 

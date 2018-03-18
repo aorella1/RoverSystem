@@ -15,29 +15,33 @@ import java.util.ResourceBundle;
 public class PastValuePopupController implements Initializable{
 
     @FXML
-    private LineChart<Number, Number> PastValueChart;
-
-//    private ArrayList<ChartData> Charts;
-
-//    private TempData tempData = new TempData();
-//    private PressureData psurData = new PressureData();
-//    private HumidData humidData= new HumidData();
-//    private WindSpeedData windSpeedData = new WindSpeedData();
-//    private MethaneData methaneData = new MethaneData();
-
-
-
-//    private int tempCount = 1, psurCount = 1, humidCount = 1, windSpeedCount = 1, methaneCount = 1;
+    private LineChart<Number, Number> TempChart;
+    @FXML
+    private LineChart<Number, Number> HumidChart;
+    @FXML
+    private LineChart<Number, Number> WindSpeedChart;
+    @FXML
+    private LineChart<Number, Number> PressureChart;
+    @FXML
+    private LineChart<Number, Number> MethaneChart;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        PastValueChart.getXAxis().setAutoRanging(true);
-        PastValueChart.getYAxis().setAutoRanging(true);
-        ((NumberAxis) PastValueChart.getXAxis()).setForceZeroInRange(false);
+//        PastValueChart.getXAxis().setAutoRanging(true);
+//        PastValueChart.getYAxis().setAutoRanging(true);
+        ((NumberAxis) TempChart.getXAxis()).setForceZeroInRange(false);
 
     }
 
-    public LineChart<Number, Number> getLineChart(){
-        return PastValueChart;
+    public LineChart<Number, Number> getTempChart(){
+        return TempChart;
     }
+
+    public LineChart<Number, Number> getHumidChart(){ return HumidChart; }
+
+    public LineChart<Number, Number> getWindSpeedChart() { return WindSpeedChart; }
+
+    public LineChart<Number, Number> getPsurChart() { return PressureChart; }
+
+    public LineChart<Number, Number> getMethaneChart() { return MethaneChart; }
 }

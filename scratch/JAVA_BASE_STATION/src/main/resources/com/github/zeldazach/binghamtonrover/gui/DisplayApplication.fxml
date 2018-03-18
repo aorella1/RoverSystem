@@ -57,7 +57,7 @@
                                  <children>
                                     <Gauge id="TempGauge" fx:id="psurGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="pressure Gauge" unit="PSI" />
                                     <Gauge id="PsurGauge" fx:id="methaneGauge" animated="true" averageVisible="true" averagingEnabled="true" lcdDesign="BLUE_LIGHTBLUE" lcdFont="ELEKTRA" maxValue="1000.0" minMeasuredValue="0.0" skinType="LCD" title="Humidity Guge" unit="\%" />
-                                    <Button id="DispAverage" fx:id="AverageBtn" mnemonicParsing="false" onAction="#PastValBtnHandler" text="Past Readings " textAlignment="CENTER">
+                                    <Button id="DispAverage" fx:id="PastValueBtn" mnemonicParsing="false" onAction="#PastValBtnHandler" text="Past Readings " textAlignment="CENTER">
                                        <VBox.margin>
                                           <Insets top="-10.0" />
                                        </VBox.margin>

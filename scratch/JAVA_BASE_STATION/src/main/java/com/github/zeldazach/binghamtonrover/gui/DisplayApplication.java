@@ -2,20 +2,18 @@ package com.github.zeldazach.binghamtonrover.gui;
 
 import com.github.zeldazach.binghamtonrover.controller.KeyboardHandler;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DisplayApplication extends Application
 {
@@ -46,23 +44,21 @@ public class DisplayApplication extends Application
 
         //Update random values to the gauges
         Random rand = new Random();
+        ScheduledExecutorService scheduler= Executors.newSingleThreadScheduledExecutor();
         Runnable randGauge  = () -> {
-            while (true) {
-                controller.updateTempGauges(rand.nextGaussian() * 15 + 205);
-                controller.updatePsurGauge(rand.nextGaussian() * 10 + 500);
-                controller.updateHumidGauge(rand.nextGaussian() * 10 + 25);
-                controller.updateWinsSpeedGauge(rand.nextGaussian() * 8 + 35);
-                controller.updateMethaneGauge(rand.nextGaussian() * 2 + 47);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+                Platform.runLater(() -> {
+                    controller.updateTempGauges(rand.nextGaussian() * 15 + 205);
+                    controller.updatePsurGauge(rand.nextGaussian() * 10 + 500);
+                    controller.updateHumidGauge(rand.nextGaussian() * 5 + 45);
+                    controller.updateWinsSpeedGauge(rand.nextGaussian() * 8 + 35);
+                    controller.updateMethaneGauge(rand.nextGaussian() * 2 + 47);
+                });
         };
 
-        Thread t = new Thread(randGauge);
-        t.start();
+        scheduler.scheduleAtFixedRate(randGauge,1000,1000, TimeUnit.MILLISECONDS);
+
+//        Thread gaugeUpdatingThread = new Thread(randGauge);
+//        gaugeUpdatingThread.run();
 
     }
 
