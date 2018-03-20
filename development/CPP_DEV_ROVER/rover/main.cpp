@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <string>
-#include <vector>
+#include <vector> 
 #include <unistd.h>
 
 #include <iostream>
@@ -55,6 +55,8 @@ static void handle_input(network::Manager& manager, PacketInput* packet) {
 }
 
 static void grab_frame(network::Manager& manager, camera::CaptureSession& camera, uint8_t* frame_buffer_back) {
+    static uint16_t next_frame_id = 0;
+
     uint8_t* frame_buffer = frame_buffer_back;
     
     size_t frame_size = camera.grab_frame(frame_buffer_back);
@@ -69,6 +71,7 @@ static void grab_frame(network::Manager& manager, camera::CaptureSession& camera
     // Send all but the last packet.
     for (int i = 0; i < num_packets - 1; i++) {
         PacketCamera camera_packet;
+        camera_packet.frame_id = next_frame_id;
         camera_packet.section_index = (uint8_t) i;
         camera_packet.section_count = (uint8_t) num_packets;
         camera_packet.size = (uint16_t) network::CAMERA_PACKET_FRAME_DATA_MAX_SIZE;
@@ -84,6 +87,7 @@ static void grab_frame(network::Manager& manager, camera::CaptureSession& camera
 
     // Send the last packet.
     PacketCamera camera_packet;
+    camera_packet.frame_id = next_frame_id;
     camera_packet.section_index = (uint8_t) (num_packets - 1);
     camera_packet.section_count = (uint8_t) num_packets;
     camera_packet.size = (uint16_t) (frame_size % network::CAMERA_PACKET_FRAME_DATA_MAX_SIZE);
@@ -91,12 +95,11 @@ static void grab_frame(network::Manager& manager, camera::CaptureSession& camera
 
     manager.send_packet(&camera_packet);
 
-    // Manually increment timestamp
     // Do our own overflow, since its undefined for C++.
-    if (manager.send_timestamp == UINT16_MAX)
-        manager.send_timestamp = 0;
+    if (next_frame_id == UINT16_MAX)
+        next_frame_id = 0;
     else
-        manager.send_timestamp++;
+        next_frame_id++;
 }
 
 bool open_camera(camera::CaptureSession* camera, char* video_path) {
@@ -145,9 +148,9 @@ int main()
 
         // Only send frames if we are connected.
         if (manager.state == network::ConnectionState::CONNECTED) {
-            grab_frame(manager, *camera, frame_buffer_back);            
+            grab_frame(manager, *camera, frame_buffer_back);
         }
-                
+
         if (millisecond_time() - last_time >= 1000) {
             // Print average cycles per second every second (or so).
             std::cout << "> " << ((float) cycles / (millisecond_time() - start_time)*1000.0) << " cycles per second at millisecond mark " << (millisecond_time() - start_time) << std::endl;

@@ -14,7 +14,7 @@
 
 namespace network {
 
-const int CURRENT_ROVER_PROTOCOL_VERSION = 5;
+const int CURRENT_ROVER_PROTOCOL_VERSION = 7;
 
 const int HEADER_LENGTH = 5;
 
@@ -32,7 +32,7 @@ const int CONNECTION_PORT = 44444;
 
 PacketType<PacketHeartbeat> PacketTypeHeartbeat(0, 1);
 PacketType<PacketControl> PacketTypeControl(1, 1);
-PacketType<PacketCamera> PacketTypeCamera(2, 4 + CAMERA_PACKET_FRAME_DATA_MAX_SIZE);
+PacketType<PacketCamera> PacketTypeCamera(2, 6 + CAMERA_PACKET_FRAME_DATA_MAX_SIZE);
 PacketType<PacketInput> PacketTypeInput(3, 23);
 
 void register_packet_functions() {
@@ -51,12 +51,14 @@ void register_packet_functions() {
     };
 
     PacketTypeCamera.reader = [](PacketCamera* packet, Buffer& buffer) {
+        packet->frame_id = buffer.read_value<uint16_t>();
         packet->section_index = buffer.read_value<uint8_t>();
         packet->section_count = buffer.read_value<uint8_t>();
         packet->size = ntohs(buffer.read_value<uint16_t>());
         packet->data = buffer.get_pointer();
     };
     PacketTypeCamera.writer = [](PacketCamera* packet, Buffer& buffer) {
+        buffer.write_value(packet->frame_id);
         buffer.write_value(packet->section_index);
         buffer.write_value(packet->section_count);
         buffer.write_value(htons(packet->size));
@@ -138,7 +140,7 @@ void Manager::send_raw_packet(uint8_t* buffer, size_t size, std::string address,
     inet_aton(address.c_str(), &send_addr.sin_addr);
 
     // Send the packet.
-    if (sendto(socket_fd, buffer, HEADER_LENGTH + size, 0, (struct sockaddr*) &send_addr, sizeof(send_addr)) < 0)
+    if (sendto(socket_fd, buffer, size, 0, (struct sockaddr*) &send_addr, sizeof(send_addr)) < 0)
     {
         // Send failure
         printf("[!] Failed to send packet!\n");

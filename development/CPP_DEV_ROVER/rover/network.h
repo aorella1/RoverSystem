@@ -105,6 +105,7 @@ struct PacketCamera
 {
     PacketType<PacketCamera>* type;
 
+    uint16_t frame_id;
     uint8_t section_index;
     uint8_t section_count;
     uint16_t size;
