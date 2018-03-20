@@ -1,14 +1,14 @@
 package com.github.zeldazach.binghamtonrover;
 
 import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
-import com.github.zeldazach.binghamtonrover.networking.InputEventHandler;
+import com.github.zeldazach.binghamtonrover.input.InputEventHandler;
+import com.github.zeldazach.binghamtonrover.input.KeyboardState;
+import com.github.zeldazach.binghamtonrover.input.KeyboardStateListener;
 import com.github.zeldazach.binghamtonrover.networking.NetworkManager;
+import com.github.zeldazach.binghamtonrover.networking.PacketControl;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BaseStation
@@ -58,6 +58,39 @@ public class BaseStation
         {
             throw new RuntimeException("Failed to start: IO Exception while starting network manager", e);
         }
+
+        KeyboardStateListener listener = new KeyboardStateListener()
+        {
+            private int currentCamera = 0;
+
+            @Override
+            public void handle(KeyboardState state, KeyboardState.Key key, boolean value)
+            {
+                if (key == KeyboardState.Key.N0 && currentCamera != 0)
+                {
+                    System.out.println("CHANGED CAMERA TO 0");
+                    currentCamera = 0;
+                } else if (key == KeyboardState.Key.N1 && currentCamera != 1)
+                {
+                    System.out.println("CHANGED CAMERA TO 1");
+                    currentCamera = 1;
+                } else
+                {
+                    return;
+                }
+
+                PacketControl packet = new PacketControl(currentCamera);
+                try
+                {
+                    manager.send(packet);
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        inputEventHandler.getKeyboardState().registerListener(listener);
 
         while (true)
         {

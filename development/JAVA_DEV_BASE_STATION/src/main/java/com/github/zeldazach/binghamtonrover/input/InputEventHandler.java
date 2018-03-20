@@ -1,8 +1,7 @@
-package com.github.zeldazach.binghamtonrover.networking;
+package com.github.zeldazach.binghamtonrover.input;
 
 import com.github.zeldazach.binghamtonrover.BaseStation;
 import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
-import com.github.zeldazach.binghamtonrover.input.*;
 import com.github.zeldazach.binghamtonrover.input.KeyboardState.Key;
 
 import javafx.application.Platform;
@@ -154,7 +153,6 @@ public class InputEventHandler
                         break;
                     case PAGE_DOWN:
                         keyboardState.setKey(Key.PAGE_DOWN, value);
-
                 }
             }
         }
@@ -313,5 +311,10 @@ public class InputEventHandler
     public void update()
     {
 
+    }
+
+    public KeyboardState getKeyboardState()
+    {
+        return keyboardState;
     }
 }

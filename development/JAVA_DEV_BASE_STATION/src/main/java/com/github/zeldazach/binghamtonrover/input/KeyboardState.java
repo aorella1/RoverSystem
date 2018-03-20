@@ -1,5 +1,8 @@
 package com.github.zeldazach.binghamtonrover.input;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The current state of the system keyboard.
  */
@@ -81,6 +84,11 @@ public class KeyboardState
     }
 
     /**
+     * A list of all listeners which subscribe to key changes.
+     */
+    private List<KeyboardStateListener> listeners = new ArrayList<>();
+
+    /**
      * Holds the on/off values of all the above keys.
      * Each bit, from least to most significant, represents one of the keys above, in enum order.
      * For a Key enum value key, its bit value is (1 << key.ordinal()).
@@ -93,6 +101,12 @@ public class KeyboardState
      */
     public void setKey(Key key, boolean value)
     {
+        // Check if the value has actually been changed.
+        if (getKey(key) == value)
+        {
+            return;
+        }
+
         // Our listener has to be on a separate thread.
         synchronized (this)
         {
@@ -103,6 +117,12 @@ public class KeyboardState
             {
                 keys &= ~(1 << key.ordinal());
             }
+        }
+
+        // Invoke handlers.
+        for (KeyboardStateListener l : listeners)
+        {
+            l.handle(this, key, value);
         }
     }
 
@@ -130,5 +150,10 @@ public class KeyboardState
         {
             return keys;
         }
+    }
+
+    public void registerListener(KeyboardStateListener l)
+    {
+        listeners.add(l);
     }
 }

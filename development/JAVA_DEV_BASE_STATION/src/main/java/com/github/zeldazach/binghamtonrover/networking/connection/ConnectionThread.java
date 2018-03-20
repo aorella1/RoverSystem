@@ -38,7 +38,7 @@ public class ConnectionThread extends Thread
                     backgroundColor = Color.WHITE;
                     break;
                 case TROUBLED:
-                    backgroundColor = Color.YELLOW;
+                    backgroundColor = Color.ORANGE;
                     break;
                 case DISCONNECTED:
                     backgroundColor = Color.RED;

@@ -37,7 +37,7 @@ public class ConnectionManager
      * The rover's IP address.
      * This is hardcoded.
      */
-    private final String roverAddress = "149.125.81.59";
+    private final String roverAddress = "149.125.83.106";
 
     /**
      * The rover's port.
