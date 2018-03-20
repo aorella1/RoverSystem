@@ -37,7 +37,7 @@ public class ConnectionManager
      * The rover's IP address.
      * This is hardcoded.
      */
-    private final String roverAddress = "192.168.1.100";
+    private final String roverAddress = "149.125.81.59";
 
     /**
      * The rover's port.
@@ -93,14 +93,15 @@ public class ConnectionManager
 
     /**
      * Handles updating connection state based upon heartbeat timestamps. Must only be called from NetworkManager.
+     * Returns the length of time, in milliseconds, before another update is necessary.
      */
-    public void update() throws IOException
+    public long update() throws IOException
     {
         if (state == ConnectionState.CONNECTED) {
             // First make sure we don't need to switch states.
             if (System.currentTimeMillis() - lastHeartbeatReceiveTime > CONNECTED_TIMEOUT) {
                 state = ConnectionState.TROUBLED;
-                return;
+                return ConnectionManager.HEARTBEAT_TROUBLED_DELAY;
             }
 
             // See if we need to send a heartbeat packet.
@@ -112,14 +113,14 @@ public class ConnectionManager
                 NetworkManager.getInstance().send(hbp);
             }
 
-            return;
+            return ConnectionManager.HEARTBEAT_CONNECTED_DELAY;
         }
 
         if (state == ConnectionState.TROUBLED) {
             // Make sure we don't need to switch states.
             if (System.currentTimeMillis() - lastHeartbeatReceiveTime > TROUBLED_TIMEOUT) {
                 state = ConnectionState.DISCONNECTED;
-                return;
+                return ConnectionManager.HEARTBEAT_CONNECTED_DELAY;
             }
 
             // Check if we need to send a heartbeat packet.
@@ -131,7 +132,7 @@ public class ConnectionManager
                 NetworkManager.getInstance().send(hbp);
             }
 
-            return;
+            return ConnectionManager.HEARTBEAT_TROUBLED_DELAY;
         }
 
         // State is either UNINITIALIZED or DISCONNECTED. We do the same thing: send heartbeats at connected delay.
@@ -143,5 +144,6 @@ public class ConnectionManager
             NetworkManager.getInstance().send(hbp);
         }
 
+        return ConnectionManager.HEARTBEAT_CONNECTED_DELAY;
     }
 }

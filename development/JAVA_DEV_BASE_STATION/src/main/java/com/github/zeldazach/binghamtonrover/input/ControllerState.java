@@ -7,16 +7,10 @@ package com.github.zeldazach.binghamtonrover.input;
 public class ControllerState
 {
     /**
-     * The threshold about 0.0 at which a stick movement will actually be processed.
+     * The threshold about 0 at which a stick movement will actually be processed.
      * This is fixed for now, but could be calibrated at runtime if necessary.
      */
-    private static final float STICK_THRESHOLD = 0.02f;
-
-    /**
-     * In the Linux joystick API, the maximum value of an axis.
-     * The minimum value of an axis is simply -MAX_AXIS.
-     */
-    private static final short MAX_AXIS = 32767;
+    private static final short STICK_THRESHOLD = 2000;
 
     private static ControllerState INSTANCE;
 
@@ -42,11 +36,11 @@ public class ControllerState
     public boolean buttonLBumper, buttonRBumper, buttonLThumb, buttonRThumb;
 
     /**
-     * Normalized values (between -1 and 1) for "continuous" axes.
+     * Integer values (between -32767 and 32767) for "continuous" axes.
      * <p>
-     * lTrigger and rTrigger are from -1 (not pressed) to 1 (fully pressed).
+     * lTrigger and rTrigger are from -32767 (not pressed) to 32767 (fully pressed).
      */
-    public float lStickX, lStickY, rStickX, rStickY, lTrigger, rTrigger;
+    public short lStickX, lStickY, rStickX, rStickY, lTrigger = -32767, rTrigger = -32767;
 
     public enum Dpad
     {
@@ -72,7 +66,7 @@ public class ControllerState
      * @param value The stick value to evaluate.
      * @return 0 if the value is < STICK_THRESHOLD, and value otherwise.
      */
-    public static float clampStickValue(float value)
+    public static short clampStickValue(short value)
     {
         if (Math.abs(value) < STICK_THRESHOLD)
         {
@@ -80,16 +74,5 @@ public class ControllerState
         }
 
         return value;
-    }
-
-    /**
-     * Normalizes an axis value. Assumes the Linux joystick API.
-     *
-     * @param value The un-normalized axis value, from -32,767 to 32,767.
-     * @return A value between 0 and 1, inclusive on both ends.
-     */
-    public static float normalizeAxis(short value)
-    {
-        return value / (float) MAX_AXIS;
     }
 }

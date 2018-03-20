@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ public class DisplayApplication extends Application
 
     private static DisplayApplication INSTANCE = null;
 
+    private static boolean RUNNING = false;
+
     /**
      * Used for waiting until startup.
      * Inspired by https://stackoverflow.com/questions/25873769/launch-javafx-application-from-another-class.
@@ -25,6 +28,10 @@ public class DisplayApplication extends Application
 
     public static DisplayApplication getInstance() {
         return INSTANCE;
+    }
+
+    public static boolean isRunning() {
+        return RUNNING;
     }
 
     /**
@@ -43,6 +50,7 @@ public class DisplayApplication extends Application
 
     private DisplayApplicationController controller;
     private Stage stage;
+    private Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws IOException
@@ -52,7 +60,7 @@ public class DisplayApplication extends Application
 
         controller = loader.getController();
 
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
 
         primaryStage.setTitle(WINDOW_TITLE);
         primaryStage.setScene(scene);
@@ -61,7 +69,13 @@ public class DisplayApplication extends Application
         stage = primaryStage;
 
         INSTANCE = this;
+        RUNNING = true;
         startupLatch.countDown();
+    }
+
+    @Override
+    public void stop() {
+        RUNNING = false;
     }
 
     // delegate method to get our Image View
@@ -73,6 +87,17 @@ public class DisplayApplication extends Application
     public Stage getStage()
     {
         return stage;
+    }
+
+    // Delegate method.
+    public void renderXboxState()
+    {
+        controller.renderXboxState();
+    }
+
+    public void setSceneBackground(Color color)
+    {
+        scene.setFill(color);
     }
 
 }

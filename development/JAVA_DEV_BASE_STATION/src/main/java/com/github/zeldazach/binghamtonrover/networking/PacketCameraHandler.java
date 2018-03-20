@@ -5,7 +5,10 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class PacketCameraHandler implements PacketHandler
 {
@@ -105,7 +108,7 @@ public class PacketCameraHandler implements PacketHandler
                 ourBuffer.remainingSections = sectionCount - 1;
 
                 // Copy the bytes into the proper location within our frame buffer.
-                ourBuffer.internalBuffer.position(frameID * PacketCamera.MAX_FRAME_DATA_SIZE);
+                ourBuffer.internalBuffer.position(sectionID * PacketCamera.MAX_FRAME_DATA_SIZE);
                 ourBuffer.internalBuffer.put(frameData);
 
                 ourBuffer.bufferSize = frameDataSize;
@@ -149,6 +152,7 @@ public class PacketCameraHandler implements PacketHandler
             frameBufferContainer.update_buffer((PacketCamera) packet);
         } catch (IllegalArgumentException e)
         {
+            e.printStackTrace();
             System.out.println("Unable to add section to potential frame " + e.getMessage());
         }
     }

@@ -4,17 +4,26 @@ import com.github.zeldazach.binghamtonrover.gui.DisplayApplication;
 import com.github.zeldazach.binghamtonrover.networking.InputEventHandler;
 import com.github.zeldazach.binghamtonrover.networking.NetworkManager;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BaseStation
 {
+    /**
+     * The global logger.
+     */
+    public static final Logger LOGGER = Logger.getLogger("BaseStation");
+
     /**
      * The entry point for the base station control program.
      *
      * @param args Command-line arguments.
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
         // Initialize the network manager.
         NetworkManager manager = NetworkManager.getInstance();
@@ -50,21 +59,13 @@ public class BaseStation
             throw new RuntimeException("Failed to start: IO Exception while starting network manager", e);
         }
 
-        // Do our main loop.
         while (true)
         {
-            try
-            {
-                inputEventHandler.poll();
+            inputEventHandler.update();
 
-                manager.poll();
+            Thread.sleep(250);
 
-                // TODO: Update GUI
-            } catch (IOException e)
-            {
-                // TODO: Log network or input handler failure.
-                // TODO: Possibly separate these two poll calls into separate try blocks.
-            }
+            if (!DisplayApplication.isRunning()) break;
         }
     }
 }

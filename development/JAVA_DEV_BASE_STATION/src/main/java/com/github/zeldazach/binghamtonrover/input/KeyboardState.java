@@ -118,4 +118,17 @@ public class KeyboardState
             return (keys & (1 << key.ordinal())) != 0;
         }
     }
+
+    /**
+     * Gets the raw value of the keys bitfield.
+     * This is threadsafe.
+     * @return The raw keys bitfield.
+     */
+    public long getRawKeys()
+    {
+        synchronized (this)
+        {
+            return keys;
+        }
+    }
 }

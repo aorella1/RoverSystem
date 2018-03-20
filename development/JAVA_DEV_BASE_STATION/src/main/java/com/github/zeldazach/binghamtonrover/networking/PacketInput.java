@@ -1,18 +1,14 @@
 package com.github.zeldazach.binghamtonrover.networking;
 
+import com.github.zeldazach.binghamtonrover.input.ControllerState;
+import com.github.zeldazach.binghamtonrover.input.KeyboardState;
+
 import java.nio.ByteBuffer;
 
 public class PacketInput extends Packet
 {
-    // Controller and keyboard button index definitions
-    public enum ControllerButton
-    {
-        A, B, X, Y,
-        VIEW, XBOX, MENU,
-        LB, RB,
-        LSP, RSP
-    }
-
+    // These are defined according to the packet spec.
+    // More info on values can be found in KeyboardState.
     private byte controllerDpad;
     private short controllerLeftStickX;
     private short controllerLeftStickY;
@@ -48,54 +44,21 @@ public class PacketInput extends Packet
         throw new IllegalStateException("Input packets can only be sent from base station -> rover!");
     }
 
-    public void setControllerDpad(byte controllerDpad)
+    /**
+     * Sets the content of this packet according to the given keyboard state.
+     * @param state The current keyboard state.
+     */
+    public void setKeyboard(KeyboardState state)
     {
-        this.controllerDpad = controllerDpad;
+        keyboardButtonsUnsigned = state.getRawKeys();
     }
 
-    public void setControllerLeftStickX(short controllerLeftStickX)
+    /**
+     * Sets the content of this packet according to the given controller state.
+     * @param state The current controller state.
+     */
+    public void setController(ControllerState state)
     {
-        this.controllerLeftStickX = controllerLeftStickX;
-    }
 
-    public void setControllerLeftStickY(short controllerLeftStickY)
-    {
-        this.controllerLeftStickY = controllerLeftStickY;
-    }
-
-    public void setControllerRightStickX(short controllerRightStickX)
-    {
-        this.controllerRightStickX = controllerRightStickX;
-    }
-
-    public void setControllerRightStickY(short controllerRightStickY)
-    {
-        this.controllerRightStickY = controllerRightStickY;
-    }
-
-    public void setControllerLeftTrigger(short controllerLeftTrigger)
-    {
-        this.controllerLeftTrigger = controllerLeftTrigger;
-    }
-
-    public void setControllerRightTrigger(short controllerRightTrigger)
-    {
-        this.controllerRightTrigger = controllerRightTrigger;
-    }
-
-    public void setControllerButton(int index, boolean value)
-    {
-        if (value)
-            controllerButtonsUnsigned |= (1 << index);
-        else
-            controllerButtonsUnsigned &= ~(1 << index);
-    }
-
-    public void setKeyboardButton(int index, boolean value)
-    {
-        if (value)
-            keyboardButtonsUnsigned |= (1 << index);
-        else
-            keyboardButtonsUnsigned &= ~(1 << index);
     }
 }

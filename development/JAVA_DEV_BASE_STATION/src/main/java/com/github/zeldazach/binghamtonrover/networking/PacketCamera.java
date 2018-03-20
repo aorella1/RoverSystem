@@ -3,6 +3,7 @@ package com.github.zeldazach.binghamtonrover.networking;
 import com.github.zeldazach.binghamtonrover.utils.Unsigned;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class PacketCamera extends Packet
 {
@@ -30,13 +31,15 @@ public class PacketCamera extends Packet
     @Override
     public void readFromBuffer(ByteBuffer buff)
     {
+        buff.order(ByteOrder.BIG_ENDIAN);
+
         frameIDUnsigned = buff.getShort();
         sectionIndexUnsigned = buff.get();
         sectionCountUnsigned = buff.get();
         sectionSizeUnsigned = buff.getShort();
 
         sectionData = ByteBuffer.allocate(Unsigned.value(sectionSizeUnsigned));
-        buff.put(sectionData);
+        sectionData.put(buff);
 
         // Ready sectionData for reading.
         sectionData.flip();

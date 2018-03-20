@@ -13,7 +13,8 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DisplayApplicationController {
+public class DisplayApplicationController
+{
     @FXML
     private StackPane cameraView;
 
@@ -32,11 +33,13 @@ public class DisplayApplicationController {
     private static final double JOYSTICK_OFFSET_RATIO = 0.02125;
 
 
-    public ImageView getCameraImageView() {
+    public ImageView getCameraImageView()
+    {
         return cameraImageView;
     }
 
-    public void initialize() {
+    public void initialize()
+    {
         // we can reuse our canvas context rather than continue to call upon this method each time
         xboxViewGraphicsContext = xboxView.getGraphicsContext2D();
         buildXboxView();
@@ -51,8 +54,12 @@ public class DisplayApplicationController {
         renderXboxState();
     }
 
-    private void renderXboxState() {
+    private static final short MAX_AXIS_VALUE = 32767;
+
+    public void renderXboxState()
+    {
         double joystickOffset = JOYSTICK_OFFSET_RATIO * xboxView.getWidth();
+
         ControllerState controllerState = ControllerState.getInstance();
 
         xboxViewGraphicsContext.setFill(Color.BLACK);
@@ -68,24 +75,30 @@ public class DisplayApplicationController {
         drawImage(controllerState.buttonLBumper ? "lb_pressed" : "lb_unpressed");
         drawImage(controllerState.buttonRBumper ? "rb_pressed" : "rb_unpressed");
 
+        float lStickX = controllerState.lStickX / (float) MAX_AXIS_VALUE;
+        float lStickY = controllerState.lStickY / (float) MAX_AXIS_VALUE;
+        float rStickX = controllerState.rStickX / (float) MAX_AXIS_VALUE;
+        float rStickY = controllerState.rStickY / (float) MAX_AXIS_VALUE;
+
+        float lTrigger = controllerState.lTrigger / (float) MAX_AXIS_VALUE;
+        float rTrigger = controllerState.rTrigger / (float) MAX_AXIS_VALUE;
+
         drawImage("js_left_background");
-        if (controllerState.lStickX != 0.0 || controllerState.lStickY != 0.0)
+        if (controllerState.lStickX != 0 || controllerState.lStickY != 0)
         {
-            drawImage("js_left_pressed", Math.floor(controllerState.lStickX * joystickOffset),
-                    Math.floor(controllerState.lStickY * joystickOffset));
-        }
-        else
+            drawImage("js_left_pressed", Math.floor(lStickX * joystickOffset),
+                    Math.floor(lStickY * joystickOffset));
+        } else
         {
             drawImage("js_left_unpressed");
         }
 
         drawImage("js_right_background");
-        if (controllerState.rStickX != 0.0 || controllerState.rStickY != 0.0)
+        if (controllerState.rStickX != 0 || controllerState.rStickY != 0)
         {
-            drawImage("js_right_pressed", Math.floor(controllerState.rStickX * joystickOffset),
-                    Math.floor(controllerState.rStickY * joystickOffset));
-        }
-        else
+            drawImage("js_right_pressed", Math.floor(rStickX * joystickOffset),
+                    Math.floor(rStickY * joystickOffset));
+        } else
         {
             drawImage("js_right_unpressed");
         }
@@ -97,14 +110,15 @@ public class DisplayApplicationController {
         if (controllerState.dpad == ControllerState.Dpad.LEFT) drawImage("dpad_pressed_left");
 
         drawImage("lt_unpressed");
-        xboxViewGraphicsContext.setGlobalAlpha((controllerState.lTrigger + 1.0) / 2.0);
+        xboxViewGraphicsContext.setGlobalAlpha((lTrigger + 1.0) / 2.0);
         drawImage("lt_pressed");
         xboxViewGraphicsContext.setGlobalAlpha(1.0);
 
         drawImage("rt_unpressed");
-        xboxViewGraphicsContext.setGlobalAlpha((controllerState.rTrigger + 1.0) / 2.0);
+        xboxViewGraphicsContext.setGlobalAlpha((rTrigger + 1.0) / 2.0);
         drawImage("rt_pressed");
         xboxViewGraphicsContext.setGlobalAlpha(1.0);
+
     }
 
     private Map<String, Image> controllerImageMap = new HashMap<>();
@@ -122,8 +136,7 @@ public class DisplayApplicationController {
         {
             image = new Image("xbox/" + imageName + ".png");
             controllerImageMap.put(imageName, image);
-        }
-        else
+        } else
         {
             image = controllerImageMap.get(imageName);
         }
