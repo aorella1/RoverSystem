@@ -13,6 +13,9 @@
 const int CAMERA_WIDTH = 640;
 const int CAMERA_HEIGHT = 360;
 
+// Max number of possible cameras.
+const int MAX_CAMERAS = 9;
+
 using network::PacketHeartbeat;
 using network::PacketControl;
 using network::PacketCamera;
@@ -32,13 +35,37 @@ static void handle_heartbeat(network::Manager& manager, PacketHeartbeat* packet)
     }
 }
 
-static uint8_t selected_camera = 0;
+static std::vector<camera::CaptureSession*> available_cameras;
+static int selected_camera = 0;
+
+static void open_cameras() {
+    for (int i = 0; i < MAX_CAMERAS; i++)
+    {
+        char path[100];
+        sprintf(path, "/dev/video%d", i);
+
+        camera::CaptureSession* camera = new camera::CaptureSession(CAMERA_WIDTH, CAMERA_HEIGHT);
+
+        if (!camera->open(path) || !camera->check_capabilities() 
+            || !camera->init_buffers() || !camera->start_stream())
+        {
+            delete camera;
+            continue;
+        }
+
+        printf("> Found camera %s\n", path);
+
+        available_cameras.push_back(camera);
+    }
+}
 
 static void handle_control(network::Manager& manager, PacketControl* packet) {
     // We do not use this.
     (void)manager;
 
     selected_camera = packet->selected_camera;
+    
+    if ((unsigned int) selected_camera >= available_cameras.size()) return;
 
     printf("> Updated selected camera to %u\n", selected_camera);
 }
@@ -54,12 +81,12 @@ static void handle_input(network::Manager& manager, PacketInput* packet) {
     // Ex: input::get_controller_button(packet->controller_buttons, input::ControllerButton::A)
 }
 
-static void grab_frame(network::Manager& manager, camera::CaptureSession& camera, uint8_t* frame_buffer_back) {
+static void grab_frame(network::Manager& manager, camera::CaptureSession& camera) {
     static uint16_t next_frame_id = 0;
 
-    uint8_t* frame_buffer = frame_buffer_back;
+    uint8_t* frame_buffer = camera.frame_buffer;
     
-    size_t frame_size = camera.grab_frame(frame_buffer_back);
+    size_t frame_size = camera.grab_frame();
     if (frame_size == 0) {
         std::cerr << "[!] Failed to grab frame!" << std::endl;
         return;
@@ -102,15 +129,6 @@ static void grab_frame(network::Manager& manager, camera::CaptureSession& camera
         next_frame_id++;
 }
 
-bool open_camera(camera::CaptureSession* camera, char* video_path) {
-    if (!camera->open(video_path)) return false;
-    if (!camera->check_capabilities()) return false;
-    if (!camera->init_buffers()) return false;
-    if (!camera->start_stream()) return false;
-
-    return true;
-}
-
 int main()
 {
     // Initialize the packet readers and writers.
@@ -124,18 +142,7 @@ int main()
     network::PacketTypeControl.handler = handle_control;
     network::PacketTypeInput.handler = handle_input;
 
-    // Set up camera feed.
-    camera::CaptureSession* camera = new camera::CaptureSession(CAMERA_WIDTH, CAMERA_HEIGHT);
-    if (!open_camera(camera, (char*)"/dev/video0"))
-    {
-        printf("[!] Failed to open camera!\n");
-        return 1;
-    }
-
-    printf("> Frame size: %lu\n", camera->image_size);
-    
-    // Create buffer for image data.
-    uint8_t* frame_buffer_back = (uint8_t*) malloc(camera->image_size);
+    open_cameras();
 
     // For cycles per second tracking.
     uint64_t start_time = millisecond_time();
@@ -148,7 +155,7 @@ int main()
 
         // Only send frames if we are connected.
         if (manager.state == network::ConnectionState::CONNECTED) {
-            grab_frame(manager, *camera, frame_buffer_back);
+            grab_frame(manager, *available_cameras[selected_camera]);
         }
 
         if (millisecond_time() - last_time >= 1000) {
@@ -158,7 +165,4 @@ int main()
         }
         cycles++;
     }
-
-    free(frame_buffer_back);
-    free(camera);
 }

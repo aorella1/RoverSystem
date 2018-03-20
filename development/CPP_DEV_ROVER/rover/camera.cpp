@@ -36,6 +36,9 @@ CaptureSession::~CaptureSession() {
     // Close the connection to the camera.
     if (fd != -1)
         close(fd);
+    
+    if (frame_buffer)
+        delete[] frame_buffer;
 }
 
 
@@ -154,6 +157,9 @@ bool CaptureSession::init_buffers() {
         }
     }
 
+    // Initialize the frame buffer.
+    frame_buffer = new uint8_t[image_size];
+
     return true;
 }
 
@@ -170,7 +176,7 @@ bool CaptureSession::start_stream() {
     return true;
 }
 
-size_t CaptureSession::grab_frame(uint8_t* buffer) {
+size_t CaptureSession::grab_frame() {
     // Set up object for the select call.
     fd_set fds;
     struct timeval tv;
@@ -210,7 +216,7 @@ size_t CaptureSession::grab_frame(uint8_t* buffer) {
     size_t frame_size = vbuf.bytesused;
 
     // Copy the frame.
-    memcpy(buffer, frame_data, frame_size);
+    memcpy(frame_buffer, frame_data, frame_size);
 
     // Reset the buffer we just used.
     if (ioctl(fd, VIDIOC_QBUF, &vbuf) != 0) {

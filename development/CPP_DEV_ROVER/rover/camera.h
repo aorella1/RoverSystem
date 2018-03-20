@@ -59,10 +59,13 @@ struct CaptureSession {
     // An array of buffers to use when reading from the camera.
     Buffer buffers[NUM_BUFFERS];
 
+    // A buffer to use when capturing frames.
+    uint8_t* frame_buffer;
+
     // Creates a session with the desired width and height.
     // Does not open a specific camera.
     CaptureSession(size_t _width, size_t _height):
-        fd(-1), width(_width), height(_height) {}
+        fd(-1), width(_width), height(_height), frame_buffer(nullptr) {}
 
     // Closes the connection to the camera.
     ~CaptureSession();
@@ -87,10 +90,10 @@ struct CaptureSession {
     bool start_stream();
 
     // Waits for the next frame from the camera and copies the JPEG frame
-    // into the given buffer, which must have size ''image_size''.
+    // into the frame buffer.
     // Method ''start_stream'' MUST be called first. Returns the size of
     // the frame on success and 0 otherwise.
-    size_t grab_frame(uint8_t* buffer);
+    size_t grab_frame();
 };
 
 } // namespace camera
