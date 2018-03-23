@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -37,8 +38,7 @@ public class DisplayApplicationController {
     @FXML private Gauge humidGauge;
     @FXML private Gauge methaneGauge;
     @FXML private Gauge windSpeedGauge;
-//    @FXML private Gauge tempAvg;
-//    @FXML private Gauge psurAvg;
+    @FXML private Label gpsDisplay;
 
     @FXML private Button PastValueBtn;
     private Stage PopupStage;
@@ -50,6 +50,7 @@ public class DisplayApplicationController {
     private GaugeWrapper pressureGaugeWrapper;
     private GaugeWrapper windSpeedGaugeWrapper;
     private GaugeWrapper methaneGaugeWrapper;
+    private LabelWrapper GPSLabelWrapper;
 
     private GraphicsContext xboxViewGraphicsContext;
 
@@ -83,6 +84,8 @@ public class DisplayApplicationController {
         pressureGaugeWrapper = new GaugeWrapper(psurGauge, pstValController.getPsurChart(), "Air Pressure");
         windSpeedGaugeWrapper = new GaugeWrapper(windSpeedGauge, pstValController.getWindSpeedChart(), "Wind Speed");
         methaneGaugeWrapper = new GaugeWrapper(methaneGauge, pstValController.getMethaneChart(), "Methane level");
+        GPSLabelWrapper = new LabelWrapper(gpsDisplay);
+
 
     }
 
@@ -193,6 +196,7 @@ public class DisplayApplicationController {
     public synchronized void updateMethaneGauge(double value){
         methaneGaugeWrapper.update(value);
     }
+    public synchronized void updateGPSDisplay(double latitude, double longitude) { GPSLabelWrapper.update(latitude, longitude); }
 
     @FXML
     public void PastValBtnHandler(){

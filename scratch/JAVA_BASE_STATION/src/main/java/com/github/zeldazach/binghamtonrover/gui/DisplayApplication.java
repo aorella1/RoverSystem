@@ -52,6 +52,7 @@ public class DisplayApplication extends Application
                     controller.updateHumidGauge(rand.nextGaussian() * 5 + 45);
                     controller.updateWinsSpeedGauge(rand.nextGaussian() * 8 + 35);
                     controller.updateMethaneGauge(rand.nextGaussian() * 2 + 47);
+                    controller.updateGPSDisplay(rand.nextGaussian()*2 + 26, rand.nextGaussian()*2 + 32);
                 });
         };
 

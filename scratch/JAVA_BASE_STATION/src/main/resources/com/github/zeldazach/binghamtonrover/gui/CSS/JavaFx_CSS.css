@@ -15,6 +15,14 @@
 /*-----------------------*/
 /*DisplayAplication.fxml*/
 /*-----------------------*/
+
+#Clk_GPS_Pane {
+    -fx-background-color: linear-gradient(to bottom, rgba(253, 255, 252, 0.25) 51%, rgba(222, 219, 220, 0.30) 100%);
+}
+
+
+
+
 .tab {
     -fx-background-color: linear-gradient(to bottom, #7d7e7d 0%,#0e0e0e 100%);;
     -fx-background-radius: 0;

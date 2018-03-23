@@ -13,6 +13,11 @@ public class GaugeWrapper {
         this.chartData = new ChartData(chart, gaugeName);
     }
 
+    public GaugeWrapper(Gauge gauge){
+        this.gauge = gauge;
+
+    }
+
     public void update(double value){
         gauge.setValue(value);
         chartData.addData(value);
