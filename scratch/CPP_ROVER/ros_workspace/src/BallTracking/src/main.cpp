@@ -13,9 +13,12 @@
 using namespace std;
 using namespace cv;
 
-double WIDTH = 6.86; //Centimeters
-double FOCAL = 700; //Dummy for now
-double RESOLUTION = 1920 * 1080;
+// CHANGE THESE VALUES TO CALIBRATE DISTANCE WITH THE RESOLUTION OF THE CAMERA
+
+double CALIBRATED_DIAMETER = 120; //width of tennisball: pixels
+double CALIBRATED_DISTANCE = 20; //derived distance from camera to ball: centimeters
+int RESOLUTION_WIDTH = 352;
+int RESOLUTION_HEIGHT = 288;
 
 int thresh = 100;
 
@@ -27,13 +30,13 @@ int main(int argc, char ** argv) {
     std::vector<cv::VideoCapture> captures;
     captures.push_back(cv::VideoCapture(0));
 
-    captures[0].set(CV_CAP_PROP_FRAME_WIDTH , 352);
-    captures[0].set(CV_CAP_PROP_FRAME_HEIGHT , 288);
+    captures[0].set(CV_CAP_PROP_FRAME_WIDTH, RESOLUTION_WIDTH);
+    captures[0].set(CV_CAP_PROP_FRAME_HEIGHT, RESOLUTION_HEIGHT);
     while (captures[k - 1].isOpened()) {
         cv::VideoCapture cap = cv::VideoCapture(k);
         if (cap.isOpened()) {
-            captures[k].set(CV_CAP_PROP_FRAME_WIDTH , 352);
-            captures[k].set(CV_CAP_PROP_FRAME_HEIGHT , 288);
+            captures[k].set(CV_CAP_PROP_FRAME_WIDTH , RESOLUTION_WIDTH);
+            captures[k].set(CV_CAP_PROP_FRAME_HEIGHT , RESOLUTION_HEIGHT);
             captures.push_back(cap);
         }
         else {
@@ -86,15 +89,17 @@ int main(int argc, char ** argv) {
             /// Change to HSV
             cvtColor(frames[i], mask , CV_BGR2HSV);
             /// Apply color range for HSV
-            cv::inRange(mask, cv::Scalar(29, 51, 6), cv::Scalar(64, 255, 255), mask);
+            cv::inRange(mask, cv::Scalar(22, 51, 6), cv::Scalar(64, 255, 255), mask);
             /// Erode and dilate to remove unncessary shapes
             cv::erode(mask, mask, Mat(), Point(-1, -1), 2, BORDER_CONSTANT, morphologyDefaultBorderValue());
             cv::dilate(mask, mask, Mat(), Point(-1, -1), 2, BORDER_CONSTANT, morphologyDefaultBorderValue());
 
             /*---Find contours in mask---*/
             cv::findContours(mask, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+
             //If contours found, measure and draw them
             if(contours.size() > 0){
+
                 /// Sort to find largest contour
                 sort(contours.begin(), contours.end(), [&contours](vector<Point> lhs, vector<Point> rhs){
                     return contourArea(lhs) > contourArea(rhs);
@@ -104,10 +109,15 @@ int main(int argc, char ** argv) {
                 Point2f contour_point;
                 float contour_radius;
                 minEnclosingCircle( (Mat)contours[0], contour_point, contour_radius);
-                if(contour_radius > 15){
+                if(contour_radius > 20){
                     //Draw biggest bounding circle on original image
                     drawContours(frames[i], contours, 0, Scalar(255, 0, 0), 1, 8, vector<Vec4i>(), 0, Point());
                     circle(frames[i], contour_point, (int)contour_radius, Scalar(0, 0, 255), 2, 8 ,0);
+
+                    /// Distance calculations
+                    float contour_diameter = contour_radius * 2;
+                    float distance = (CALIBRATED_DIAMETER / contour_diameter) * CALIBRATED_DISTANCE;
+                    printf("Diameter is :%f with distance: %f cm\n", contour_diameter, distance);
                 }
             }
 
